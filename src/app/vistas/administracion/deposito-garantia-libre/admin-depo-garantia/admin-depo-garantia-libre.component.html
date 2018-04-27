@@ -1,5 +1,5 @@
 
-<div class="jumbotron p-1 pl-5 pr-5 m-0">
+<div class="jumbotron p-1 pl-5 pr-5 m-0 bounce">
         <h6 class="text-uppercase mt-2 " translate> {{ 'deposito_garantia_plazo_libres.titulo_deposito_garantia_plazo_libres' }} </h6>
         <hr>
         <h6 class="text-uppercase mt-2" translate> {{'deposito_garantia_plazo_libres.busqueda_deposito_garantia_plazo_libres'}}</h6>
@@ -55,8 +55,8 @@
                                 <label class="ml-0 mr-1" for="minimo" translate> 
                                     {{ 'deposito_garantia_plazo_libres.lbl_name_deposito' }} 
                                 </label>
-                                <input class="form-control form-control-sm" type="text" id="minimo" name="minimo" size="15" placeholder=".00"
-                                [(ngModel)]="parametros.deposito"  type="text" (keypress)="soloNumeros($event)" maxlength="12"/>
+                                <input class="form-control form-control-sm" type="text" id="minimo" name="minimo" size="15" placeholder="0.00"
+                                [(ngModel)]="parametros.deposito" type="text" (keypress)="soloNumeros($event)" maxlength="12"/>
                             </div>
                 </div>
             <br>

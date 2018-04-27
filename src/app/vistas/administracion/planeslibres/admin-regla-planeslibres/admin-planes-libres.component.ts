@@ -205,7 +205,7 @@ export class AdminPlanesLibresComponent implements OnInit {
         this.alertService.error(ConstantesMsg.ERROR_CLONACION_REGLA_MAX_NOMBRE,  '' , '');
       } else {
         this.alertService.info(ConstantesMsg.SUCCESS_CLONACION_REGLA + ' ' + this.responseClonar.nombreMatriz +
-          ' ' + ConstantesMsg.SUCCESS_CORRECTAMENTE, '');
+          ' ' + ConstantesMsg.SUCCESS_CORRECTAMENTE, '', '');
       }
     });
   }
@@ -357,9 +357,9 @@ export class AdminPlanesLibresComponent implements OnInit {
             const elemento = this.elementosAAlterar.splice(0, 1);
             elemento[0].estatusMatriz = 'D';
           }
-          this.alertService.success(ConstantesMsg.SUCCESS_DEPURAR_ELIMINAR, null);
+          this.alertService.success(ConstantesMsg.SUCCESS_DEPURAR_ELIMINAR, null, '');
         } else {
-          this.alertService.error('NO SE PUDO DEPURAR EL(LOS) REGISTRO(S).', null);
+          this.alertService.error('NO SE PUDO DEPURAR EL(LOS) REGISTRO(S).', null, '');
         }
     });
     this.borraIndexTabla(this.indexTabla);

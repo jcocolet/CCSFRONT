@@ -1,5 +1,5 @@
 <div *ngFor="let alert of alerts"
-class="col-12 div_alert text-center  {{ cssClass(alert) }} alert-dismissable fade show"
+class="col-12 div_alert text-center  {{ cssClass(alert) }} animated fadeInDown"
   (click)="removeAlert(alert)" style="z-index: 100;">
   <span translate>{{alert.message}}</span>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">

@@ -167,7 +167,6 @@ export class Constants {
   public static GET_MATRIZ_LINEAS_AUTORIZADAS: string = 'lineasAutorizadasController/getLineasAutorizadasRegla';
   public static SET_MATRIZ_LINEAS_AUTORIZADAS: string = 'lineasAutorizadasController/setLineasAutorizadasRegla';
   public static DEL_MATRIZ_LINEAS_AUTORIZADAS: string = 'lineasAutorizadasController/delLineasAutorizadasRegla';
-  public static GET_MATRIZ_LINEAS_AUTORIZADAS: string = 'lineasAutorizadasController/getAdmonMatrizLineasAutorizadas';
   public static AGRUPAR_COMPONENTES: string = 'agrupar-componentes';
   public static COMPONENTES: string = 'Componentes'; 
 
