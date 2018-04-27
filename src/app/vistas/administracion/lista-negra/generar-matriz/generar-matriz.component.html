@@ -1,0 +1,294 @@
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        	<div class="container-fluid">
+	<app-alert></app-alert>
+	<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+	<div class="row m-3">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-75" for="" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_nombre' }}
+				</label>
+				<select class="w-25" name="nombre" id="nombre" [formControl]="nombre">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>	
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-50" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_call_num' }} 
+				</label>
+				<select class="w-50" name="callnum" id="callnum" [formControl]="callnum">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-50" translate> {{ 'lista_negra.generar_matriz.lbl_rfc' }} </label>
+				<select class="w-50" name="rfc" id="rfc" [formControl]="rfc">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>	
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-50" translate> {{ 'lista_negra.generar_matriz.lbl_tel_cas' }} </label>
+				<select class="w-50" name="telcas" id="telcas" [formControl]="telcas">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>	
+		</div>
+	</div>
+	<div class="row m-3">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-75" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_tel_ofi' }} 
+				</label>
+				<select class="w-25" name="telofi" id="telofi" [formControl]="telofi">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>	
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-75" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_tel_ref' }} 
+				</label>
+				<select class="w-25" name="telref" id="telref" [formControl]="telref">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-50" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_nom_ref' }} 
+				</label>
+				<select class="w-50" name="nomref" id="nomref" [formControl]="nomref">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>	
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-50" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_tar_cred' }} 
+				</label>
+				<select class="w-50" name="tarcre" id="tarcre" [formControl]="tarcre">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>	
+		</div>
+	</div>
+	<div class="row m-3">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-50" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_rob_ident' }} 
+				</label>
+				<select class="w-50" name="robide" id="robide" [formControl]="robide">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>	
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-50" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_accion' }}
+				</label>
+				<select class="w-50" name="accion" id="accion" [formControl]="accion">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let ar of acciones" value="{{ ar.idAccion }}" translate>{{ ar.descripcion }}</option>
+          		</select>
+			</div>	
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-50" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_rechazo_automatico' }} 
+				</label>
+				<select class="w-50" name="rezaut" id="rezaut" [formControl]="rezaut">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>	
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-75" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_mostrar_coincidencia' }} 
+				</label>
+				<select class="w-25" name="moscoi" id="moscoi" [formControl]="moscoi">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let sn of cmbns" value="{{ sn.valor }}"> {{ sn.valor }} </option>
+          		</select>
+			</div>
+		</div>
+	</div>
+	<div class="row align-items-center m-3">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-75" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_modalidad_investigacion' }} 
+				</label>
+				<select class="w-25" name="modinvCtrl" id="modinvCtrl" 
+				[formControl]="modinvCtrl">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let mi of modinv" value="{{ mi.descripcion }}" translate>{{ mi.descripcion }}</option>
+          		</select>
+			</div>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-50" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_estatus' }} 
+				</label>
+				<select class="w-50" name="estatusctrl" id="estatusctrl" 
+				[formControl]="estatusctrl">
+            		<option value="" translate>{{ 'general.form.select_default' }}</option>
+            		<option *ngFor="let ests of estatus" value="{{ ests.clave }}" translate>{{ ests.descripcion }}</option>
+          		</select>
+			</div>
+		</div>
+	</div>
+	<div class="row m-3">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+			<div class="form-inline form-control-sm">
+				<label class="w-25" translate> 
+					{{ 'lista_negra.generar_matriz.lbl_mensajef_venta' }} 
+				</label>
+				<textarea class="w-75" style="resize: none;" id="msgfv" name="msgfv" 
+				[formControl]="msgfv"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="row m-3">
+		<div class="col-md-12">
+			<div class="form-inline form-control-sm">
+				<input class="btn btn-primary btn-sm ml-auto mr-1" type="button" value="Agregar" (click)="agregarRegistro(form.value)">
+				<input class="btn btn-primary btn-sm ml-1 mr-1" type="submit" value="Guardar" [disabled]="countRegAgreg>0?false:true">
+				<input class="btn btn-primary btn-sm ml-1 mr-1" type="button" value="Cancelar" data-dismiss="modal" aria-label="Close">
+				<input class="btn btn-primary btn-sm mr-auto ml-1" type="button" data-dismiss="modal" aria-label="Close" value="Siguiente" 
+				[disabled]="countRegAgreg>0 && guardoAlgo == true ?false:true" >
+			</div>
+		</div>
+	</div>
+	<div class="row mt-3">
+    	<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      		<a class="float-right mt-1 mr-2 mb-1" href="#">
+      			{{ 'Ir a carga masiva' }}
+      		</a>
+    	</div>
+  	</div>
+  	<div class="row m-0">
+		<div class="col-md-12">
+				<table class="table table-bordered table-sm table-hover m-0">
+    				<thead class="thead-light">
+    					<tr>
+      						<th scope="col" class="text-truncate">
+      							<div class="form-check">
+              						<input class="form-check-input" 
+              						type="checkbox" style="position: relative;" [checked]="checkBoxheaderSelected" 
+              						(change)="checkBoxheaderSelected = !checkBoxheaderSelected">
+            					</div>
+      						</th>
+      						<th scope="col" class="text-truncate" translate> 
+      							{{ 'lista_negra.generar_matriz.th_col_name_accion' }} 
+      						</th>
+      						<th scope="col" class="text-truncate" translate> 
+      							{{ 'lista_negra.generar_matriz.th_col_name_rech_aut' }} 
+      						</th>
+      						<th scope="col" class="text-truncate" translate> 
+      							{{ 'lista_negra.generar_matriz.th_col_name_most_coin' }} 
+      						</th>
+      						<th scope="col" class="text-truncate" translate> 
+      							{{ 'lista_negra.generar_matriz.th_col_name_mod_invest' }} 
+      						</th>
+      						<th scope="col" class="text-truncate" translate> 
+      							{{ 'lista_negra.generar_matriz.th_col_name_acciones' }} 
+      						</th>
+    					</tr>
+  					</thead>
+  					<tbody>
+  						<tr *ngFor="let registro of tablaMatrices">
+  							<td> 
+  								<div class="form-check w-25">
+              						<input class="form-check-input" type="checkbox" value=""
+              						id="" [checked]="checkBoxheaderSelected" (change)="agregaListaMarcados($event, registro)">
+            					</div>
+  							</td>
+  							<td> {{ registro.accion }} </td>
+  							<td> {{ registro.rezaut }} </td>
+  							<td> {{ registro.moscoi }} </td>
+  							<td> {{ registro.modinvCtrl }} </td>
+  							<td>
+            					<a style="color: orange; cursor: pointer; font-size: 13px;">	<span class="fa fa-pencil navbar-brand"></span></a>
+            					<a style="color: orange; cursor: pointer; font-size: 13px;">	<span class="fa fa-clone navbar-brand" (click)="clonarRegla(registro.idRegla)"></span>
+           					 	</a>
+            					<a style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-trash-o navbar-brand" 
+              					(click)="borrarRegistro(registro)"></span>
+              					</a>
+  							</td>
+  						</tr>
+  					</tbody>
+				</table>
+				  <div class="row justify-content-center p-0 pb-3">
+        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+          <nav aria-label="...">
+            <ul class="pagination pagination-sm justify-content-center">
+              <li class="page-item">
+                <a class="page-link popup2" tabindex="-1" (click)="paginaAnterior()" 
+                (mouseenter)="myFunction2()" (mouseleave)="myFunction2()"
+                [ngClass]="{'desactivado': numeroPaginaActual ==0 ? true:false }">
+                  {{ 'Anterior' }}
+                  <span id="myPopup2" class="popuptext2">
+                    <span style="color: red">{{ numeroPaginaActual }}</span>
+                  {{' / '}}{{ numeroPaginas }}</span>
+                </a>
+              </li>
+              <li>
+                <select class="page-link" (change)="establecerRegistrosMostrar($event)">
+                  <option *ngFor="let numRegistros of multiplosPaginador"> 
+                    {{ numRegistros }}
+                  </option>
+                </select>
+              </li>
+              <li class="page-item">
+                <a class="page-link popup"  tabindex="-1" (click)="siguientePagina()" 
+                (mouseenter)="myFunction()" (mouseleave)="myFunction()"
+                [ngClass]="{'desactivado': numeroPaginaActual == numeroPaginas-1 || response.length<=0 ? true:false }">
+                  {{ 'Siguiente' }} 
+                  <span id="myPopup" class="popuptext">
+                    <span style="color: red">{{ numeroPaginaActual+2 }}</span>
+                  {{' / '}}{{ numeroPaginas }}</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </div>
+		</div>
+	</div>
+	</form>
+</div>
+        </div>    
+    </div>
+</div>

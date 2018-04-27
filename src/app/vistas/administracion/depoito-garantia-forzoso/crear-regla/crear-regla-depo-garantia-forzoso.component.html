@@ -1,0 +1,180 @@
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+          <div class="row ml-1">
+              <span ><h6 class="modal-title text-uppercase" translate>{{'deposito_garantia_pforzoso.lbl_crearAdmonPF'}}</h6></span>
+          </div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+    <div class="modal-body">
+        <div class="container">
+            <app-alerta-dep-garantia-forzoso></app-alerta-dep-garantia-forzoso>
+      <form #forAdmonPF="ngForm" (ngSubmit)="fn_guardaAdmonPf()" class="row justify-content-center col-md-12 col-md-6 col-md-3">
+        <table>
+          <tr>
+            <td>
+              <div class="row m-2">
+                <div class="col-md-18">
+                  <div class="form-inline input-group-sm">
+                    <label for="objAccionClave" translate>{{' deposito_garantia_pforzoso.lbl_accionClave' }}</label>
+                    <select class="form-control form-control-sm text-uppercase" name="objAccionClave" id="objAccionClave" [(ngModel)]="objAccionClave"
+                      #idAccionClave="ngModel">
+                      <option *ngFor="let accionClave of lstAccionClave" [ngValue]="accionClave">{{accionClave.accion}} </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="row m-2">
+                <div class="col-md-18">
+                  <div class="form-inline input-group-sm">
+                    <label for="bloqueado" translate> {{ 'deposito_garantia_pforzoso.lbl_consulta_deposito' }} </label>
+                    <select class="form-control form-control-sm text-uppercase" name="bloqueado" id="bloqueado" #bloqueado="ngModel" [(ngModel)]="estBloqueado">
+                      <option value="-Seleccione-">-Seleccione-</option>
+                      <option value="NO" translate>{{' deposito_garantia_pforzoso.lbl_no' }}</option>
+                      <option value="SI" translate>{{' deposito_garantia_pforzoso.lbl_si' }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="row m-2">
+                <div class="col-md-18">
+                  <div class="form-inline input-group-sm">
+                    <label for="objAccionRespSi" translate>{{' deposito_garantia_pforzoso.lbl_sicumple' }}</label>
+                    <select class="form-control form-control-sm text-uppercase" name="objAccionRespSi" id="objAccionRespSi" style="width:43%" [(ngModel)]="objAccionRespSi"
+                      #idAccionSi="ngModel">
+                      <option *ngFor="let accionSi of lstAccionResSi" [ngValue]="accionSi">{{accionSi.descripcion}} </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+                <div class="row m-2">
+                    <div class="col-md-18">
+                      <div class="form-inline input-group-sm">
+                    <label for="msnSi" translate>{{' deposito_garantia_pforzoso.lbl_msn_sicumple' }}</label>
+                    <textarea type="texto"  class="form-control form-control-sm text-uppercase" maxlength="350" name="msnSi"
+                      id="msnSi" [(ngModel)]="objMsjSistemaSi.mensaje" #msnSi="ngModel"> </textarea>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="row m-2">
+                <div class="col-md-18">
+                  <div class="form-inline input-group-sm">
+                    <label for="objAccionRespNo" translate>{{' deposito_garantia_pforzoso.lbl_nocumple' }}</label>
+                    <select class="form-control form-control-sm text-uppercase" name="objAccionRespNo" id="objAccionRespNo" style="width:43%" [(ngModel)]="objAccionRespNo"
+                      #idAccionNo="ngModel">
+                      <option *ngFor="let accionNo of lstAccionResNo" [ngValue]="accionNo">{{accionNo.descripcion}} </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="row m-2">
+                <div class="col-md-18">
+                  <div class="form-inline input-group-sm">
+                    <label for="msnNo" translate>{{' deposito_garantia_pforzoso.lbl_msn_nocumple' }}</label>
+                    <textarea type="texto" class="form-control form-control-sm text-uppercase" maxlength="350" name="msnNo"
+                      id="msnNo"  [(ngModel)]="objMsjSistemaNo.mensaje" #msnNo="ngModel"> </textarea>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="row m-2">
+                <div class="col-md-18">
+                  <div class="form-inline input-group-sm">
+                    <label for="claseCredito" translate> {{ 'deposito_garantia_pforzoso.lbl_clase_credito' }} </label>
+                    <select class="form-control form-control-sm text-uppercase" name="claseCredito" id="claseCredito" style="width:43%" [(ngModel)]="objClaseCredito"
+                      #claseCredito="ngModel">
+                      <option *ngFor="let clasCredito of lstClasCredito" [ngValue]="clasCredito">{{clasCredito.descripcion}} </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <div class="row m-1 justify-content-center col-md-12 col-md-6 col-md-3">
+                <div class="form-group form-inline">
+                  <button *ngIf="!bntAccion && bntSave" type="submit" class="btn btn-primary btn-sm ml-auto mr-1" translate> {{ 'general.botones.btn_guardar' }} </button>
+                  <input *ngIf=bntAccion type="button" class="btn btn-primary btn-sm ml-2 mr-2" (click)="fn_modificar()" value="Modificar">
+                  <input *ngIf=!bntAccion type="button" class="btn btn-primary btn-sm ml-2 mr-2" (click)="fn_agregar()"  value="Agregar">
+                  <input type="button" class="btn btn-primary btn-sm ml-2 mr-2" (click)="fn_limpiar()" value="Limpiar">
+                  <input type="button" class="btn btn-primary btn-sm ml-2 mr-2" (click)="fn_reinicia()"  data-dismiss="modal" value="Salir">
+
+                  <!-- (click)="fn_getLimpiar()" -->
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </form>
+      <br>
+      <div class="modal-scroll">
+              <div id="table-responsive">
+                  <table class="table table-bordered table-sm table-hover justify-content-center float-none">
+                      <thead class="thead-light form-control-sm text-uppercase">
+                          <tr>
+                  <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.th_col_name_id' }} </th>
+                  <!-- <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_clasecredito' }} </th> -->
+                  <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_msn_Tbloq' }} </th>
+                  <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_Tsicumple' }} </th>
+                  <th class="text-truncate" scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_msn_Tsicumple' }} </th>
+                  <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_Tnocumple' }} </th>
+                  <th class="text-truncate" scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_msn_Tnocumple' }} </th>
+                  <th class="text-truncate" scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_TaccionClave' }} </th>
+                  <th class="text-truncate" scope="col" translate> {{ 'deposito_garantia_pforzoso.th_col_name_acciones' }} </th>
+                </tr>
+              </thead>
+              <tbody>
+            <tr *ngFor="let row of lstReqAdmonPF" class="form-control-sm text-uppercase">
+                  <td>{{row.idAdmonPF}}</td>
+                  <!-- <td>{{row.claseCredito}}</td> -->
+                  <td>{{row.bloqueado}}</td>
+                  <td>{{row.accionSi}}</td>
+                  <td>{{row.msjSiCumple}}</td>
+                  <td>{{row.accionNo}}</td>
+                  <td>{{row.msjNoCumple}}</td>
+                  <td>{{row.acciosnClave}}</td>
+                  <td>
+                    <!-- icono modificar -->
+                    <a (click)="fn_editarAdmon($event,row)" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 16px;">
+                      <span class="fa fa-pencil"></span>
+                    </a>
+                    <!-- icono clonar -->
+                    <a  (click)="fn_clonarPF($event,row)" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;">
+                      <span class="fa fa-clone"></span>
+                    </a>
+                    <!-- icono eliminar -->
+                    <a (click)="fn_eliminaPF($event,row)" *ngIf="true" class="pl-2" data-toggle="modal" data-target="#removeAdmonPF" style="color: orange; cursor: pointer; font-size: 18px;">
+                      <span class="fa fa-trash-o"></span>
+                    </a>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
+            <br>
+          </div>
+        </div>
+  </div>
+</div>

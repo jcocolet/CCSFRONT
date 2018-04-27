@@ -1,0 +1,19 @@
+<ul class="p-0 mt-0 ml-auto mr-auto mb-4 w-75">
+    <li *ngFor="let paso of getPasos(); let i = index" class="m-1">
+        <div class="progress">
+            <div [ngClass]="{'progress-bar': getNombrePaso()===paso.nombre?actual:false,
+                'progress-bar-disabled': getNombrePaso()!==paso.nombre?actual:false,
+            	'progress-bar-striped': actual,
+            	'progress-bar-animated': getNombrePaso()===paso.nombre?actual:false}"
+            	role="progressbar" aria-valuemax="100">
+                <p  class="text-truncate text-white pl-2 pr-2" [title]="retraso==true?p.innerHTML:''">
+                    <!--<p class="text-truncate text-white pl-2 pr-2">-->
+                    <span>{{i+1}}</span>
+                    <span>{{'.'}}</span>
+                    <span>{{' '}}</span>
+                    <span #p translate>{{ paso.nombre }}</span>
+                </p>
+            </div>
+        </div>
+    </li>
+</ul>

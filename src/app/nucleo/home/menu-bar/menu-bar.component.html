@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-md navbar-light pt-0 pl-4 pr-0 pb-0 
+border-top border-left border-right border-dark m-0">
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+  data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+  aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" routerLink="/home">
+    <img src="./assets/icons/home-icon.png" width="30" height="30" alt="home">
+  </a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav">
+      <li *ngFor="let menu of appConf.menubar.menus" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer;" translate>
+          {{ 'barra_menus.' }}{{ menu.menuNombre }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a *ngFor="let subMenu of menu.subMenus" class="dropdown-item"
+          routerLink="{{menu.link}}{{'/'}}{{ subMenu.link }}" translate>
+            {{ 'barra_menus.subMenus.' }}{{ subMenu.nombre }}
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

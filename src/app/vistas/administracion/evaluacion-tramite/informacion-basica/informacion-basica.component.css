@@ -1,0 +1,13 @@
+.jumbotron {
+	background-color: #f2f2f2;
+}
+
+table {
+	display: block;
+	height: 220px;
+	overflow-y: auto;
+}
+
+th {
+	width: 100%;
+}

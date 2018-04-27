@@ -1,0 +1,240 @@
+<div class="jumbotron p-0 pl-5 pr-5 m-0">
+  <h6 class="text-uppercase pt-4" translate> {{ 'evaluacion_tramite.titulo' }} </h6>
+  <hr>
+  <app-alert *ngIf="componentePropietarioET"></app-alert>
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-5 p-md-0">
+        <div class="form-inline input-group-sm p-sm-1">
+          <label class="w-50 text-right" for="nombreRegla" translate> 
+            {{ 'evaluacion_tramite.lbl_nombre_regla' }} 
+          </label>
+          <input id="nombreRegla" name="nombreRegla" class="form-control w-50 text-uppercase" 
+          type="text" [formControl]="nombreRegla" (keypress)="evitaEspeciales($event)" placeholder="8 caracteres minimo" maxlength="250" spellcheck>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-3 col-lg-3 p-md-0">
+        <div class="form-inline input-group-sm p-sm-1">
+          <label for="tramite" class="w-25 text-right ml-auto" translate> 
+            {{ 'evaluacion_tramite.lbl_tramite' }} 
+          </label>
+          <select class="w-50 mr-0" name="tramite" id="tramite" [formControl]="tramite">
+            <option value="" translate>{{ 'general.combo.cmb_select' }}</option>
+            <option *ngFor="let tramite of informacionParametrosBusqueda.tramites" 
+            value="{{ tramite.descripcion }}" class="d-inline-block text-truncate">
+              {{ tramite.descripcion }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-3 col-lg-3 p-md-0">
+        <div class="form-inline input-group-sm p-sm-1">
+          <label class="w-50 text-right ml-auto" for="estatus" translate> 
+            {{ 'evaluacion_tramite.lbl_estatus' }} 
+          </label>
+          <select class="w-50 mr-auto" name="estatus" id="estatus" 
+          [formControl]="estatus">
+            <option value="" translate>
+            {{ 'general.combo.cmb_select' }}</option>
+            <option *ngFor="let estado of listaEstatusDisponibles" 
+            value="{{estado}}">
+              {{ estado | sts }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <a href="#collapseExample"  data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" style="text-decoration: none;color: black" id="avanzadas" (click)="demo()">
+          <span class="dropdown-toggle" id="opciones" translate>
+                {{ 'evaluacion_tramite.lnk_busqueda_avanzada' }}
+          </span>
+        </a>
+      </div>
+    </div>
+    <hr>
+    <div class="collapse" id="collapseExample">
+      <div class="jumbotron p-2 m-1">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3 p-md-0">
+            <div class="form-inline input-group-sm p-sm-2">
+              <label class="w-50" for="fechaInicio" translate> 
+              {{ 'evaluacion_tramite.lbl_fecha_inicio' }} </label>
+              <input class="form-control w-50" type="date" name="fechaInicio" 
+              id="fechaInicio" [formControl]="fechaInicio" placeholder="dd/mm/aaaa">
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3 p-md-0">
+            <div class="form-inline input-group-sm p-sm-2">
+              <label class="w-50" for="fechaFin" translate> {{ 'evaluacion_tramite.lbl_fecha_fin' }} </label>
+              <input class="form-control w-50" type="date" name="fechaFin" id="fechaFin" 
+              [formControl]="fechaFin" placeholder="dd/mm/aaaa" />
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3 p-md-0">
+            <div class="form-inline input-group-sm p-sm-2">
+              <label class="w-50" for="selectCanal" translate> 
+              {{ 'evaluacion_tramite.lbl_canal' }} </label>
+              <select class="w-50" name="selectCanal" id="selectCanal" [formControl]="canal">
+                <option value="" translate>{{ 'general.combo.cmb_select' }}</option>
+                <option *ngFor="let canal of informacionParametrosBusqueda.canalVentas"> 
+                {{ canal.descripcion }} </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3 p-md-0">
+            <div class="form-inline input-group-sm p-sm-2">
+              <label class="w-50" for="mercado" translate>
+                {{ 'evaluacion_tramite.lbl_mercado' }}
+              </label>
+              <select class="w-50" name="mercado" id="mercado" [formControl]="mercado">
+                <option value="" translate>{{ 'general.combo.cmb_select' }}</option>
+                <option *ngFor="let mercado of informacionParametrosBusqueda.mercado"> 
+                {{ mercado.descripcion }} </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3 p-md-0">
+            <div class="form-inline input-group-sm p-sm-2">
+              <label class="w-50" for="tipoPersona" translate> 
+              {{ 'evaluacion_tramite.lbl_tipo_persona' }} </label>
+              <select class="w-50" name="tipoPersona" id="tipoPersona" [formControl]="tipoPersona">
+                <option value="" translate>{{ 'general.combo.cmb_select' }}</option>
+                <option *ngFor="let tipoPersona of informacionParametrosBusqueda.tipoPersona"> 
+                {{ tipoPersona.descripcion }} </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3 p-md-0">
+            <div class="form-inline input-group-sm p-sm-2">
+              <label class="w-50" for="tipoPlazo" translate> 
+              {{ 'evaluacion_tramite.lbl_tipo_plazo' }} </label>
+              <select class="w-50" name="tipoPlazo" id="tipoPlazo" [formControl]="tipoPlazo">
+                <option value="" translate>{{ 'general.combo.cmb_select' }}</option>
+                <option *ngFor="let tipoPlazo of informacionParametrosBusqueda.tipoPlazo"> 
+                {{ tipoPlazo.descripcion }} </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3 p-md-0">
+            <div class="form-inline input-group-sm p-sm-2">
+              <label class="w-50" for="tipoProyecto" translate> 
+              {{ 'evaluacion_tramite.lbl_tipo_proyecto' }} </label>
+              <select class="w-50" name="tipoProyecto" id="tipoProyecto" 
+              [formControl]="tipoProyecto">
+                <option value="" translate>{{ 'general.combo.cmb_select' }}</option>
+                <option *ngFor="let tipoProyecto of informacionParametrosBusqueda.tipoProyecto"> 
+                {{ tipoProyecto.descripcion }} </option>
+              </select>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="form-group form-inline">
+    <button class="btn btn-primary btn-sm ml-auto mr-1" translate type="submit"> 
+    {{ 'evaluacion_tramite.btn_buscar' }} </button>
+    <button type="button" class="btn btn-primary btn-sm mr-auto ml-1"
+    (click)="limpiarResultadoBusqueda()" translate> {{ 'evaluacion_tramite.btn_limpiar' }} </button>
+  </div>
+</form>
+  <div class="row">
+    <div class="col-md-12">
+      <a class="float-right mt-1 mr-2 mb-1"
+      style="color: orange; font-size: 22px; cursor: pointer;" title="Crear nuevo flujo" 
+      routerLink="/home/administracion/informacionbasica">
+      <span class="fa fa-plus-circle"></span>
+      </a>
+      <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;" title="Eliminar flujo(s) seleccionado(s)">
+      <span class="fa fa-trash-o" (click)="borrarRegistros()"></span>
+      </a>
+    </div>
+  </div>
+  <div *ngIf="crearModal" class="modal fade" id="modal-generico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <app-modal *ngIf="crearModal" (reiniciar)="reiniciarProceso();"></app-modal>
+  </div>
+    <table class="table table-bordered table-sm table-hover m-0">
+      <thead class="thead-light">
+        <tr>
+          <th>
+            <div class="form-check">
+              <input class="form-check-input" 
+              type="checkbox" style="position: relative;" [checked]="checkBoxheaderSelected" 
+              (change)="checkBoxheaderSelected = !checkBoxheaderSelected" (click)="marcarTodosEliminar($event)">
+            </div>
+          </th>
+          <th *ngFor="let thn of elementosvComponente.columnas" class="text-truncate" 
+          scope="col" translate> {{ 'evaluacion_tramite.tabla.th.' }}{{ thn }} 
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of paginaActual">
+          <td> 
+            <div class="form-check w-25">
+              <input class="form-check-input" type="checkbox" [value]="registro.nombreRegla" 
+              [id]="registro.idRegla">
+            </div> 
+          </td>
+          <td>
+            <label class="form-check-label" for="registro.nombreFlujo">
+              {{ registro.idRegla }}
+            </label>
+          </td>
+          <td>
+            <label class="form-check-label text-truncate" for="registro.nombreFlujo">
+              {{ registro.nombreRegla }}
+            </label>
+          </td>
+          <td class="text-truncate"> {{ registro.estatus | sts }} </td>
+          <td>
+            <a data-toggle="modal" data-target="#modal-generico"
+            style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-eye navbar-brand"(click)="verDetalleRegla(registro.idRegla)"></span>
+            </a>
+            <a data-toggle="modal" data-target="#modal-generico" style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-pencil navbar-brand" (click)="editarRegla(registro.idRegla)"></span></a>
+            <a style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-clone navbar-brand" (click)="clonarRegla(registro)"></span>
+            </a>
+            <a style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-trash-o navbar-brand" (click)="borrarRegistro(registro)"></span></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <div class="row justify-content-center p-0 pb-3">
+        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+          <nav aria-label="...">
+            <ul class="pagination pagination-sm justify-content-center">
+              <li class="page-item">
+                <a class="page-link popup2" tabindex="-1" (click)="paginaAnterior()" 
+                (mouseenter)="myFunction2()" (mouseleave)="myFunction2()"
+                [ngClass]="{'desactivado': numeroPaginaActual ==0 ? true:false }">
+                  {{ 'Anterior' }}
+                  <span id="myPopup2" class="popuptext2">
+                    <span style="color: red">{{ numeroPaginaActual }}</span>
+                  {{' / '}}{{ numeroPaginas }}</span>
+                </a>
+              </li>
+              <li>
+                <select class="page-link" (change)="establecerRegistrosMostrar($event)">
+                  <option *ngFor="let numRegistros of multiplosPaginador"> 
+                    {{ numRegistros }}
+                  </option>
+                </select>
+              </li>
+              <li class="page-item">
+                <a class="page-link popup"  tabindex="-1" (click)="siguientePagina()" 
+                (mouseenter)="myFunction()" (mouseleave)="myFunction()"
+                [ngClass]="{'desactivado': numeroPaginaActual == numeroPaginas-1 || response.length<=0 ? true:false }">
+                  {{ 'Siguiente' }} 
+                  <span id="myPopup" class="popuptext">
+                    <span style="color: red">{{ numeroPaginaActual+2 }}</span>
+                  {{' / '}}{{ numeroPaginas }}</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </div>
+</div>

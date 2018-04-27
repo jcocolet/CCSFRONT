@@ -1,0 +1,46 @@
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{ 'deposito_garantia_pforzoso.lbl_crear_matriz' }}</h5>
+      <button type="button" (click)="fn_Limpiar()" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #forAddMatriz="ngForm" (ngSubmit)="fn_agregarMatriz()">
+        <div class="row m-3">
+          <div class="col-md-12">
+            <div class="form-inline input-group-sm">
+              <label class="w-25" translate> {{ 'deposito_garantia_pforzoso.lbl_nombre_regla' }} </label>
+              <input class="modal-title text-uppercase w-75" type="text" id="nomRegla" name="nomRegla" #nomRegla="ngModel" [(ngModel)]="planForzosoVo.nomRegla"
+              />
+            </div>
+          </div>
+        </div>
+        <fieldset disabled>
+          <div class="row m-3">
+            <div class="col-md-12">
+              <div class="form-inline">
+                <label class="w-25" translate> {{ 'deposito_garantia_pforzoso.lbl_estatus' }} </label>
+                <select class="form-control form-control-sm col-6">
+                  <option translate> {{ 'ACTIVO' }} </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <div class="row modal-footer">
+          <div class="row justify-content-center col-md-12 col-md-6 col-md-3">
+            <div class="form-group form-inline">
+              <input type="submit" (click)="fn_agregarMatriz()" class="btn btn-primary btn-sm ml-auto mr-1" data-dismiss="modal" translate
+                value="Agregar">
+                <button class="btn btn-primary btn-sm ml-1 mr-1" (click)="fn_Limpiar()" data-dismiss="modal" translate> {{ 'general.botones.btn_cancelar' }} </button>
+              <input type="button" (click)="fn_Limpiar()" class="btn btn-primary btn-sm ml-2 mr-2" value="Limpiar">
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

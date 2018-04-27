@@ -1,0 +1,32 @@
+#crln {
+	width: 520px;
+	height: 320px;
+	background-color: white;
+	position: absolute;
+	top: 0%;
+	left: 22%;
+	z-index: 9000;
+	border: 10px solid white;
+	border-radius: 6px;
+	box-shadow: 2px 2px 2px 2px;
+	display: block;
+}
+
+table {
+	display: block;
+	min-height: 170px;
+	height: 170px;
+	max-height: 170px;
+	width: 420px;
+	background-color: white;
+    overflow-x: auto;
+    -ms-overflow-x: auto;
+    overflow-y: auto;
+    -ms-overflow-y: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th {
+	width: 1%;
+}

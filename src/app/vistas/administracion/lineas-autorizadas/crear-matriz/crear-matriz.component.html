@@ -1,0 +1,429 @@
+<div class="table modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+        <div class="row ml-1">
+            <span ><h6 class="modal-title text-uppercase" translate>{{'deposito_garantia_plazo_libres.crear_matriz_garantia_plazo_libres'}}</h6></span>
+        </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <app-alerta-lineas-autorizadas></app-alerta-lineas-autorizadas>
+          <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Parametros</a>
+                <a class="nav-item nav-link" id="nav-edad-tab" data-toggle="tab" href="#nav-edad" role="tab" aria-controls="nav-edad" aria-selected="true">Lineas por edad</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Matriz de regla</a>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="lineas reglas">
+                  <div class="container">
+                    <div class="row justify-content-center p-2">
+                            <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+                                <label class="ml-0 mr-1" for="descripcion" translate>
+                                    {{ 'Descripción:' }}
+                                </label>
+                                <input  class="form-control form-control-sm" [(ngModel)]="formLineasAutorizadasRegla.descripcion" size="15"
+                                    type="texto"  maxlength="100" />
+                            </div>
+                            <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+                                <label class="ml-0 mr-1" for="noLineas" translate>
+                                    {{ 'Lineas activas:' }}
+                                </label>
+                                <input class="form-control form-control-sm" [(ngModel)]="formLineasAutorizadasRegla.pctLineasAct" size="5"
+                                    placeholder="00" type="number"  maxlength="1" />
+                            </div>
+                            <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+                                <label class="ml-0 mr-1" for="operador" translate>
+                                    {{ 'Operador:' }}
+                                </label>
+                                <input  class="form-control form-control-sm" [(ngModel)]="formLineasAutorizadasRegla.operador" size="15"
+                                    type="text"  maxlength="1" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+                            <label class="ml-0 mr-1" for="lineasAdd" translate>
+                                {{ 'Lineas adicionales:' }}
+                            </label>
+                            <input  class="form-control form-control-sm" [(ngModel)]="formLineasAutorizadasRegla.lineasAdicionales" size="15"
+                                type="number"  maxlength="1" />
+                        </div>
+                           <!-- BOTONES -->
+                <div class="row p-3">
+                        <div class="col-md-12">
+                            <div class="row justify-content-center form-inline">
+                                <button *ngIf="this.isEditingLineasAutorizadasRegla == false" class="btn btn-primary btn-sm mr-1" (click)="agregarLineasAutorizadasRegla()" (click)="clearMessage()" translate> {{ 'general.botones.btn_agregar' }} </button>
+                                <button *ngIf="this.isEditingLineasAutorizadasRegla == true" class="btn btn-primary btn-sm mr-1" (click)="actualizarLineasAutorizadasRegla()" (click)="clearMessage()" translate> {{ 'Actualizar' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1" (click)="guardarLineasAutorizadasRegla()" (click)="clearMessage()" translate> {{ 'general.botones.btn_guardar' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1" (click)="clearMessage()" data-dismiss="modal" translate> {{ 'Salir' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1" (click)="limpiarLineasAutorizadasRegla()" (click)="clearMessage()" translate> {{ 'general.botones.btn_limpiar' }} </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-12 col-md-6 col-md-3">
+                                    <a  class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-plus-circle"></span></a>
+                                    <!-- <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-trash-o"></span></a>                                      -->
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-12 col-md-6 col-md-3 form-control-sm">
+                            <!-- <div class="col-md-12 col-md-6 col-md-3">
+                                <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-plus-circle"></span></a>
+                                <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-trash-o"></span></a>
+                            </div> -->
+                            <div id="table-responsive">
+                                <table class="table table-bordered table-sm">
+                                    <thead class="table-active">
+                                        <tr>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'No.' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'Descripción' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'Lineas' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate> {{ 'Operador' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate> {{ 'Lineas adicionales'}} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'limite_credito.th_col_name_acciones' }} </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let elemento of lstMatriz; let i = index">
+                                                <td class= "text-truncate text-center">{{i + 1}}</td>
+                                                <td class= "text-truncate text-center">{{elemento.descripcion}}</td>
+                                                <td class= "text-truncate text-center">{{elemento.pctLineasAct}}</td>
+                                                <td class= "text-truncate text-center">{{elemento.operador}}</td>
+                                                <td class= "text-truncate text-center">{{elemento.lineasAdicionales}}</td>
+                                                <td class= "text-truncate text-center">
+                                                    <!-- icono modificar -->
+                                                    <a (click)="editarLineasAutorizadasRegla(elemento);" (click)="clearMessage()" *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 16px;"><span class="fa fa-pencil"></span></a>
+                                                    <!-- icono clonar -->
+                                                    <!-- <a  *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;"><span class="fa fa-clone"></span></a>-->
+                                                    <!-- icono eliminar -->
+                                                    <a (click)="eliminarLineasAutorizadasRegla(i)" (click)="clearMessage()" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;"
+                                                       class="pl-2"><span class="fa fa-trash-o"></span></a>
+                                                 </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <div class="row justify-content-center p-0 pb-3">
+                                        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                                          <nav aria-label="...">
+                                            <ul class="pagination pagination-sm justify-content-center">
+                                              <li class="page-item">
+                                                <a class="page-link" tabindex="-1" (click)="paginaAnterior()"
+                                                [ngClass]="{'desactivado': numeroPaginaActual ===0}">
+                                                  {{ 'Anterior' }}
+                                                </a>
+                                              </li>
+                                              <li>
+                                                <select class="page-link" (change)="establecerRegistrosMostrar($event)"
+                                                [ngClass]="{'desactivado': numeroPaginaActual ===0}">
+                                                  <option *ngFor="let numRegistros of multiplosPaginador">
+                                                    {{ numRegistros }}
+                                                  </option>
+                                                </select>
+                                              </li>
+                                              <li class="page-item">
+                                                <a class="page-link" tabindex="-1" (click)="siguientePagina()"
+                                                [ngClass]="{'desactivado': numeroPaginaActual === numeroPaginas-2 || lstMatriz.length<=0 ? true:false }">
+                                                  {{ 'Siguiente' }}
+                                                </a>
+                                              </li>
+                                            </ul>
+                                          </nav>
+                                        </div>
+                                    </div> -->
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="tab-pane fade" id="nav-edad" role="tabpanel" aria-labelledby="lineas edad">
+                    <div class="container">
+                        <div class="row align-items-end">
+                              <label class="mr-2" translate><span><strong> {{ 'Acción si cumple' }}</strong></span></label>
+
+                        </div>
+                        <div class="row form-inline justify-content-center">
+                            <div class="col-md-4 col-sm-4  col-lg-4 col-xl-4">
+                                <div class="form-inline input-group-sm">
+                                  <label  for="accionSiDep" translate> {{ 'lista_negra.lbl_accion' }} </label>
+                                  <select  class="col-md-6 form-control form-control-sm" name="accionSiDep" id="accionSiDep">
+                                    <option value="-1" translate> {{ 'general.combo.cmb_select' }} </option>
+                                    <option value="accion.accion" *ngFor="let accion of lstAcciones">{{accion.descripcion}}</option>
+                                  </select>
+                                </div>
+                            </div>
+                            <div class="col-md-8 form-group p-1 form-inline">
+                                <label class="ml-0 mr-1" for="msj" translate>
+                                    {{ 'Mensaje:' }}
+                                </label>
+                                <textarea type="texto" class="form-control form-control-sm col-9 text-uppercase" rows="2" id="msj" name="msj"
+                                maxlength="350" >
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center p-2">
+                          <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+                              <label class="ml-0 mr-1" for="noLineas" translate>
+                                  {{ 'Años Inicio:' }}
+                              </label>
+                              <input class="form-control form-control-sm" [(ngModel)]="formLineasPorEdad.AniosInicio" size="5"
+                                  placeholder="00" type="number"  maxlength="1" />
+                          </div>
+                          <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+                            <label class="ml-0 mr-1" for="lineasAdd" translate>
+                                {{ 'Años Fin:' }}
+                            </label>
+                            <input  class="form-control form-control-sm" [(ngModel)]="formLineasPorEdad.AniosFin" size="15"
+                                  placeholder="00" type="number"  maxlength="1" />
+                          </div>
+                        </div>
+                           <!-- BOTONES -->
+                <div class="row p-3">
+                        <div class="col-md-12">
+                            <div class="row justify-content-center form-inline">
+                                <button *ngIf="this.isEditingLineasAutorizadasRegla == false" class="btn btn-primary btn-sm mr-1" (click)="agregarLineasAutorizadasRegla()" (click)="clearMessage()" translate> {{ 'general.botones.btn_agregar' }} </button>
+                                <button *ngIf="this.isEditingLineasAutorizadasRegla == true" class="btn btn-primary btn-sm mr-1" (click)="actualizarLineasAutorizadasRegla()" (click)="clearMessage()" translate> {{ 'Actualizar' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1" (click)="guardarLineasAutorizadasRegla()" (click)="clearMessage()" translate> {{ 'general.botones.btn_guardar' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1" (click)="clearMessage()" data-dismiss="modal" translate> {{ 'Salir' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1" (click)="limpiarLineasAutorizadasRegla()" (click)="clearMessage()" translate> {{ 'general.botones.btn_limpiar' }} </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-12 col-md-6 col-md-3">
+                                    <a  class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-plus-circle"></span></a>
+                                    <!-- <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-trash-o"></span></a>                                      -->
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-12 col-md-6 col-md-3 form-control-sm">
+                            <!-- <div class="col-md-12 col-md-6 col-md-3">
+                                <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-plus-circle"></span></a>
+                                <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-trash-o"></span></a>
+                            </div> -->
+                            <div id="table-responsive">
+                                <table class="table table-bordered table-sm">
+                                    <thead class="table-active">
+                                        <tr>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'No.' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'Mensaje Si Cumple' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'Años Inicio' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate> {{ 'Años Fin' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate> {{ 'Acción Respuesta'}} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'limite_credito.th_col_name_acciones' }} </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let elemento of lstLineasPorEdad; let i = index">
+                                                <td class= "text-truncate text-center">{{i + 1}}</td>
+                                                <td class= "text-truncate text-center">{{elemento.idMsjSiCumpleDep}}</td>
+                                                <td class= "text-truncate text-center">{{elemento.AniosInicio}}</td>
+                                                <td class= "text-truncate text-center">{{elemento.AniosFin}}</td>
+                                                <td class= "text-truncate text-center">{{elemento.idAccionSiCumple}}</td>
+                                                <td class= "text-truncate text-center">
+                                                    <!-- icono modificar -->
+                                                    <a (click)="editarLineasAutorizadasRegla(elemento);" (click)="clearMessage()" *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 16px;"><span class="fa fa-pencil"></span></a>
+                                                    <!-- icono clonar -->
+                                                    <!-- <a  *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;"><span class="fa fa-clone"></span></a>-->
+                                                    <!-- icono eliminar -->
+                                                    <a (click)="eliminarLineasAutorizadasRegla(i)" (click)="clearMessage()" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;"
+                                                       class="pl-2"><span class="fa fa-trash-o"></span></a>
+                                                 </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <div class="row justify-content-center p-0 pb-3">
+                                        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                                          <nav aria-label="...">
+                                            <ul class="pagination pagination-sm justify-content-center">
+                                              <li class="page-item">
+                                                <a class="page-link" tabindex="-1" (click)="paginaAnterior()"
+                                                [ngClass]="{'desactivado': numeroPaginaActual ===0}">
+                                                  {{ 'Anterior' }}
+                                                </a>
+                                              </li>
+                                              <li>
+                                                <select class="page-link" (change)="establecerRegistrosMostrar($event)"
+                                                [ngClass]="{'desactivado': numeroPaginaActual ===0}">
+                                                  <option *ngFor="let numRegistros of multiplosPaginador">
+                                                    {{ numRegistros }}
+                                                  </option>
+                                                </select>
+                                              </li>
+                                              <li class="page-item">
+                                                <a class="page-link" tabindex="-1" (click)="siguientePagina()"
+                                                [ngClass]="{'desactivado': numeroPaginaActual === numeroPaginas-2 || lstMatriz.length<=0 ? true:false }">
+                                                  {{ 'Siguiente' }}
+                                                </a>
+                                              </li>
+                                            </ul>
+                                          </nav>
+                                        </div>
+                                    </div> -->
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="crear matriz de reglas">
+                  <div class="container">
+                      <div class="row align-items-end">
+                              <label class="mr-2" translate><span><strong> {{ 'Acción si depósito' }}</strong></span></label>
+
+                      </div>
+                      <div class="row form-inline justify-content-center">
+                          <div class="col-md-4 col-sm-4  col-lg-4 col-xl-4">
+                              <div class="form-inline input-group-sm">
+                                <label  for="accionSiDep" translate> {{ 'lista_negra.lbl_accion' }} </label>
+                                <select  class="col-md-6 form-control form-control-sm" name="accionSiDep" id="accionSiDep">
+                                  <option value="-1" translate> {{ 'general.combo.cmb_select' }} </option>
+                                  <option value="accion.accion" *ngFor="let accion of lstAcciones">{{accion.descripcion}}</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-md-8 form-group p-1 form-inline">
+                              <label class="ml-0 mr-1" for="msj" translate>
+                                  {{ 'Mensaje:' }}
+                              </label>
+                              <textarea  type="texto" class="form-control form-control-sm col-9 text-uppercase" rows="2" id="msj" name="msj"
+                               maxlength="350" >
+                                          </textarea>
+                          </div>
+                      </div>
+                          <div class="row align-items-center">
+                              <label for="estatus" translate><span><strong> {{ 'Acción no depósito' }}</strong></span> </label>
+                          </div>
+                          <div class="row form-inline">
+                          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                              <div class="form-inline input-group-sm">
+                                <label for="accionSiDep" translate> {{ 'lista_negra.lbl_accion' }} </label>
+                                <select  class="col-6 form-control form-control-sm" name="accionSiDep" id="accionSiDep">
+                                  <option value="-1" translate> {{ 'general.combo.cmb_select' }} </option>
+                                  <option value="accion.accion" *ngFor="let accion of lstAcciones">{{accion.descripcion}}</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="col-md-8 form-group form-control-lt p-1 form-inline">
+                              <label class="ml-0 mr-1" for="mjsdos" translate>
+                                  {{ 'Mensaje:' }}
+                              </label>
+                              <textarea  type="texto" class="form-control form-control-sm col-9 text-uppercase" id="msjdos" rows="2"
+                               maxlength="350"></textarea>
+                          </div>
+                      </div>
+                      <div>
+                          <div class="row align-items-center">
+                              <label for="estatus" translate><span><strong> {{ 'Tipo de Regla' }}</strong></span> </label>
+                          </div>
+                          <div class="row form-inline">
+                          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                              <div class="form-inline input-group-sm">
+                                <label for="accionSiDep" translate> {{ 'lista_negra.lbl_accion' }} </label>
+                                <select  class="col-6 form-control form-control-sm" name="accionSiDep" id="accionSiDep">
+                                  <option value="-1" translate> {{ 'general.combo.cmb_select' }} </option>
+                                  <option value="accion.accion" *ngFor="let accion of lstAcciones">{{accion.descripcion}}</option>
+                                </select>
+                              </div>
+                          </div>
+                          </div>
+                      </div>
+                                         <!-- BOTONES -->
+                <div class="row p-3">
+                        <div class="col-md-12">
+                            <div class="row justify-content-center form-inline">
+                                <button class="btn btn-primary btn-sm mr-1"  translate> {{ 'general.botones.btn_agregar' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1"  translate> {{ 'Actualizar' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1"  translate> {{ 'general.botones.btn_guardar' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1"  data-dismiss="modal" translate> {{ 'Salir' }} </button>
+                                <button class="btn btn-primary btn-sm mr-1"  translate> {{ 'general.botones.btn_limpiar' }} </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-12 col-md-6 col-md-3">
+                                    <a  class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-plus-circle"></span></a>
+                                    <!-- <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-trash-o"></span></a>                                      -->
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-12 col-md-6 col-md-3 form-control-sm">
+                            <!-- <div class="col-md-12 col-md-6 col-md-3">
+                                <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-plus-circle"></span></a>
+                                <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-trash-o"></span></a>
+                            </div> -->
+                            <div id="table-responsive">
+                                <table class="table table-bordered table-sm">
+                                    <thead class="table-active">
+                                        <tr>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'No.' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'Clase crédito' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'Importe minímo' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate> {{ 'Importe máximo' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate> {{ 'Depósito' }} </th>
+                                            <th class= "text-truncate text-center" scope="col" translate>  {{ 'limite_credito.th_col_name_acciones' }} </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let elemento of lstLineasAutorizadas; let i = index" >
+                                                <!-- <td class= "text-truncate text-center">{{i}}</td>
+                                                <td class= "text-truncate text-center">{{lst.descClaseCredito}}</td>
+                                                <td class= "text-truncate text-center">{{lst.minImporte}}</td>
+                                                <td class= "text-truncate text-center">{{lst.maxImporte}}</td>
+                                                <td class= "text-truncate text-center">{{lst.deposito}}</td> -->
+                                                <td class= "text-truncate text-center">
+                                                    <!-- icono modificar -->
+                                                    <a  *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 16px;"><span class="fa fa-pencil"></span></a>
+                                                    <!-- icono clonar -->
+                                                    <a  *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;"><span class="fa fa-clone"></span></a>
+                                                    <!-- icono eliminar -->
+                                                    <a  *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;"
+                                                       class="pl-2"><span class="fa fa-trash-o"></span></a>
+                                                 </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- <div class="row justify-content-center p-0 pb-3">
+                                        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                                          <nav aria-label="...">
+                                            <ul class="pagination pagination-sm justify-content-center">
+                                              <li class="page-item">
+                                                <a class="page-link" tabindex="-1" (click)="paginaAnterior()"
+                                                [ngClass]="{'desactivado': numeroPaginaActual ===0}">
+                                                  {{ 'Anterior' }}
+                                                </a>
+                                              </li>
+                                              <li>
+                                                <select class="page-link" (change)="establecerRegistrosMostrar($event)"
+                                                [ngClass]="{'desactivado': numeroPaginaActual ===0}">
+                                                  <option *ngFor="let numRegistros of multiplosPaginador">
+                                                    {{ numRegistros }}
+                                                  </option>
+                                                </select>
+                                              </li>
+                                              <li class="page-item">
+                                                <a class="page-link" tabindex="-1" (click)="siguientePagina()"
+                                                [ngClass]="{'desactivado': numeroPaginaActual === numeroPaginas-2 || lstMatriz.length<=0 ? true:false }">
+                                                  {{ 'Siguiente' }}
+                                                </a>
+                                              </li>
+                                            </ul>
+                                          </nav>
+                                        </div>
+                                    </div> -->
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+              </div>
+              <!-- <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div> -->
+            </div>
+
+      </div>
+  </div>
+</div>

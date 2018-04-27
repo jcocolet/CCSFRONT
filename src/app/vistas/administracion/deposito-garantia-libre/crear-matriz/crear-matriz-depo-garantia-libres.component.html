@@ -1,0 +1,231 @@
+<div class="table modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="row ml-1">
+                <span>
+                    <h6 class="modal-title text-uppercase" translate>{{'deposito_garantia_plazo_libres.crear_matriz_garantia_plazo_libres'}}</h6>
+                </span>
+
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiar()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-alerta-deposito-plibres *ngIf="!componentePropietarioIB" class="sticky-top"></app-alerta-deposito-plibres>
+            <div class="container">
+                <div class="row align-items-end">
+                    <label class="mr-2">
+                        <span>
+                            <strong translate> {{ 'deposito_garantia_plazo_libres.lbl_acción_si_depósito' }}</strong>
+                        </span>
+                    </label>
+                </div>
+                <div class="row form-inline justify-content-center">
+                    <div class="col-md-4 col-sm-4  col-lg-4 col-xl-4">
+                        <div class="form-inline input-group-sm">
+                            <label for="accionSiDep" translate><span class="obligatorio">*</span> {{ 'lista_negra.lbl_accion' }} </label>
+                            <select (change)="activatextAreaSi(form.idAccionSiDep)" [(ngModel)]="form.idAccionSiDep" class="col-md-6 form-control form-control-sm"
+                                name="accionSiDep" id="accionSiDep"required>
+                                <option value="-1" translate> {{ 'general.combo.cmb_select' }} </option>
+                                <option *ngFor="let accion of cmbAccionRespuesta" value="{{accion.idAccion}}" translate> {{ accion.descripcion }} </option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-8 form-group p-1 form-inline">
+                        <label class="ml-0 mr-1" for="msj" translate><span *ngIf="!txtAreaSi" class="obligatorio">*</span>
+                            {{ 'Mensaje:' }}
+                        </label>
+                        <textarea [disabled]="txtAreaSi" [(ngModel)]="form.descMsjSiCumpleDep" type="texto" class="form-control form-control-sm col-9 text-uppercase"
+                            rows="2" id="msj" name="msj" (keypress)="soloCaracteres($event)" maxlength="350" [required]="!txtAreaSi">
+                        </textarea>
+                    </div>
+                </div>
+                <hr class="style18">
+                <div class="row align-items-center">
+                    <label for="estatus" translate>
+                        <span>
+                            <strong translate> {{ 'deposito_garantia_plazo_libres.lbl_acción_no_depósito' }}</strong>
+                        </span>
+                    </label>
+                </div>
+                <div class="row form-inline">
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <div class="form-inline input-group-sm">
+                            <label for="accionSiDep" translate><span class="obligatorio">*</span> {{ 'lista_negra.lbl_accion' }} </label>
+                            <select (change)="activatextAreaNo(form.idAccionNoDep)" [(ngModel)]="form.idAccionNoDep" class="col-6 form-control form-control-sm"
+                                name="accionSiDep" id="accionSiDep" required>
+                                <option value="-1" translate> {{ 'general.combo.cmb_select' }} </option>
+                                <option *ngFor="let accion of cmbAccionRespuesta" value="{{accion.idAccion}}" translate> {{ accion.descripcion }} </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-8 form-group form-control-lt p-1 form-inline">
+                        <label class="ml-0 mr-1" for="mjsdos" translate><span *ngIf="!txtAreaNo" class="obligatorio">*</span>
+                            {{ 'deposito_garantia_plazo_libres.lbl_mensaje' }}
+                        </label>
+                        <textarea [disabled]="txtAreaNo" [(ngModel)]="form.descMsjNoCumpleDep" type="texto" class="form-control form-control-sm col-9 text-uppercase"
+                            id="msjdos" rows="2" (keypress)="soloCaracteres($event)" maxlength="350" [required]="!txtAreaNo"></textarea>
+                    </div>
+                </div>
+                <hr class="style18">
+                <div class="row justify-content-center p-2">
+                    <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+                        <label class="ml-0 mr-1" for="maximo" translate><span class="obligatorio">*</span>
+                            {{ 'deposito_garantia_plazo_libres.lbl_name_importe_minimo' }}
+                        </label>
+                        <input [(ngModel)]="form.minImporte" class="form-control form-control-sm" id="minimo" name="minimo" size="15" placeholder=".00"
+                            type="number" (keypress)="soloNumeros($event)" maxlength="12" required/>
+                    </div>
+                    <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+                        <label class="ml-0 mr-1" for="maximo" translate><span class="obligatorio">*</span>
+                            {{ 'deposito_garantia_plazo_libres.lbl_name_importe_maximo' }}
+                        </label>
+                        <input [(ngModel)]="form.maxImporte" class="form-control form-control-sm" id="maximo" name="maximo" size="15" placeholder=".00"
+                            type="number" (keypress)="soloNumeros($event)" maxlength="12" required/>
+                    </div>
+                    <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+                        <label class="ml-0 mr-1" for="deposito" translate><span class="obligatorio">*</span>
+                            {{ 'deposito_garantia_plazo_libres.lbl_name_deposito' }}
+                        </label>
+                        <input [(ngModel)]="form.deposito" class="form-control form-control-sm" id="deposito" name="deposito" size="15" placeholder=".00"
+                            type="number" (keypress)="soloNumeros($event)" maxlength="12" required/>
+                    </div>
+                </div>
+                <div class="row form-inline p-0">
+                    <div class="col-md-4 m-3 p-0 form-inline">
+                        <label for="clasecredito" class="mr-1" translate><span class="obligatorio">*</span>
+                             {{ 'deposito_garantia_plazo_libres.lbl_clase_credito' }} </label>
+                        <select [(ngModel)]="form.idClaseCredito" class="col-6 form-control form-control-sm" name="clasecredito" id="clasecredito"
+                            data-toggle="tooltip" title="{{tooltipDescClaseCredito}}" data-placement="top"
+                            required="form.idClaseCredito == -1">
+                            <option value="-1" translate> {{ 'general.combo.cmb_select' }}</option>
+                            <!-- <option value="*" translate>{{ 'TODOS' }}</option> -->
+                            <option *ngFor="let claseCredito of cbmClasecredito" id="claseCredito.descripcion" (change)="tooltipSelect(claseCredito.descripcion)"
+                                value="{{claseCredito.idClaseCredito}}" class="d-inline-block text-truncate">
+                                {{ claseCredito.descripcion }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 col-md-3 m-3 p-0">
+                        <div class="form-inline input-group-sm p-sm-1">
+                            <label class="mr-1" for="estatus" translate><span class="obligatorio">*</span>
+                                 {{ 'deposito_garantia_plazo_libres.lbl_estatus' }} </label>
+                            <select [(ngModel)]="form.estatus" class="col-6 form-control form-control-sm " name="estatus" id="estatus" required>
+                                <option value="-3" translate> {{ 'general.combo.cmb_select' }}</option>
+                                <option *ngFor="let est of cbmEstatus" value="{{est.clave}}" class="d-inline-block text-truncate"> {{est.descripcion}} </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-md-3 m-3 p-0">
+                            <div class="form-inline input-group-sm p-sm-1">
+                                <label class="mr-1" for="regla" translate><span class="obligatorio">*</span>
+                                     {{ 'deposito_garantia_plazo_libres.lbl_tipo_regla' }} </label>
+                                <select [(ngModel)]="form.idTipoRegla" class="col-6 form-control form-control-sm " name="regla" id="regla" required>
+                                    <option value="-1" translate> {{ 'general.combo.cmb_select' }}</option>
+                                    <option *ngFor="let regla of cmbTipoRegla" value="{{regla.idTipoRegla}}" class="d-inline-block text-truncate"> {{regla.descripcion}} </option>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+                <span class="campoObligatorio" translate>{{'general.form.etiqueta_obligatorio'}}</span>
+                <!-- BOTONES -->
+                <div class="row p-3">
+                    <div class="col-md-12">
+                        <div class="row justify-content-center form-inline">
+                            <button class="btn btn-primary btn-sm mr-1" (click)="agregarTabla(form)" *ngIf="btnAgrega" translate> {{ 'general.botones.btn_agregar' }} </button>
+                            <button class="btn btn-primary btn-sm mr-1" (click)="actualiza(form)" *ngIf="btnActualiza" translate> {{ 'general.botones.btn_actualizar' }} </button>
+                            <button class="btn btn-primary btn-sm mr-1" (click)="guardar()" [disabled]="btnGuarda" translate> {{ 'general.botones.btn_guardar' }} </button>
+                            <button class="btn btn-primary btn-sm mr-1" (click)="limpiar()" data-dismiss="modal" translate> {{ 'general.botones.btn_salir' }} </button>
+                            <button class="btn btn-primary btn-sm mr-1" (click)="limpiar()" translate> {{ 'general.botones.btn_limpiar' }} </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-md-6 col-md-3">
+                        <a (click)="limpiarCaptura()" class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;">
+                            <span class="fa fa-plus-circle"></span>
+                        </a>
+                        <!-- <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-trash-o"></span></a>                                      -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-md-6 col-md-3 form-control-sm">
+                        <!-- <div class="col-md-12 col-md-6 col-md-3">
+                            <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-plus-circle"></span></a>
+                            <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-trash-o"></span></a>                                     
+                        </div> -->
+                        <div id="table-responsive">
+                            <table class="table table-bordered table-sm">
+                                <thead class="table-active">
+                                    <tr>
+                                        <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_No' }} </th>
+                                        <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_clase_credito' }} </th>
+                                        <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_importe_minimo' }} </th>
+                                        <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_importe_maximo' }} </th>
+                                        <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_deposito' }} </th>
+                                        <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_acciones' }} </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let lst of lstMatriz; let i = index">
+                                        <td class="text-truncate text-center">{{i}}</td>
+                                        <td class="text-truncate text-center">{{lst.descClaseCredito}}</td>
+                                        <td class="text-truncate text-center">{{lst.minImporte}}</td>
+                                        <td class="text-truncate text-center">{{lst.maxImporte}}</td>
+                                        <td class="text-truncate text-center">{{lst.deposito}}</td>
+                                        <td class="text-truncate text-center">
+                                            <!-- icono modificar -->
+                                            <a (click)="modificarRegistro(lst)" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 16px;">
+                                                <span class="fa fa-pencil"></span>
+                                            </a>
+                                            <!-- icono clonar -->
+                                            <a (click)="clonarRegistro(lst)" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;">
+                                                <span class="fa fa-clone"></span>
+                                            </a>
+                                            <!-- icono eliminar -->
+                                            <a (click)="borrarRegistro(lst, i)" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;" class="pl-2">
+                                                <span class="fa fa-trash-o"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- <div class="row justify-content-center p-0 pb-3">
+                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                                      <nav aria-label="...">
+                                        <ul class="pagination pagination-sm justify-content-center">
+                                          <li class="page-item">
+                                            <a class="page-link" tabindex="-1" (click)="paginaAnterior()" 
+                                            [ngClass]="{'desactivado': numeroPaginaActual ===0}">
+                                              {{ 'Anterior' }}
+                                            </a>
+                                          </li>
+                                          <li>
+                                            <select class="page-link" (change)="establecerRegistrosMostrar($event)"
+                                            [ngClass]="{'desactivado': numeroPaginaActual ===0}">
+                                              <option *ngFor="let numRegistros of multiplosPaginador"> 
+                                                {{ numRegistros }}
+                                              </option>
+                                            </select>
+                                          </li>
+                                          <li class="page-item">
+                                            <a class="page-link" tabindex="-1" (click)="siguientePagina()" 
+                                            [ngClass]="{'desactivado': numeroPaginaActual === numeroPaginas-2 || lstMatriz.length<=0 ? true:false }"> 
+                                              {{ 'Siguiente' }} 
+                                            </a>
+                                          </li>
+                                        </ul>
+                                      </nav>
+                                    </div>
+                                </div> -->
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    

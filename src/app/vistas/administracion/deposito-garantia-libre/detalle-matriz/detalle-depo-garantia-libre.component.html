@@ -1,0 +1,99 @@
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'general.titulos.titulo_detalle_matriz'}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <fieldset disabled>
+                <div class="row form-inline justify-content-center ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-inline input-group-sm">
+                                <label translate> {{ 'deposito_garantia_plazo_libres.lbl_nombre_regla' }} </label>
+                                <input type="text" size="35" class="form-control text-uppercase disabled" value="{{nombreRegla}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ml-1">
+                        <div class="col-md-12">
+                            <div class="form-inline input-group-sm">
+                                <label translate> {{ 'deposito_garantia_plazo_libres.lbl_region' }} </label>
+                                <input type="text" size="10" class="form-control text-uppercase disabled" value="{{idRegion}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ml-1">
+                        <div class="col-md-12">
+                            <div class="form-inline input-group-sm">
+                                <label translate> {{ 'deposito_garantia_plazo_libres.lbl_estatus' }} </label>
+                                <input type="text" size="8" class="form-control text-uppercase disabled" value="{{estatusClave}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br>
+            <div class="row">
+                <div class="col-md-12 col-md-6 col-md-3">
+                    <div id="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_clase_credito' }} </th>
+                                    <th class="text-truncate text-center" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_importe_minimo' }} </th>
+                                    <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_importe_maximo' }} </th>
+                                    <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_plazo_libres.th_col_name_deposito' }} </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let result of lstDetalle">
+                                    <td class="text-truncate">{{result.desClaseCredito}}</td>
+                                    <td class="text-truncate text-rigth">{{result.minimPorte}}</td>
+                                    <td class="text-truncate text-rigth">{{result.maximporte}}</td>
+                                    <td class="text-truncate text-rigth">{{result.deposito}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- <div class="row justify-content-center p-0 pb-3">
+                                        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                                          <nav aria-label="...">
+                                            <ul class="pagination pagination-sm justify-content-center">
+                                              <li class="page-item">
+                                                <a class="page-link" tabindex="-1" (click)="paginaAnterior()" 
+                                                [ngClass]="{'desactivado': numeroPaginaActual ===0 || lstDetalle.length<=0 ? true:false }">
+                                                  {{ 'Anterior' }}
+                                                </a>
+                                              </li>
+                                              <li>
+                                                <select class="page-link" (change)="establecerRegistrosMostrar($event)"
+                                                [ngClass]="{'desactivado': numeroPaginaActual ===0 || lstDetalle.length<=0 ? true:false }">
+                                                  <option *ngFor="let numRegistros of multiplosPaginador"> 
+                                                    {{ numRegistros }}
+                                                  </option>
+                                                </select>
+                                              </li>
+                                              <li class="page-item">
+                                                <a class="page-link" tabindex="-1" (click)="siguientePagina()" 
+                                                [ngClass]="{'desactivado': numeroPaginaActual === numeroPaginas-2 || lstDetalle.length<=0 ? true:false }"> 
+                                                  {{ 'Siguiente' }} 
+                                                </a>
+                                              </li>
+                                            </ul>
+                                          </nav>
+                                        </div>
+                                    </div>                                 -->
+                    </div>
+                </div>
+            </div>
+            <div class="row modal-footer conteiner col-md-12 col-md-6 col-md-3 justify-content-center">
+                <div class="col-2 ml-2">
+                    <button class="btn btn-primary btn-md" data-dismiss="modal" translate> {{ 'general.botones.btn_salir' }} </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+       

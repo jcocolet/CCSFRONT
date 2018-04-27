@@ -1,0 +1,35 @@
+li { 
+    display: inline-block;
+}
+
+p {
+  margin: 0px;
+  width: 120px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.progress {
+  height: 1.5rem;
+  border-radius: 2rem;
+}
+
+.progress-bar {
+  font-weight: bold;
+  background-color: #00aa00;
+}
+
+.progress-bar-disabled {
+  font-weight: bold;
+  background-color: gray;
+}
+
+.progress-bar-animated {
+  -webkit-animation: progress-bar-stripes 0.5s linear infinite;
+  animation: progress-bar-stripes 0.5s linear infinite;
+}
+
+.progress-bar-animated-disabled {
+  -webkit-animation: progress-bar-stripes 0s linear infinite;
+  animation: progress-bar-stripes 0s linear infinite;
+}

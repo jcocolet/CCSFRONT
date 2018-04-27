@@ -1,0 +1,176 @@
+<div class="jumbotron p-1 pl-5 pr-5 m-0" (change)="clearMessage()">
+  <h6 class="text-uppercase mt-2 " translate> {{ 'rango_equipo.titulo_rango_equipo' }} </h6>
+  <hr>
+  <h6 class="text-uppercase mt-2 " translate> {{'general.form.busqueda' }} </h6>
+  <app-alerta-rango-equipo *ngIf="showAlert"></app-alerta-rango-equipo>
+  <div class="row input-group-sm">
+    <div class="col-md-5 col-sm-4 m-0 form-inline input-group-sm float-right">
+      <label class="ml-0 mr-1" translate> {{ 'rango_equipo.lbl_nombre_regla' }} </label>
+      <input id="nombreRegla" name="nombreRegla" class="col-md-6 form-control text-uppercase" [(ngModel)]="parametros.nombreRegla"
+        type="text" (keypress)="evitaEspeciales($event)" maxlength="38">
+    </div>
+    <div class="col-md-4 col-sm-3 m-0 form-inline input-group-sm float-right">
+      <label class="mr-1" for="clasecredito" translate> {{ 'rango_equipo.lbl_clase_credito' }} </label>
+      <select class="form-control form-control-sm col-6" name="clasecredito" id="clasecredito" [(ngModel)]="parametros.clasecredito">
+        <option value="" translate>{{ 'general.combo.cmb_select' }}</option>
+        <option *ngFor="let claseCredito of cbmClasecredito" value="{{ claseCredito.idClaseCredito }}"> {{ claseCredito.descripcion }} </option>
+      </select>
+    </div>
+    <div class="col-md-3 col-sm-3 m-0 form-inline input-group-sm float-right">
+      <label class="mr-1" for="estatus" translate> {{ 'rango_equipo.lbl_estatus' }} </label>
+      <select class="form-control form-control-sm col-7" name="estatus" id="estatus" [(ngModel)]="parametros.estatus">
+        <option value="" translate>{{ 'general.combo.cmb_select' }}</option>
+        <option *ngFor="let estatus of cbmEstatus" value="{{estatus.estatus}}"> {{estatus.descripcion}} </option>
+        <!--<option *ngFor="let estatus of cbmEstatus" value="{{estatus.clave}}"> {{estatus.descripcion}} </option>-->
+      </select>
+    </div>
+  </div>
+   <div class="ml-3 pb-2"></div>
+   <div class="row justify-content-center">
+    <div class="col-md-4 col-md-2 m-0 p-1 form-inline float-right">
+      <label class="ml-0 mr-1" for="maximo" translate>
+        {{ 'rango_equipo.lbl_col_name_precio_minimo' }}
+      </label>
+      <input class="form-control form-control-sm" type="text" id="minimo" name="minimo" (blur)="numberMinimoFormat($event.target.value)" (keypress)="evitaCharacteres($event)" maxlength="12"
+        placeholder="0.00" [(ngModel)]="parametros.minimo" type="text" required/>
+    </div>
+    <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+      <label class="ml-0 mr-1" for="minimo" translate>
+        {{ 'rango_equipo.lbl_col_name_precio_maximo' }}
+      </label>
+      <!--<input class="form-control form-control-sm" type="text" id="maximo" name="maximo" (keypress)="evitaCharacteres($event)" maxlength="12"
+        placeholder="0.00" [(ngModel)]="parametros.maximo" type="text" required/>-->
+        <input class="form-control form-control-sm" type="text" id="maximo" name="maximo" (blur)="numberMaximoFormat($event.target.value)" (keypress)="evitaCharacteres($event)" maxlength="12"
+        placeholder="0.00" [(ngModel)]="parametros.maximo" type="text" required/>
+    </div>
+  </div>
+  <div class="row justify-content-center col-md-12 col-md-6 col-md-3 pt-2">
+    <div class="form-group form-inline">
+      <button class="btn btn-primary btn-sm ml-auto mr-1" translate (click)="buscar()"> {{ 'general.botones.btn_buscar' }} </button>
+      <button class="btn btn-primary btn-sm ml-2 mr-2" translate (click)="limpiarCampos()"> {{ 'general.botones.btn_limpiar' }} </button>
+      <button class="btn btn-primary btn-sm mr-auto ml-1" translate *ngIf="false"> {{ 'general.botones.btn_siguiente' }} </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-md-6 col-md-3">
+      <a class="float-right mt-1 mr-2 mb-1" (click)="clearMessage()" (click)="showAlert=true" data-toggle="modal" data-target="#crearReglaModal" style="color: orange; font-size: 22px; cursor: pointer;">
+        <span class="fa fa-plus-circle"></span>
+      </a>
+      <a *ngIf="validarDatosSeleccionados()" (click)="clearMessage()" (click)="borrarSeleccionados()" (click)="showAlert=true" class="float-right mt-1 mr-2 mb-1" data-toggle="modal"
+        data-target="#eliminarDepurarModal" style="color: orange; font-size: 22px; cursor: pointer;">
+        <span class="fa fa-trash-o"></span>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-md-6 col-md-3">
+      <div id="table-responsive">
+        <table class="table table-bordered table-sm">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-truncate text-center" scope="col" translate>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" style="position: relative;" [(ngModel)]="checkBoxheader" (change)="boxCheckAll()"
+                    disabled="{{this.checkBoxElements.length == 0}}" />
+                </div>
+              </th>
+              <th class="text-truncate text-center" scope="col" translate> {{ 'rango_equipo.th_col_name_id' }} </th>
+              <th class="text-truncate text-center" scope="col" translate> {{ 'rango_equipo.th_col_name_nombre_flujo' }} </th>
+              <th class="text-truncate text-center" scope="col" translate> {{ 'rango_equipo.th_col_name_estatus' }} </th>
+              <th class="text-truncate text-center" scope="col" translate> {{ 'rango_equipo.th_col_name_acciones' }} </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- *ngFor="let fila of response" -->
+
+            <tr *ngFor="let result of response; let i = index">
+              <td class="text-truncate text-center">
+                <div class="form-check w-25">
+                  <input class="form-check-input text-center" type="checkbox" value="registro.  " id="registro.nombreFlujo" [(ngModel)]="checkBoxElements[i]"
+                    (change)="checkBoxheader=false;">
+                </div>
+              </td>
+              <td class="text-truncate text-center">{{result.idMatrizDecision}}</td>
+              <td class="text-truncate">{{result.nombreMatriz}}</td>
+              <td class="text-truncatetext-center">{{result.estatusMatriz}}</td>
+              <td>
+                <!-- detalle modificar -->
+                <a (click)="verDetalle(result)" (click)="showAlert=true" *ngIf="true" class="pl-2" data-toggle="modal" data-target="#detalleMatrizModal" style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-eye"></span>
+                </a>
+                <!-- icono modificar -->
+                <a (click)="clearMessage()" (click)="selecionarFila(result)" (click)="showAlert=true" *ngIf="true" class="pl-2" data-toggle="modal" data-target="#modificarMatrizModal" style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-pencil"></span>
+                </a>
+                <!-- icono clonar -->
+                <a (click)="clearMessage()" (click)="clonar(result)" (click)="showAlert=true" *ngIf="result.estatusMatriz!=='DEPURAR'" class="pl-2" data-toggle="modal" data-target="" style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-clone"></span>
+                </a>
+                 <!-- icono administrar -->
+                <a (click)="clearMessage()" (click)="selecionarFila(result)" (click)="showAlert=false" *ngIf="result.estatusMatriz!=='DEPURAR'" class="pl-2" data-toggle="modal" data-target="#categoriaModal" style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-cogs"></span>
+                </a>
+                <!-- icono eliminar -->
+                <a (click)="clearMessage()" (click)="enviaMsjEliminar(result)" (click)="borrarSeleccionado(result)" (click)="showAlert=true" class="pl-2" data-toggle="modal" data-target="#eliminarModal" style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-trash-o"></span>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- <nav aria-label="Page navigation example">
+					<ul class="pagination justify-content-center">
+						<li class="page-item disabled">
+							<a class="page-link" href="#" tabindex="-1">Previous</a>
+						</li>
+						<li class="page-item"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item">
+							<a class="page-link" href="#">Next</a>
+						 </li>
+						</ul>
+				</nav>								 -->
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Crear Regla Planes Libres -->
+<div class="modal fade" id="crearReglaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <app-crear-regla-rango-equipo [idRegion]="idRegion" (eventOut)="returnEvent($event)"></app-crear-regla-rango-equipo>
+</div>
+<!-- Modal Categoria Planes Libres -->
+<div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <app-categoria-rango-equipo [response]="selecResponse" [idRegion]="idRegion" [cbmClasecredito]="cbmClasecredito" [cbmEstatus]="cbmEstatus"></app-categoria-rango-equipo>
+</div>
+<!-- Modal Modificar Matriz Planes Libres-->
+<div class="modal fade bd-example-modal-lg" id="modificarMatrizModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <app-editar-regla [response]="selecResponse" [idRegion]="idRegion" (eventOut)="returnEvent($event)"></app-editar-regla>
+</div>
+<!-- Modal Detalle Matriz Planes Libres -->
+<div class="modal fade bd-example-modal-lg" id="detalleMatrizModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <app-detalle-rango-equipo [lstDetalle]="lstDetalle" 
+    [nombreRegla] = "nombreRegla"
+    [estatusSelect] = "estatusSelect"
+    [idRegion] = "idRegion"></app-detalle-rango-equipo>
+</div>
+<!-- Modal Eliminar Matriz Planes Libres -->
+<div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <app-eliminar-matriz (eventOut)="eliminarRegistro()"
+  [msjEliminar] = "msjEliminar"
+  [msjEliminarTitulo] = "msjEliminarTitulo"></app-eliminar-matriz>
+</div>
+
+<!-- Modal Eliminar Matriz Planes Libres -->
+<div class="modal fade" id="eliminarDepurarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <app-eliminar-depurar-matriz (eventOut)="eliminarRegistro()"
+    [msjEliminar] = "msjEliminar"
+    [msjEliminarTitulo] = "msjEliminarTitulo"
+    [totalDepurarEliminar] = "totalDepurarEliminar"
+    [totalDepurar] = "totalDepurar"
+    [totalEliminar] = "totalEliminar"></app-eliminar-depurar-matriz>
+  </div>

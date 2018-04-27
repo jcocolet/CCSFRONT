@@ -1,0 +1,63 @@
+<div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'general.titulos.titulo_categoria'}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center col-md-12 col-md-6 col-md-3">
+                <table class="table table-bordered table-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-truncate text-center" scope="col">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" style="position: relative;" [(ngModel)]="checkBoxheader"
+                                    (change)="boxCheckAll()"
+                                    />
+                                </div>
+                            </th>
+                            <th scope="col" translate> {{ 'general.titulos.titulo_categoria' }} </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let categoria of cbmCategoria; let i = index">
+                            <td class="text-truncate text-center" scope="col">
+                                <div class="form-check w-25">
+                                    <input class="form-check-input" type="checkbox" value="categoria.nombreFlujo" name="checkCateg" id="categoria.nombreFlujo" 
+                                        [(ngModel)]="categoria.seleccionado"
+                                        (change)="checkBoxheader=false;" (click)="ItemSeleccionado(categoria);">
+                                </div>
+                            </td>
+                            <td>
+                                <label class="form-check-label" for="categoria.descripcion">
+                                    {{ categoria.descripcion }}
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row modal-footer">
+                <div class="row justify-content-center col-md-12 col-md-6 col-md-3">
+                    <div class="form-inline">
+                        <button class="btn btn-primary btn-sm mr-1 " data-dismiss="modal"> {{ 'Cancelar' }} </button>
+                        <button class="btn btn-primary btn-sm mr-1" (click)="limpiarForm()"> {{ 'Limpiar' }} </button>
+                        <button [disabled]="!validarDatosSeleccionados()" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#crearMatrizModal"
+                            (click)="siguiente()"> {{ 'Siguiente' }} </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Crear Matriz Deposito Garantia Plazo Libres -->
+<div class="modal fade bd-example-modal-lg" id="crearMatrizModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <app-crear-matriz-planes-libres [cbmCategoria]="cbmCategoria" 
+                                            [idMatrizDecision]="idMatrizDecision" 
+                                            [componentePropietarioIB]="componentePropietarioIB"
+                                             [lstMatriz]="lstMatriz">
+    </app-crear-matriz-planes-libres>
+</div>

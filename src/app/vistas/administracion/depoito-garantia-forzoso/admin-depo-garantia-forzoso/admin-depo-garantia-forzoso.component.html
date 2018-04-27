@@ -1,0 +1,173 @@
+<div class="jumbotron p-1 pl-5 pr-5 m-0">
+  <h6 class="text-uppercase mt-2 " translate> {{ 'deposito_garantia_pforzoso.lbl_titulo_admon' }} </h6>
+  <hr>
+  <h6 class="text-uppercase mt-2" translate> {{'deposito_garantia_plazo_libres.busqueda_deposito_garantia_plazo_libres'}}</h6>
+  <app-alerta-dep-garantia-forzoso></app-alerta-dep-garantia-forzoso>
+  <form #forAdmonRango="ngForm" (ngSubmit)="fn_getBuscarMatriz()">
+    <div class="row justify-content-center">
+      <div class="col-md-5 col-sm-4 m-0 form-inline input-group-sm float-right">
+        <label class="ml-0 mr-1" for="nomRegla" translate> {{'deposito_garantia_pforzoso.lbl_nombre_regla'}} </label>
+        <input class="col-md-6 form-control form-control-sm text-uppercase" type="text" id="nomRegla" name="nomRegla" #nomRegla="ngModel"
+          [(ngModel)]="planForzosoVo.nomRegla" />
+      </div>
+      <div class="col-md-4 col-sm-3 m-0 form-inline input-group-sm float-right">
+          <label class="mr-2" for="claseCredito" translate> {{ 'deposito_garantia_pforzoso.lbl_clase_credito' }} </label>
+          <select class="form-control form-control-sm text-uppercase col-5" name="claseCredito" id="claseCredito" style="width:43%" #claseCredito="ngModel"
+            [(ngModel)]="planForzosoVo.claseCredito">
+            <option value="" translate>{{' deposito_garantia_pforzoso.lbl_seleccion' }}</option>
+            <option *ngFor="let clasCredito of lstClasCredito" [ngValue]="clasCredito.clave">{{clasCredito.descripcion}}</option>
+          </select>
+        </div>
+      <div class="col-md-3 col-sm-3 m-0 form-inline input-group-sm float-right">
+        <label class="mr-2" for="estatus" translate> {{ 'deposito_garantia_pforzoso.lbl_estatus' }} </label>
+        <select class="form-control form-control-sm text-uppercase col-7" name="estatus" id="estatus" #estatus="ngModel" [(ngModel)]="planForzosoVo.estatus">
+          <option value="" translate>{{' deposito_garantia_pforzoso.lbl_seleccion' }}</option>
+          <option *ngFor="let estatus of lstEstatus" [ngValue]="estatus.descripcion">{{estatus.descripcion}}</option>
+        </select>
+      </div>
+   
+    </div>
+    <div class="col-md-12 col-sm-6 form-inline input-group-sm float-right pt-3">
+      <label class="mr-2" for="bloqueado" translate> {{ 'deposito_garantia_pforzoso.lbl_consulta_deposito' }} </label>
+      <select class="form-control form-control-sm text-uppercase" name="bloqueado" id="bloqueado" #bloqueado="ngModel" [(ngModel)]="planForzosoVo.bloqueado">
+        <option value="" translate>{{' deposito_garantia_pforzoso.lbl_seleccion' }}</option>
+        <option value="NO" translate>{{' deposito_garantia_pforzoso.lbl_no' }}</option>
+        <option value="SI" translate>{{' deposito_garantia_pforzoso.lbl_si' }}</option>
+      </select>
+    </div>
+    <div class="col-md-12 col-md-6 col-md-3 row pt-3 justify-content-center">
+        <div class="form-group form-inline">
+          <button type="submit" class="btn btn-primary btn-sm ml-auto mr-1" translate> {{ 'general.botones.btn_buscar' }} </button>
+          <input type="button" (click)="fn_getLimpiar()" class="btn btn-primary btn-sm ml-2 mr-2" value="Limpiar">
+        </div>
+      </div>
+  </form>
+
+  
+
+
+  <div class="row">
+    <div class="col-md-12 col-md-6 col-md-3">
+      <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearMatrizModal" style="color: orange; font-size: 22px; cursor: pointer;">
+        <span class="fa fa-plus-circle"></span>
+      </a>
+      <a *ngIf="lstTgMatriz.length != 0" class="float-right mt-1 mr-2 mb-1" (click)="fn_eliminaAll($event)" data-toggle="modal"
+        data-target="#eliminaAllModal" style="color: orange; font-size: 22px; cursor: pointer;">
+        <span class="fa fa-trash-o"></span>
+      </a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-md-6 col-md-3">
+
+      <div id="table-responsive">
+        <table class="table table-bordered table-sm table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-truncate text-center" scope="col">
+                <div class="text-truncate text-center" scope="col">
+                  <input disabled="{{this.lstTgMatriz.length == 0}}" class="form-check-input text-center" (click)="fn_selectAll($event)" type="checkbox"
+                    style="position: relative;" [(ngModel)]="checkBoxheader" />
+                  <!-- (change)="boxCheckAll()" disabled="{{this.checkBoxElements.length == 0}}" -->
+                </div>
+              </th>
+              <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_pforzoso.th_col_name_id' }} </th>
+              <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_pforzoso.th_col_name_nombre_flujo' }} </th>
+              <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_pforzoso.th_col_name_estatus' }} </th>
+              <th class="text-truncate text-center" scope="col" translate> {{ 'deposito_garantia_pforzoso.th_col_name_acciones' }} </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of lstTgMatriz" class="form-control-sm text-uppercase">
+              <td class="text-truncate text-center" scope="col">
+                <div class="text-truncate text-center" scope="col">
+                  <input class="form-check-input text-center" style="position: relative;" type="checkbox" (change)="checkBoxheader=false;"
+                    [(ngModel)]="row.seleccion">
+                  <!--  (change)="checkBoxheader=false;" -->
+                </div>
+              </td>
+              <td>{{row.idMatrizDecision}}</td>
+              <td>{{row.nombreMatriz}}</td>
+              <td>{{row.descripcionEstatusMat}}</td>
+              <td>
+                <!-- Consultar Matriz -->
+                <a (click)="fn_getAdmonPF($event,row)" class="pl-2" data-toggle="modal" data-target="#detalleMatrizModal" style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-eye"></span>
+                </a>
+                <!-- Editar Matriz -->
+                <a (click)="fn_editarMatriz($event,row)" class="pl-2" data-toggle="modal" data-target="#editarModal" style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-pencil"></span>
+                </a>
+                <!-- Clonar Matriz -->
+                <!--<a (click)="fn_editarMatriz($event,row)" *ngIf="''+row.estatusMatriz !=='D'" class="pl-2" data-toggle="modal" data-target="#clonarModal"
+                  style="color: orange; cursor: pointer; font-size: 18px;">-->
+                <a (click)="fn_editarMatriz($event,row)" (click)="fn_clonarMatriz()" *ngIf="''+row.estatusMatriz !=='D'" class="pl-2" data-toggle="modal"
+                  style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-clone"></span>
+                </a>
+                <!-- Agregar reglas admon PF -->
+                <a (click)="fn_getCategoriaPforzoso($event,row)" *ngIf="''+row.estatusMatriz !=='D'" class="pl-2" data-toggle="modal" data-target="#categoriaModal"
+                  style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-cogs"></span>
+                </a>
+                <!-- Eliminar Matriz -->
+                <a (click)="fn_getIdMatriz($event,row)" class="pl-2" data-toggle="modal" data-target="#eliminarModal" style="color: orange; cursor: pointer; font-size: 18px;">
+                  <span class="fa fa-trash-o"></span>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Crear Regla Planes Forzoso -->
+<div class="modal fade" id="crearReglaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <app-crear-regla-depo-garantia-forzoso [lstReqAdmonPF]='lstReqAdmonPF' [idRegion]='idRegion' [idMatriz]='idMatriz' [auxDetallePF]='detallePforzosoVo'></app-crear-regla-depo-garantia-forzoso>
+</div>
+<!-- Modal Categoria Planes Forzoso -->
+<div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <app-categoria-planes-forzoso [detallePforzosoVo]='detallePforzosoVo' [activaBtn]='activaBtn' [idRegion]='idRegion'></app-categoria-planes-forzoso>
+</div>
+<!-- Modal Crear Matriz -->
+<div class="modal fade bd-example-modal-lg" id="crearMatrizModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <app-crear-matriz-depo-garantia-forzoso (eventLstMatriz)="fn_refrescaLista($event, 'crear')" [idRegion]='idRegion'></app-crear-matriz-depo-garantia-forzoso>
+</div>
+
+<!-- Modal Detalle Matriz -->
+<div class="modal fade bd-example-modal-lg" id="detalleMatrizModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <app-detalle-depo-garantia-forzoso [planForzosoVo]='planForzosoVo' [lstReqAdmonPF]='lstReqAdmonPF'>
+  </app-detalle-depo-garantia-forzoso>
+</div>
+
+<!-- Modal Eliminar Matriz -->
+<div class="modal fade bd-example-modal-lg" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <app-eliminar-matriz (eventOut)="eliminarRegistro()" [msnDelete]='msnDelete'>
+  </app-eliminar-matriz>
+</div>
+
+<!-- Modal Editar Matriz -->
+<div class="modal fade bd-example-modal-lg" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <app-editar-matriz (eventOut)="fn_modificaMatriz()" [matrizVo]='matrizVo' [lstEstatus]='lstEstatus' [estatus]='estatus'></app-editar-matriz>
+</div>
+
+<!-- Modal Clonar Matriz -->
+<div class="modal fade bd-example-modal-lg" id="clonarModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <app-clonar-matriz (eventLstMatriz)="fn_refrescaLista($event, 'clonar')" [planForzosoVo]='planForzosoVo' [matrizVo]='matrizVo'
+    [lstEstatus]='lstEstatus' [estatus]='estatus'></app-clonar-matriz>
+</div>
+
+<!-- Modal Eliminar Matriz -->
+<div class="modal fade bd-example-modal-lg" id="eliminaAllModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true">
+  <app-eliminar-matriz (eventOut)="eliminarAllRegistro()" (eventLstMatriz)="fn_refrescaLista($event, 'clonar')" [planForzosoVo]='planForzosoVo'
+    [lstTgMatriz]='lstTgMatriz' [msnDelete]='msnDelete'>
+  </app-eliminar-matriz>
+</div>

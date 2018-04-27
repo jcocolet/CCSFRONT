@@ -1,0 +1,12 @@
+#table {
+	height: 150px;
+	width: 100%;
+	overflow-y: auto;
+}
+.jumbotron {
+	background-color: #f2f2f2;
+}
+
+#internpanel {
+	overflow-y: auto;
+}

@@ -1,0 +1,27 @@
+.jumbotron {
+	background-color: #F9F9F9;
+	 min-height: 515px;
+	
+}
+
+table {
+	display: block;
+	min-height: 196px;
+	height: 100%;
+	background-color: #F9F9F9;
+}
+
+/* th {
+	width: 1%;
+} */
+
+.desactivado {
+	pointer-events: none;
+	background-color: darkgray;
+	cursor: not-allowed;
+	color: black;
+}
+
+.navbar-brand {
+	padding: 0px;
+}

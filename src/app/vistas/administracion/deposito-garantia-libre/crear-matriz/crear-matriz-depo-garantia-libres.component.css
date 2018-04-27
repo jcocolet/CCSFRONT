@@ -1,0 +1,59 @@
+.jumbotron {
+	background-color: #F9F9F9;
+	 min-height: 515px;
+}
+.modal-lg {
+    max-width: 65% !important;
+}
+.container
+{
+  height: 100%; 
+  position: relative;
+}
+.desactivado {
+	pointer-events: none;
+	background-color: darkgray;
+	cursor: not-allowed;
+	color: black;
+}
+table {
+	display: block;
+	min-height: 196px;
+	height: 100%;
+	background-color: white;
+}
+
+th {
+	width: 1%;
+}
+
+.navbar-brand {
+	padding: 0px;
+}
+button.disabled {
+	pointer-events: none;
+	cursor: default;
+ }
+
+ body {font-family: Arial, Helvetica, sans-serif;}
+
+hr.style18:before { 
+	display: block; 
+	content: ""; 
+	height: 20px; 
+	margin-top: -21px; 
+	border-style: solid; 
+	border-color: orange; 
+	border-width: 0 0 .1px 0; 
+	border-radius: 5px; 
+  }
+  .campoObligatorio {
+    color:red;
+    float: right;
+    font-size: 10px;
+    font-weight: bold;
+}
+.obligatorio{
+    content: "*"; 
+    color:red;
+}

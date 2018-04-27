@@ -1,0 +1,253 @@
+<div class="container">
+	<h6>DATOS DE LA REGLA</h6>
+	<div class="row m-3">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+			<div class="form-inline input-group-sm m-2">
+				<label class="w-50" translate>{{ 'Nombre de regla :' }}</label>
+				<input class="w-50" type="text" name="nombreRegla" [value]="informacionRegla.nombreRegla" disabled>
+			</div>
+			<div class="form-inline input-group-sm m-2">
+				<label class="w-50" translate> {{ 'Region :' }} </label>
+				<input class="w-50" type="text" name="nombreRegla" [value]="informacionRegla.region" disabled>
+			</div>
+			<div class="form-inline input-group-sm m-2">
+				<label class="w-50" translate> {{ 'Fecha inicio :' }} </label>
+				<input class="w-50" type="text" name="nombreRegla" [value]="informacionRegla.fechaInicio" disabled>
+			</div>
+      <div class="form-inline input-group-sm m-2">
+        <label class="w-50" translate>  {{ 'Fecha fin :' }} </label>
+        <input class="w-50" type="text" name="nombreRegla" [value]="informacionRegla.fechaFin" disabled>
+      </div>
+			<div class="m-2">
+				<label class="w-100" translate> {{ 'Fuerza de venta :' }} </label>
+				<select class="w-100" size="2">
+					<option *ngFor="let fv of informacionRegla.fuerzasVenta" translate> {{ fv }} </option>
+				</select>
+			</div>
+      <div class="m-2">
+        <label class="w-100"> {{ 'Tipo persona :' }} </label>
+        <select class="w-100" size="2">
+          <option *ngFor="let tp of informacionRegla.tiposPersona" translate> {{ tp }} </option>
+        </select>
+      </div>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+			<div class="m-2">
+				<label class="w-100"> {{ 'Tipo linea :' }} </label>
+				<select class="w-100" size="2">
+					<option *ngFor="let tl of informacionRegla.tiposLinea" translate> {{ tl }} </option>
+				</select>
+			</div>
+			<div class="m-2">
+				<label class="w-100" translate> {{ 'Canal :' }} </label>
+				<select class="w-100" size="2">
+					<option *ngFor="let canal of informacionRegla.canalesVenta" translate> {{ canal }} </option>
+				</select>
+			</div>
+      <div class="m-2">
+        <label class="w-100" translate>Mercado :</label>
+        <select class="w-100" size="2">
+          <option *ngFor="let mercado of informacionRegla.mercados" translate> {{ mercado }} </option>
+        </select>
+      </div>
+		</div>
+		<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+			<div class="m-2">
+				<label class="w-100" translate>Tipo de plan :</label>
+				<select class="w-100" size="2">
+					<option *ngFor="let tpl of informacionRegla.planes" translate> {{ tpl }} </option>
+				</select>
+			</div>
+			<div class="m-2">
+				<label class="w-100" translate>Tramite :</label>
+				<select class="w-100" size="2">
+					<option *ngFor="let tramite of informacionRegla.tramites" translate> {{ tramite }} </option>
+				</select>
+			</div>
+			<div class="m-2">
+				<label class="w-100" translate>Proyecto :</label>
+				<select class="w-100" size="2">
+					<option *ngFor="let tpro of informacionRegla.tiposProyecto" translate> {{ tpro }} </option>
+				</select>
+			</div>
+		</div>
+	</div>
+  <!--
+	<h6>DATOS DE VALORES DE RESPUESTA EN CASO DE ERROR POR COMPONENTE</h6>
+	<div class="row">
+		<div class="col-12">
+			<table class="table table-bordered table-sm table-hover m-0">
+      <thead class="thead-light">
+        <tr>
+          <th>
+            <div class="form-check">
+              <input class="form-check-input" 
+              type="checkbox" style="position: relative;" [checked]="checkBoxheaderSelected" 
+              (change)="checkBoxheaderSelected = !checkBoxheaderSelected">
+            </div>
+          </th>
+          <th *ngFor="let thn of elementosvComponente.columnas" class="text-truncate" 
+          scope="col" translate> {{ 'evaluacion_tramite.tabla.th.' }}{{ thn }} 
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of paginaActual">
+          <td> 
+            <div class="form-check w-25">
+              <input class="form-check-input" type="checkbox" value="registro.nombreFlujo" 
+              id="registro.nombreFlujo" [checked]="checkBoxheaderSelected" (change)="agregaListaMarcados($event, registro)">
+            </div> 
+          </td>
+          <td>
+            <label class="form-check-label" for="registro.nombreFlujo">
+              {{ registro.idRegla }}
+            </label>
+          </td>
+          <td> 
+            <label class="form-check-label text-truncate" for="registro.nombreFlujo">
+              {{ registro.nombreRegla }}
+            </label> 
+          </td>-->
+          <!--<td> {{ registro.tramite }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.fechaInicio }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.fechaFin }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.estatus | sts }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.canal }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.mercado }} </td>-->
+         <!-- <td class="text-truncate"> {{ registro.tipoPersona }} </td>-->
+         <!-- <td class="text-truncate"> {{ registro.tipoPlazo }} </td>-->
+         <!-- <td class="text-truncate"> {{ registro.tipoProyecto }} </td>-->
+         <!--
+          <td>
+            <a data-toggle="modal" data-target="#modal-generico"
+            style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-eye navbar-brand"(click)="verDetalleRegla()"></span>
+            </a>
+            <a style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-pencil navbar-brand"></span></a>
+            <a style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-clone navbar-brand" (click)="clonarRegla(registro.idRegla)"></span>
+            </a>
+            <a style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-trash-o navbar-brand" 
+              (click)="borrarRegistro(registro.idRegla)"></span></a>
+          </td>
+        </tr>
+      </tbody>
+    	</table>
+    	<div class="row justify-content-center p-0 pb-3">
+        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+          <nav aria-label="...">
+            <ul class="pagination pagination-sm justify-content-center">
+              <li class="page-item">
+                <a class="page-link" tabindex="-1" (click)="paginaAnterior()" 
+                [ngClass]="{'desactivado': numeroPaginaActual ==0 ? true:false }">
+                  {{ 'Anterior' }}
+                </a>
+              </li>
+              <li>
+                <select class="page-link" (change)="establecerRegistrosMostrar($event)">
+                  <option *ngFor="let numRegistros of multiplosPaginador"> 
+                    {{ numRegistros }}
+                  </option>
+                </select>
+              </li>
+              <li class="page-item">
+                <a class="page-link" tabindex="-1" (click)="siguientePagina()" 
+                [ngClass]="{'desactivado': numeroPaginaActual == numeroPaginas-1 || response.length<=0 ? true:false }"> 
+                  {{ 'Siguiente' }} 
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </div>
+		</div>
+	</div>
+	<h6>MODULOS DE EVALUACION</h6>
+	<div class="row">
+		<div class="col-12">
+			<table class="table table-bordered table-sm table-hover m-0">
+      <thead class="thead-light">
+        <tr>
+          <th>
+            <div class="form-check">
+              <input class="form-check-input" 
+              type="checkbox" style="position: relative;" [checked]="checkBoxheaderSelected" 
+              (change)="checkBoxheaderSelected = !checkBoxheaderSelected">
+            </div>
+          </th>
+          <th *ngFor="let thn of elementosvComponente.columnas" class="text-truncate" 
+          scope="col" translate> {{ 'evaluacion_tramite.tabla.th.' }}{{ thn }} 
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of paginaActual">
+          <td> 
+            <div class="form-check w-25">
+              <input class="form-check-input" type="checkbox" value="registro.nombreFlujo" 
+              id="registro.nombreFlujo" [checked]="checkBoxheaderSelected" (change)="agregaListaMarcados($event, registro)">
+            </div> 
+          </td>
+          <td>
+            <label class="form-check-label" for="registro.nombreFlujo">
+              {{ registro.idRegla }}
+            </label>
+          </td>
+          <td> 
+            <label class="form-check-label text-truncate" for="registro.nombreFlujo">
+              {{ registro.nombreRegla }}
+            </label> 
+          </td>-->
+          <!--<td> {{ registro.tramite }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.fechaInicio }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.fechaFin }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.estatus | sts }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.canal }} </td>-->
+          <!--<td class="text-truncate"> {{ registro.mercado }} </td>-->
+         <!-- <td class="text-truncate"> {{ registro.tipoPersona }} </td>-->
+         <!-- <td class="text-truncate"> {{ registro.tipoPlazo }} </td>-->
+         <!-- <td class="text-truncate"> {{ registro.tipoProyecto }} </td>-->
+         <!--
+          <td>
+            <a data-toggle="modal" data-target="#modal-generico"
+            style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-eye navbar-brand"(click)="verDetalleRegla()"></span>
+            </a>
+            <a style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-pencil navbar-brand"></span></a>
+            <a style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-clone navbar-brand" (click)="clonarRegla(registro.idRegla)"></span>
+            </a>
+            <a style="color: orange; cursor: pointer; font-size: 13px;"><span class="fa fa-trash-o navbar-brand" 
+              (click)="borrarRegistro(registro.idRegla)"></span></a>
+          </td>
+        </tr>
+      </tbody>
+    	</table>
+    	<div class="row justify-content-center p-0 pb-3">
+        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+          <nav aria-label="...">
+            <ul class="pagination pagination-sm justify-content-center">
+              <li class="page-item">
+                <a class="page-link" tabindex="-1" (click)="paginaAnterior()" 
+                [ngClass]="{'desactivado': numeroPaginaActual ==0 ? true:false }">
+                  {{ 'Anterior' }}
+                </a>
+              </li>
+              <li>
+                <select class="page-link" (change)="establecerRegistrosMostrar($event)">
+                  <option *ngFor="let numRegistros of multiplosPaginador"> 
+                    {{ numRegistros }}
+                  </option>
+                </select>
+              </li>
+              <li class="page-item">
+                <a class="page-link" tabindex="-1" (click)="siguientePagina()" 
+                [ngClass]="{'desactivado': numeroPaginaActual == numeroPaginas-1 || response.length<=0 ? true:false }"> 
+                  {{ 'Siguiente' }} 
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </div>
+		</div>
+	</div>
+-->
+</div>

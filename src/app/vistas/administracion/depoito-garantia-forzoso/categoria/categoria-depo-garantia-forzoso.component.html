@@ -1,0 +1,52 @@
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'general.titulos.titulo_categoria'}}</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <hr>
+
+    <div class="col-md-12 col-md-6 col-md-3">
+      <div id="table-responsive">
+        <table class="table table-bordered table-sm table-hover justify-content-center float-none">
+          <thead class="thead-light form-control-sm text-uppercase">
+            <tr>
+              <th class="text-truncate text-center " scope="col">
+                <div class="text-truncate text-center col-md-12">
+                  <input class="form-check-input text-center " (click)="fn_selectAll($event)" (change)="fn_checkbox()" [(ngModel)]="checkBoxheader" type="checkbox" style="position: relative;" />
+                  <!-- (click)="fn_selectAll()" -->
+                  <!-- (change)="boxCheckAll()" disabled="{{activaBtn}}" -->
+                </div>
+              </th>
+              <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_clave' }} </th>
+              <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_categoria' }} </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let categoriaVo of detallePforzosoVo.lstCategoriaVo" >
+              <td class="text-truncate text-center" scope="col">
+                <!-- <div class="text-truncate text-center col-md-12" scope="col"> -->
+                  <input class="form-check-input text-center" style="position: relative;" type="checkbox" (change)="checkBoxheader=false;" (change)="fn_checkbox()"
+                  id="seleccion" name="seleccion" #seleccion="ngModel" [(ngModel)]="categoriaVo.seleccion" >
+                  <!--  (change)="checkBoxheader=false;" -->
+                <!-- </div> -->
+              </td>
+              <td>{{categoriaVo.categoria}}</td>
+              <td>{{categoriaVo.descripcion}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row modal-footer">
+          <div class="row m-3 justify-content-center col-md-12 col-md-6 col-md-3">
+              <div class="form-group form-inline">
+            <button class="btn btn-primary btn-sm ml-auto mr-1" [disabled]=activaBtn data-toggle="modal" data-target="#crearReglaModal" data-dismiss="modal" translate> {{ 'general.botones.btn_siguiente' }} </button>
+            <button class="btn btn-primary btn-sm ml-1 mr-1" data-dismiss="modal" translate> {{ 'general.botones.btn_cancelar' }} </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

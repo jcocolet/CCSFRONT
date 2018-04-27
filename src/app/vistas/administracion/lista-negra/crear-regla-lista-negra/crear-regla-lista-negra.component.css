@@ -1,0 +1,44 @@
+#crln {
+	width: 520px;
+	height: 320px;
+	background-color: white;
+	position: absolute;
+	top: 0%;
+	left: 22%;
+	z-index: 9000;
+	border: 10px solid white;
+	border-radius: 6px;
+	box-shadow: 2px 2px 2px 2px;
+	display: block;
+}
+
+.lazy_style {
+	width: 520px;
+	height: 320px;
+	background-color: white;
+	position: absolute;
+	top: 22%;
+	left: 22%;
+	z-index: 9000;
+	border: 10px solid white;
+	border-radius: 6px;
+	box-shadow: 2px 2px 2px 2px;
+	display: block;
+}
+
+/*
+#crln {
+	width: 520px;
+	height: 320px;
+	background-color: white;
+	position: absolute;
+	top: 0%;
+	left: 22%;
+	z-index: 9000;
+	border: 10px solid white;
+	border-radius: 6px;
+	box-shadow: 2px 2px 2px 2px;
+	display: block;
+}
+
+*/

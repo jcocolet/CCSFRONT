@@ -1,0 +1,9 @@
+main {
+  background: url("/assets/images/BC_creditCheck.png");
+  /* background: url("/CreditCheckWebBack/assets/images/BC_creditCheck.png"); */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  min-height: 515px;
+}

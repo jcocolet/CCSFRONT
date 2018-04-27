@@ -1,0 +1,6 @@
+{
+  "cgClaseCredito": [
+    { "id": 1, "nombre": "BC", "descripcion": "Buen creditoC", "estatus":"Activo", "usuarioModificacion": "EX292351", "fechaModificacion": "10-03-2018"}
+  ]
+  
+}

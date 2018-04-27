@@ -1,0 +1,199 @@
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="row ml-1">
+                <h6 class="modal-title text-uppercase" translate>{{'planes_libres.titulo_planes_libres'}}</h6>
+                <input class="aria-hidden" type="text" id="idMatriz" value="{{idMatrizDecision}}" onchange="cargaInicialLstMatriz()">
+            </div>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-app-alert-planes-libres *ngIf="!componentePropietarioIB"></app-app-alert-planes-libres>
+            <div class="container">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="clasecredito" translate> {{ 'planes_libres.lbl_clase_credito' }} </label>
+                        <select name="clasecredito" id="clasecredito" class="form-control form-control-sm" [(ngModel)]="form.idClaseCredito"
+                        (change)="asignaDescripcionCR()">
+                            <option value=-1 translate> {{'general.combo.cmb_select'}} </option>
+                            <option *ngFor="let varClasCred of cbmClasecredito" value="{{varClasCred.idClaseCredito}}">{{varClasCred.descripcion}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="consDep" translate> {{ 'planes_libres.lbl_consulta_deposito' }} </label>
+                        <select name="consDep" id="consDep" class="form-control form-control-sm" [(ngModel)]="form.idAccionConsDep"
+                        (change)="asignaDescSiNo()">
+                            <option value=-1 translate> {{ 'general.combo.cmb_select' }} </option>
+                            <option *ngFor="let varConsDep of cboCgSiNo" value="{{varConsDep.idSiNo}}">{{varConsDep.descripcion}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="estatus" translate>{{ 'planes_libres.lbl_estatus' }}</label>
+                        <select class="form-control form-control-sm" name="estatus" id="estatus" [(ngModel)]="form.estatus"
+                        (change)="asignaDescEstatus()">
+                            <option value="-1" translate> {{ 'general.combo.cmb_select' }} </option>
+                            <option *ngFor="let varEstatus of cbmEstatus" value="{{varEstatus.clave}}">{{varEstatus.descripcion}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <p class="text-info" translate>{{'planes_libres.lbl_seccion_si_cumple_deposito'}}</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="accSiDep" translate> {{ 'planes_libres.lbl_accion' }} </label>
+                        <select name="accSiDep" id="accSiDep" class="form-control form-control-sm" [(ngModel)]="form.idAccionSiCumpleDep"
+                        (change)="asignaDescEstausRespAccionSi()">
+                            <option value=-1 translate> {{ 'general.combo.cmb_select' }} </option>
+                            <option *ngFor="let varAccionResp of cmbAccionRespuesta" value="{{varAccionResp.idAccion}}">{{varAccionResp.descripcion}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="msjSiDep" translate> {{ 'planes_libres.lbl_mensaje' }} </label>
+                        <textarea type="texto" class="form-control form-control-sm col-9 text-uppercase" rows="1" id="msjSiDep" name="msjSiDep" (keypress)="soloCaracteres($event)"
+                            [(ngModel)]="form.descMccionSiCumpleDep" maxlength="350">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <p class="text-info" translate>{{'planes_libres.lbl_seccion_no_cumple_deposito'}}</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="accNoDep" translate> {{ 'planes_libres.lbl_accion' }} </label>
+                        <select name="accNoDep" id="accNoDep" class="form-control form-control-sm" [(ngModel)]="form.idAccionNoCumpleDep"
+                        (change)="asignaDescEstausRespAccionNo()">
+                            <option value=-1 translate> {{ 'general.combo.cmb_select' }} </option>
+                            <option *ngFor="let varAccionResp of cmbAccionRespuesta" value="{{varAccionResp.idAccion}}">{{varAccionResp.descripcion}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="msjNoDep" translate> {{ 'planes_libres.lbl_mensaje' }} </label>
+                        <textarea type="texto" class="form-control form-control-sm col-9 text-uppercase" rows="1" id="msjNoDep" name="msjNoDep" (keypress)="soloCaracteres($event)"
+                        [(ngModel)]="form.descMsjNoCumpleDep"  maxlength="350">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12">
+                        <p class="text-info" translate>{{'planes_libres.lbl_seccion_adm'}}</p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="accionAdm" translate> {{ 'planes_libres.lbl_accion' }} </label>
+                        <select name="accionAdm" id="accionAdm" class="form-control form-control-sm" [(ngModel)]="form.idAccionAdm"
+                        (change)="asignaDescEstausRespAccionAdm()">
+                            <option value=-1 translate> {{ 'general.combo.cmb_select' }} </option>
+                            <option *ngFor="let varAccionResp of cmbAccionRespuesta" value="{{varAccionResp.idAccion}}">{{varAccionResp.descripcion}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <label for="msjAccionAdm" translate> {{ 'planes_libres.lbl_mensaje' }} </label>
+                        <textarea type="texto" class="form-control form-control-sm col-9 text-uppercase" rows="1" id="msjAccionAdm" name="msjAccionAdm"
+                        [(ngModel)]="form.descMsjAccionAdm" (keypress)="soloCaracteres($event)" maxlength="350" >
+                        </textarea>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <!-- BOTONES -->
+                <div class="row p-3">
+                    <div class="col-md-12">
+                        <div class="row justify-content-center form-inline">
+                            <button class="btn btn-primary btn-sm mr-1" (click)="agregarTabla(form)" *ngIf="btnAgrega" translate> {{ 'general.botones.btn_agregar' }} </button>
+
+                            <button class="btn btn-primary btn-sm mr-1" (click)="actualiza(form)" *ngIf="btnActualiza" translate> {{ 'Actualiza' }} </button>
+
+                            <button class="btn btn-primary btn-sm mr-1" (click)="guardar()" [disabled]="btnGuarda" translate> {{ 'general.botones.btn_guardar' }} </button>
+
+                            <button class="btn btn-primary btn-sm mr-1" data-dismiss="modal" translate> {{ 'Salir' }} </button>
+
+                            <button class="btn btn-primary btn-sm mr-1" (click)="limpiar()" translate> {{ 'general.botones.btn_limpiar' }} </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <br>
+            <div class="row">
+                <div class="col-md-12 col-md-6 col-md-3">
+                    <a (click)="limpiarCaptura()" class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;">
+                        <span class="fa fa-plus-circle"></span>
+                    </a>
+                    <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;"><span class="fa fa-trash-o"></span></a>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12 col-md-6 col-md-3 form-control-sm">
+                    <div id="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead class="table-active">
+                                <tr>
+                                    <th class="text-truncate " scope="col" translate> {{ 'planes_libres.lbl_col_name_No' }} </th>
+                                    <th class="text-truncate " scope="col" translate> {{ 'planes_libres.lbl_col_clase_cred' }} </th>
+                                    <th class="text-truncate " scope="col" translate> {{ 'planes_libres.lbl_col_accion_dep' }} </th>
+                                    <th class="text-truncate " scope="col" translate> {{ 'planes_libres.lbl_col_accion_si_dep' }} </th>
+                                    <th class="text-truncate " scope="col" translate> {{ 'planes_libres.lbl_col_accion_no_dep' }} </th>
+                                    <th class="text-truncate" scope="col" translate> {{ 'planes_libres.lbl_col_accion_adm' }} </th>
+                                    <th class="text-truncate" scope="col" translate> {{ 'planes_libres.lbl_col_acciones' }} </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let lst of lstMatriz; let i = index">
+                                <tr>
+                                    <td class="text-truncate text-center">{{i+1}}</td>
+                                    <td class="text-truncate text-center">{{lst.descClaseCredito}}</td>
+                                    <td class="text-truncate text-center">{{lst.descAccionConsDep}}</td>
+                                    <td class="text-truncate text-center">{{lst.descASiCumpleDep}}</td>
+                                    <td class="text-truncate text-center">{{lst.descAccionNoCumpleDep}}</td>
+                                    <td class="text-truncate text-center">{{lst.descIdAccionAdm}}</td>
+                                    <td class="text-truncate text-center">
+                                        <!-- icono modificar -->
+                                        <a (click)="modificarRegistro(lst)" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 16px;">
+                                            <span class="fa fa-pencil"></span>
+                                        </a>
+                                        <!-- icono clonar -->
+                                        <a (click)="clonarRegistro(lst)" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;">
+                                            <span class="fa fa-clone"></span>
+                                        </a>
+                                        <!-- icono eliminar -->
+                                        <a (click)="borrarRegistro(lst, i)" *ngIf="true" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;" class="pl-2">
+                                            <span class="fa fa-trash-o"></span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row justify-content-center">
+                            <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                                <select class="paginador">
+                                    <option>5</option>
+                                    <option>10</option>
+                                    <option>15</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-md-6 col-md-3">
+        <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal" style="color: orange; font-size: 22px; cursor: pointer;">
+            <span class="fa fa-plus-circle"></span>
+        </a>
+        <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;">
+            <span class="fa fa-trash-o"></span>
+        </a>
+    </div>
+</div>

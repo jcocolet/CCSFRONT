@@ -1,0 +1,180 @@
+<div class="jumbotron p-1 pl-5 pr-5 m-0">
+	<h6 class="text-uppercase mt-2 " translate> {{ 'planes_libres.titulo_planes_libres' }} </h6>
+	<hr>
+	<app-app-alert-planes-libres *ngIf="!componentePropietarioET"></app-app-alert-planes-libres>
+	<form>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="nombreRegla" translate> {{ 'planes_libres.lbl_nombre_regla' }} </label>
+				<input type="text" class="form-control form-control-sm text-uppercase" id="nombreRegla" name="nombreRegla" placeholder="Maximo 40 caracteres"
+				 [(ngModel)]="parametros.nombreRegla" (keypress)="soloCaracteres($event)" maxlength="40" />
+			</div>
+			<div class="form-group col-md-3">
+				<label for="estatus" translate>{{ 'planes_libres.lbl_estatus' }}</label>
+				<select class="form-control form-control-sm" name="estatus" id="estatus" [(ngModel)]="parametros.claveEstatus">
+					<option value="-3" translate> {{ 'general.combo.cmb_select' }} </option>
+					<option *ngFor="let est of cbmEstatus" value="{{est.estatus}}" class="d-inline-block text-truncate"> {{est.descripcion}} </option>
+				</select>
+			</div>
+			<div class="form-group col-md-3">
+				<label for="clasecredito" translate> {{ 'planes_libres.lbl_clase_credito' }} </label>
+				<select name="clasecredito" id="clasecredito" class="form-control form-control-sm" [(ngModel)]="parametros.clasecredito">
+					<option value="-1" translate> {{ 'general.combo.cmb_select' }} </option>
+					<option *ngFor="let claseCredito of cbmClaseCredito" value="claseCredito.clave">{{ claseCredito.descripcion }} </option>
+				</select>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-3">
+				<label for="consDeposito" translate> {{ 'planes_libres.lbl_consulta_deposito' }} </label>
+				<select class="form-control form-control-sm" name="consDeposito" id="consDeposito" [(ngModel)]="parametros.consDeposito">
+					<option value="-1" translate> {{ 'general.combo.cmb_select' }} </option>
+					<option *ngFor="let arrayCgSiNo of cboCgSiNo" value="arrayCgSiNo.idSiNo">{{ arrayCgSiNo.valor }}</option>
+				</select>
+			</div>
+		</div>
+	</form>
+	<div class="row justify-content-center col-md-12 col-md-6 col-md-3">
+		<div class="form-group form-inline">
+			<button class="btn btn-primary btn-sm ml-auto mr-1" (click)="buscarPL()" translate> {{ 'general.botones.btn_buscar' }} </button>
+			<button class="btn btn-primary btn-sm ml-2 mr-2" translate> {{ 'general.botones.btn_limpiar' }} </button>
+			<button class="btn btn-primary btn-sm mr-auto ml-1" translate *ngIf="false"> {{ 'general.botones.btn_siguiente' }} </button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 col-md-6 col-md-3">
+			<a (click)="clearMessage()" class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal" 
+				style="color: orange; font-size: 22px; cursor: pointer;">
+				<span class="fa fa-plus-circle" data-toggle="tooltip" data-placement="top" title="Crear nueva regla"></span>
+			</a>
+			<a  *ngIf="validarDatosSeleccionados()" (click)="borrarSeleccionados()" class="float-right mt-1 mr-2 mb-1" data-toggle="modal"
+			 data-target="#depurarEliminarModal" style="color: orange; font-size: 22px; cursor: pointer;">
+				<span class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="Eliminar registros"></span>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 col-md-6 col-md-3">
+			<div id="table-responsive">
+				<table class="table table-bordered table-sm table-hover justify-content-center float-none">
+					<thead class="thead-light">
+						<tr>
+							<th class="text-truncate text-center" scope="col" translate>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" style="position: relative;" [(ngModel)]="checkBoxheader" (change)="boxCheckAll()"
+									 disabled="{{this.response.length == 0}}" />
+								</div>
+							</th>
+							<th class="text-truncate " scope="col" translate> {{ 'planes_libres.th_col_name_id' }} </th>
+							<th class="text-truncate " scope="col" translate> {{ 'planes_libres.th_col_name_nombre_flujo' }} </th>
+							<th class="text-truncate " scope="col" translate> {{ 'planes_libres.th_col_name_estatus' }} </th>
+							<th class="text-truncate" scope="col" translate> {{ 'planes_libres.th_col_name_acciones' }} </th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let matrizResult of response ; let i = index">
+							<td class="text-truncate text-center" scope="col">
+								<div class="form-check w-25">
+									<input class="form-check-input" type="checkbox"  id="{{matrizResult.idMatrizDecision}}" name="{{matrizResult.idMatrizDecision}}"
+									(change)="checkBoxheader=false;"
+									[(ngModel)]="matrizResult.seleccionado">									
+								</div>
+							</td>
+							<td class="text-truncate text-center">{{matrizResult.idMatrizDecision}}</td>
+							<td scope="col" class="col">{{matrizResult.nombreMatriz}}</td>
+							<td class="text-truncate text-center">{{matrizResult.descripcionEstatusMat}}</td>
+							<td class="text-truncate text-center">
+								<!-- detalle modificar -->
+								<a (click)="verDetalle($event,matrizResult)" *ngIf="true" class="pl-2" data-toggle="modal" data-target="#detalleMatrizModal"
+								 style="color: orange; cursor: pointer; font-size: 18px;">
+									<span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver detalle de la regla"></span>
+								</a>
+								<a (click)="modifica(matrizResult, i)" *ngIf="true" class="pl-2" data-toggle="modal" data-target="#actualizarReglaModal"
+								 style="color: orange; cursor: pointer; font-size: 18px;">
+									<span class="fa fa-pencil" data-toggle="tooltip" title="Actualizar datos de la regla"></span>
+								</a>
+								<!-- icono clonar -->
+								<a (click)="clonarRegla($event,matrizResult)" *ngIf="matrizResult.estatusMatriz !== 'D'" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;">
+									<span class="fa fa-clone" data-toggle="tooltip" title="Clonar regla"></span>
+								</a>
+								<!-- icono administrar -->
+								<a (click)="categoria(matrizResult.idMatrizDecision)" *ngIf="matrizResult.estatusMatriz !== 'D'" class="pl-2" data-toggle="modal"
+								 data-target="#categoriaModal" style="color: orange; cursor: pointer; font-size: 18px;">
+									<span class="fa fa-cogs" data-toggle="tooltip" title="Administrar la matriz de regla"></span>
+								</a>
+								<!-- icono eliminar -->
+								<a *ngIf="matrizResult.estatusMatriz === 'D'" (click)="borrarSeleccionado(matrizResult, i)" class="pl-2" data-toggle="modal"
+								 data-target="#eliminarModal" style="color: orange; cursor: pointer; font-size: 18px;">
+									<span class="fa fa-trash-o" data-toggle="tooltip" title="Eliminar registro"></span>
+								</a>
+								<a *ngIf="matrizResult.estatusMatriz !== 'D'" (click)="borrarSeleccionado(matrizResult, i)" class="pl-2" data-toggle="modal"
+								 data-target="#depurarModal" style="color: orange; cursor: pointer; font-size: 18px;">
+									<span class="fa fa-trash-o" data-toggle="tooltip" title="Depurar registro"></span>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="row justify-content-center">
+					<div class="col-1 col-sm-1 col-md-1 col-lg-1">
+						<select class="paginador">
+							<option>5</option>
+							<option>10</option>
+							<option>15</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Crear Regla Planes Libres -->
+<div class="modal fade" id="crearReglaModal" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="true">
+	<app-crear-regla-planes-libres
+		(outCrearRegla)="eventCrearRegla($event)"
+	></app-crear-regla-planes-libres>
+</div>
+<!-- Modal Actualizar Plazo Libres -->
+<div class="modal fade" id="actualizarReglaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<app-actualiza-regla [idRegion]="idRegion" [nombreRegla]="nombreRegla" [estatusClave]="estatusClave" [idSeleccionado]="idSeleccionado"
+	 (outActualizarRegla)="eventActualizarRegla($event)">
+	</app-actualiza-regla>
+</div>
+
+
+
+<!-- Modal Categoria Planes Libres -->
+<div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="MyModalLabel" aria-hidden="false">
+	<app-categoria-planes-libres [idMatrizDecision]="idSeleccionado" [componentePropietarioIB]="componentePropietarioIB"></app-categoria-planes-libres>
+</div>
+<!-- Modal Crear Matriz Planes Libres -->
+<div class="modal fade bd-example-modal-lg" id="crearMatrizModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+ aria-hidden="true">
+	<app-crear-matriz-planes-libres></app-crear-matriz-planes-libres>
+</div>
+
+<!-- Modal Detalle Matriz Planes Libres -->
+<div class="modal fade bd-example-modal-lg" id="detalleMatrizModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+ aria-hidden="true">
+	<app-detalle-matriz-planes-libres [idSeleccionado]="idSeleccionado" [nombreRegla]="nombreRegla" [estatusClave]="estatusClave"
+	 [idRegion]="idRegion" [lstDetalle]="lstDetalle">
+	</app-detalle-matriz-planes-libres>
+</div>
+
+<!-- Modal Eliminar Matriz Planes Libres -->
+<div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<app-eliminar-matriz (eventOut)="eliminarRegistro()"></app-eliminar-matriz>
+</div>
+
+<!-- Modal Depurar Matriz Planes Libres -->
+<div class="modal fade" id="depurarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<app-depurar-matriz (eventOut)="eliminarRegistro()"></app-depurar-matriz>
+</div>
+
+ <!-- Modal Depurar Eliminar Matriz Planes Libres -->
+<div class="modal fade" id="depurarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<app-depura-elimiar-matriz (eventOut)="eliminarRegistro()" [totalDepurarEliminar]="totalDepurarEliminar" [totalDepurar]="totalDepurar"
+	 [totalEliminar]="totalEliminar"></app-depura-elimiar-matriz>
+</div> 

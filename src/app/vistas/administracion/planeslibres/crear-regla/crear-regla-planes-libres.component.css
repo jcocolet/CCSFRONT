@@ -1,0 +1,13 @@
+#crln {
+	width: 550px;
+	height: 350px;
+	background-color: white;
+	position: absolute;
+	top: 150px;
+	left: 325px;
+	z-index: 4000;
+	border: 22px solid white;
+	border-radius: 6px;
+	box-shadow: 2px 2px 2px 2px;
+	display: block;
+}

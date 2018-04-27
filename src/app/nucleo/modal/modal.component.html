@@ -1,0 +1,29 @@
+<!-- Modal -->
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="wrap" *ngIf="mostrarFondosubModal">
+      </div>
+      <div class="modal-header p-0 m-0">        
+        <div class="row">
+          <div class="col-11 col-sm-11 col-md-11 col-lg-11 col-xl-11">
+            <h6 class="modal-title pl-4 pt-2" id="example-modal-label">
+              <span class="text-uppercase" translate> {{ getNombrePaso() }} </span>
+            </h6>
+            <hr class="p-1 m-1">
+          </div>
+          <div class="col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+            <button type="button" class="close" data-dismiss="modal" aria-label="close">
+              <span class="mr-4" (click)="reiniciarFlujo()">x</span>
+            </button>
+          </div>
+        </div>
+        <app-stepper></app-stepper>
+        <app-navigation-controls></app-navigation-controls>
+      </div>
+      <div class="modal-body">
+        <ng-template flujoComponente></ng-template>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+</div>

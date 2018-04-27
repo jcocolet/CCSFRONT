@@ -1,0 +1,32 @@
+.modal-lg {
+  max-width: 45% !important;
+  max-height:none;
+}
+.container
+{
+height: 70%;
+position: relative
+}
+.modal-lg {
+max-width: 75% !important;
+}
+
+table {
+	display: block;
+	min-height: 196px;
+	height: 100%;
+	background-color: white;
+}
+th {
+width: 1%;
+}
+.navbar-brand {
+	padding: 0px;
+}
+
+.modal-scroll {
+  direction: ltr;
+  height: 300px;
+  overflow: auto;
+  right: 36px;
+}

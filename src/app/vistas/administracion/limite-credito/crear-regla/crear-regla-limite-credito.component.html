@@ -1,0 +1,43 @@
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'general.titulos.titulo_crear_regla'}}</h5> 
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formCRM" (ngSubmit)="onSubmit(formCRM.value)">
+                <div class="row m-3">
+                    <div class="col-md-12">
+                        <div class="form-inline input-group-sm">
+                            <label class="w-25" translate> {{ 'planes_libres.lbl_nombre_regla' }} </label>
+                            <input name="nombreReglaCRM" id="nombreReglaCRM" type="text" class="form-control w-75 text-uppercase" [formControl]="nombreReglaCRM">
+                        </div>
+                    </div>
+                </div>        
+                <div class="row m-3">
+                    <div class="col-md-12">
+                        <div class="form-inline">
+                            <label class="w-25" for="estatusCRM" translate> {{ 'planes_libres.lbl_estatus' }} </label>
+                            <select class="w-75" name="estatusCRM" id="estatusCRM" [formControl]="estatusCRM">
+                                <option translate> {{'general.combo.cmb_select'}} </option>
+						        <option *ngFor="let estatus of response1.listaEstatus" translate> {{ estatus.descripcion }} </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row modal-footer">
+                    <div class="col-md-12">
+                        <div class="form-inline">
+                            <input class="btn btn-primary btn-sm ml-auto mr-1" type="submit" value="Guardar">
+                            <input class="btn btn-primary btn-sm ml-1 mr-1" data-dismiss="modal" type="button" value="Cancelar">
+                            <input class="btn btn-primary btn-sm mr-auto ml-1" type="button" role="button" value="Limpiar" (click)="limpiarFormulario()">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>    
+    </div>
+</div>
+            

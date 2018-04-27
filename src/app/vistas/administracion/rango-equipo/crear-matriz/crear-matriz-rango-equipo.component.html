@@ -1,0 +1,251 @@
+<div class="table modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h6 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'rango_equipo.titulo_crear_matriz_rango_equipo'}}</h6>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="limpiar()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <app-alerta-rango-equipo></app-alerta-rango-equipo>
+      <div class="container">
+        <div class="row align-items-end">
+          <label class="mr-2">
+            <span>
+              <strong translate> {{ 'rango_equipo.lbl_accion_si_cumple' }}</strong>
+            </span>
+          </label>
+        </div>
+        <div class="row form-inline justify-content-center">
+          <div class="col-md-4 col-sm-4  col-lg-4 col-xl-4">
+            <div class="form-inline input-group-sm">
+              <label class="mr-1" translate> {{ 'rango_equipo.lbl_name_acción' }} </label>
+              <select class="col-md-6 form-control form-control-sm" [(ngModel)]="form.idAccSiCumpleRango">
+                <option value="0" translate>{{ 'general.combo.cmb_select' }}</option>
+                <option *ngFor="let accion of cmbAccionRespuesta" value="{{accion.idAccion}}" translate> {{ accion.descripcion }} </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-8 form-group p-1 form-inline">
+            <label class="ml-0 mr-1" for="minimo" translate>
+              {{ 'rango_equipo.lbl_mensaje' }}
+            </label>
+            <textarea [(ngModel)]="form.msjSiCumpleRango" (keypress)="evitaEspeciales($event)" class="form-control form-control-sm col-9"
+              rows="2" id="msj" name="msj" maxlength="350"></textarea>
+          </div>
+        </div>
+        <div class="row align-items-end">
+          <label class="mr-2">
+            <span>
+              <strong translate> {{ 'rango_equipo.lbl_accion_no_cumple' }}</strong>
+            </span>
+          </label>
+        </div>
+        <div class="row form-inline">
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+            <div class="form-inline input-group-sm">
+              <label for="accionSi" class="mr-1" translate> {{ 'rango_equipo.lbl_name_acción' }} </label>
+              <select [(ngModel)]="form.idAccNoCumpleRango" class="col-md-6 form-control form-control-sm" name="accionSi" id="accionSi">
+                <option value="0" translate> {{'general.combo.cmb_select'}} </option>
+                <option *ngFor="let accion of cmbAccionRespuesta" value="{{accion.idAccion}}" translate> 
+                  {{ accion.descripcion }} 
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-8 form-group p-1 form-inline">
+            <label class="ml-0 mr-1" for="mjsdos" translate>
+              {{ 'rango_equipo.lbl_mensaje' }}
+            </label>
+            <textarea [(ngModel)]="form.msjNoCumpleRango" (keypress)="evitaEspeciales($event)" 
+              class="form-control form-control-sm col-9" id="msjdos" rows="2"  maxlength="350"></textarea>
+          </div>
+        </div>
+        <div class="row justify-content-center pt-2">
+          <div class="col-md-4 col-md-2 m-0 p-1 form-inline float-right">
+            <label class="ml-0 mr-1" for="maximo" translate>
+              {{ 'rango_equipo.lbl_name_precio_lista_minimo' }}
+            </label>
+            <br>
+            <input class="form-control form-control-sm" type="text" id="minimo" (blur)="numberMinimoFormat($event.target.value)" 
+              name="minimo" size="15" (keypress)="evitaCharacteres($event)" [(ngModel)]="form.preciominimo"
+              placeholder="0.00" type="text" pattern="^[0-9.,]{1,15}$"  maxlength="12"/>
+          </div>
+          <div class="col-md-4 col-md-2 m-0 p-1 form-inline float-right">
+            <label class="ml-0 mr-1" for="maximo" translate>
+              {{ 'rango_equipo.lbl_name_precio_kit_minimo' }}
+            </label>
+            <br>
+            <input class="form-control form-control-sm" type="text" id="minimo" (blur)="numberKitMinimoFormat($event.target.value)" 
+              name="minimo" size="15" (keypress)="evitaCharacteres($event)" [(ngModel)]="form.precioKitMinimo"
+              placeholder="0.00" type="text" pattern="^[0-9.,]{1,12}$"  maxlength="12"/>
+          </div>
+          <div class="col-md-4 col-md-2 m-0 p-1 form-inline float-right">
+            <label class="ml-0 mr-1" for="maximo" translate>
+              {{ 'rango_equipo.lbl_name_precio_equipo_minimo' }}
+            </label>
+            <br>
+            <input class="form-control form-control-sm" type="text" id="minimo" (blur)="numberEqMinimoFormat($event.target.value)" 
+              name="minimo" size="15" (keypress)="evitaCharacteres($event)" [(ngModel)]="form.precioTotalMinimo"
+              placeholder="0.00" type="text" pattern="^[0-9.,]{1,12}$"  maxlength="12"/>
+          </div>
+        </div>
+        <div class="row justify-content-center pt-1">
+          <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+            <label class="ml-0 mr-1" for="maximo" translate>
+              {{ 'rango_equipo.lbl_name_precio_lista_maximo' }}
+            </label>
+            <br>
+            <input class="form-control form-control-sm" type="text" id="maximo" (blur)="numberMaximoFormat($event.target.value)" 
+              name="maximo" size="15" (keypress)="evitaCharacteres($event)" [(ngModel)]="form.preciomaximo"
+              placeholder="0.00" type="text" pattern="^[0-9.,]{1,12}$" maxlength="12"/>
+          </div>
+          <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+            <label class="ml-0 mr-1" for="maximo" translate>
+              {{ 'rango_equipo.lbl_name_precio_kit_maximo' }}
+            </label>
+            <br>
+            <input class="form-control form-control-sm" type="text" id="maximo" (blur)="numberKitMaximoFormat($event.target.value)" 
+              name="maximo" size="15" (keypress)="evitaCharacteres($event)" [(ngModel)]="form.precioKitMaximo"
+              placeholder="0.00" type="text" pattern="^[0-9.,]{1,15}$" maxlength="12"/>
+          </div>
+          <div class="col-md-4 col-md-2 m-0 p-1 form-inline">
+            <label class="ml-0 mr-1" for="maximo" translate>
+              {{ 'rango_equipo.lbl_name_precio_equipo_maximo' }}
+            </label>
+            <br>
+            <input class="form-control form-control-sm" type="text" id="maximo" (blur)="numberEqMaximoFormat($event.target.value)" 
+              name="maximo" size="15" (keypress)="evitaCharacteres($event)" [(ngModel)]="form.precioTotalMaximo"
+              placeholder="0.00" type="text" pattern="^[0-9.,]{1,15}$" maxlength="12"/>
+          </div>
+        </div>
+        
+        <div class="row justify-content-center form-inline pt-1">
+          <div class="col-md-4 col-md-3 m-0 p-1 form-inline">
+            <label for="clasecredito" class="mr-1" translate> {{ 'rango_equipo.lbl_clase_credito' }} </label>
+            <select [(ngModel)]="form.idClaseCredito" class="col-4 form-control form-control-sm">
+              <option value="0" translate>{{ 'general.combo.cmb_select' }}</option>
+              <option *ngFor="let claseCredito of cbmClasecredito" value="{{claseCredito.idClaseCredito}}" 
+                class="d-inline-block text-truncate">
+                 {{ claseCredito.descripcion }} 
+                </option>
+            </select>
+          </div>
+          <div class="col-md-4 col-md-3 m-0 p-1 form-inline">
+            <label class="mr-2" translate> {{ 'rango_equipo.lbl_name_accion_clave' }} </label>
+            <select class="col-4 form-control form-control-sm " [(ngModel)]="form.idAccion">
+              <option value="0" translate>{{ 'general.combo.cmb_select' }}</option>
+              <option *ngFor="let acc of cbmAccion" value="{{acc.idAccionClave}}" class="d-inline-block text-truncate"> 
+                {{acc.descripcion}} 
+              </option>
+            </select>
+          </div>
+          <div class="col-md-4 col-md-3 m-0 p-0">
+            <div class="form-inline input-group-sm p-sm-1">
+              <label class="mr-1" for="estatus" translate> {{ 'rango_equipo.lbl_estatus' }} </label>
+              <select [(ngModel)]="form.claveEstatus" class="col-4 form-control form-control-sm ">
+                <option value="" translate> {{ 'general.combo.cmb_select' }}</option>
+                <option *ngFor="let est of cbmEstatus" value="{{est.clave}}" class="d-inline-block text-truncate"> 
+                  {{est.descripcion}} 
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row p-2">
+          <div class="col-md-12">
+            <div class="row justify-content-center form-inline">
+              <button (click)="clearMessage()" (click)="agregarTabla()" *ngIf=(!isEditing) class="btn btn-primary btn-sm mr-1" translate> {{ 'general.botones.btn_agregar' }} </button>
+              <button (click)="clearMessage()" (click)="terminarEdicion()" *ngIf=(isEditing) class="btn btn-primary btn-sm mr-1" translate> {{ 'general.botones.btn_actualizar' }} </button>
+              <button (click)="clearMessage()" (click)="guardar()" class="btn btn-primary btn-sm mr-1" translate> {{ 'general.botones.btn_guardar' }} </button>
+              <button class="btn btn-primary btn-sm mr-1" (click)="limpiar()" data-dismiss="modal" translate> {{ 'general.botones.btn_salir' }} </button>
+              <button (click)="limpiar()" class="btn btn-primary btn-sm mr-1" translate> {{ 'general.botones.btn_limpiar' }} </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+         <div class="col-md-12 col-md-6 col-md-3">
+            <a (click)="limpiar()" class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;">
+              <span class="fa fa-plus-circle"></span>
+            </a>
+        </div>
+          <div class="col-md-12 col-md-6 col-md-3">
+            <div id="table-responsive">
+              <table class="table table-bordered table-sm table-hover justify-content-center float-none">
+                <thead class="thead-light">
+                  <tr>
+                    <th class="text-truncate" scope="col" translate> {{ 'rango_equipo.th_col_name_no' }} </th>
+                    <th class="text-truncate" scope="col" translate> {{ 'rango_equipo.lbl_col_name_clase_credito' }} </th>
+                    <th class="text-truncate" scope="col" translate> {{ 'rango_equipo.th_col_name_precio_linea_maximo' }} </th>
+                    <th class="text-truncate" scope="col" translate> {{ 'rango_equipo.th_col_name_precio_linea_minimo' }} </th>
+                    <!--<th class="text-truncate col-2" scope="col" translate> {{ 'rango_equipo.th_col_name_precio_kit_maximo' }} </th>
+                    <th class="text-truncate col-2" scope="col" translate> {{ 'rango_equipo.th_col_name_precio_kit_minimo' }} </th>
+                    <th class="text-truncate col-2" scope="col" translate> {{ 'rango_equipo.th_col_name_precio_eq_maximo' }} </th>
+                    <th class="text-truncate col-2" scope="col" translate> {{ 'rango_equipo.th_col_name_precio_eq_minimo' }} </th>-->
+                    <th class="text-truncate" scope="col" translate> {{ 'rango_equipo.th_col_name_acciones' }} </th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let row of lstDetalle; let i = index">
+                  <tr>
+                    <td>{{i + 1}}</td>
+                    <td>{{row.nombreClaseCredito}}</td>
+                    <td>{{row.preciomaximo}}</td>
+                    <td>{{row.preciominimo}}</td>
+                    <!--<td>{{row.precioKitMaximo}}</td>
+                    <td>{{row.precioKitMinimo}}</td>
+                    <td>{{row.precioTotalMaximo}}</td>
+                    <td>{{row.precioTotalMinimo}}</td>-->
+                    <td>
+                      <!-- icono modificar -->
+                      <a *ngIf="true" (click)="clearMessage()" (click)="editar(row)" class="pl-2" style="color: orange; cursor: pointer; font-size: 16px;">
+                        <span class="fa fa-pencil"></span>
+                      </a>
+                      <a *ngIf="false" class="pl-2" style="color: gray; cursor: pointer; font-size: 18px;">
+                        <span class="fa fa-pencil"></span>
+                      </a>
+                      <!-- icono clonar -->
+                      <a *ngIf="true" (click)="clearMessage()" (click)="clonar(row)" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;">
+                        <span class="fa fa-clone"></span>
+                      </a>
+                      <a *ngIf="false" class="pl-2" style="color: gray; cursor: pointer; font-size: 18px;">
+                        <span class="fa fa-clone"></span>
+                      </a>
+                      <!-- icono eliminar -->
+                      <a *ngIf="true" (click)="clearMessage()" (click)="eliminar(i)" class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;">
+                        <span class="fa fa-trash-o"></span>
+                      </a>
+                      <a *ngIf="false" class="pl-2" style="color: gray; cursor: pointer; font-size: 18px;">
+                        <span class="fa fa-trash-o"></span>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="row justify-content-center">
+                <!--<div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                  <select class="paginador">
+                    <option>5</option>
+                    <option>10</option>
+                    <option>15</option>
+                  </select>
+                </div>-->
+              </div>
+              <br>
+            </div>
+          </div>
+        </div>
+      
+
+  </div>
+  <!--<div class="row">
+    <div class="col-md-12 col-md-6 col-md-3">
+      <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal" style="color: orange; font-size: 22px; cursor: pointer;">
+        <span class="fa fa-plus-circle"></span>
+      </a>
+      <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;">
+        <span class="fa fa-trash-o"></span>
+      </a>
+    </div>
+  </div>-->
+</div>

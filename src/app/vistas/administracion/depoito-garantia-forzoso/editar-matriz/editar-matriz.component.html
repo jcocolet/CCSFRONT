@@ -1,0 +1,41 @@
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'deposito_garantia_pforzoso.lbl_editar_matriz'}}</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row m-3">
+        <div class="col-md-12">
+          <div class="form-inline input-group-sm">
+            <label class="w-25" translate> {{ 'deposito_garantia_pforzoso.lbl_nombre_regla' }} </label>
+            <input class="form-control form-control-sm text-uppercase  w-75" type="text" name="nombreMatriz" id="nombreMatriz" #nombreMatriz="ngModel"
+              [(ngModel)]="matrizVo.nombreMatriz" (keypress)="evitaEspeciales($event)" maxlength="250">
+          </div>
+        </div>
+      </div>
+      <div class="row m-3">
+        <div class="col-md-12">
+          <div class="form-inline">
+            <label class="w-25" translate> {{ 'deposito_garantia_pforzoso.lbl_estatus' }} </label>
+            <select class="form-control form-control-sm col-6" name="estatus" id="estatus" #estatus="ngModel" [(ngModel)]="matrizVo.estatusMatriz">
+              <option *ngFor="let estatus of lstEstatus" [ngValue]="estatus.clave">{{estatus.descripcion}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row modal-footer">
+        <div class="col-md-12">
+          <div class="form-inline">
+            <input type="button" (click)="modificar()" data-dismiss="modal" class="btn btn-primary btn-sm ml-auto mr-1" value="Actualizar">
+            <input type="button" data-dismiss="modal" class="btn btn-primary btn-sm mr-auto ml-1" value="Cerrar">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

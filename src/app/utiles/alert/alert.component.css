@@ -1,0 +1,32 @@
+.txt_messege{
+  font-family:Arial,Verdana,sans-serif;
+  line-height: 50px;
+  font-weight: bold;
+  font-size: 20px;
+  display: block;
+
+}
+div[class^='col-']{
+ border: 0px solid red;
+}
+
+.efecto1 {
+			width: 70%;
+			margin-left: auto;
+			margin-right: auto;
+			height: 40px;
+			
+			animation: example;
+			animation-duration: 12s;
+			opacity: 1;
+			border-radius: 6px;
+			position: absolute;
+			top: 30px;
+			left: 10%;
+			right: 10%;
+		}
+
+		@keyframes example {
+    		from {opacity: 1;}
+    		to {opacity: 0;}
+		}

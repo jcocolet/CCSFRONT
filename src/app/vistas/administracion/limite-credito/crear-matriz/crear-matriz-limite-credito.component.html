@@ -1,0 +1,268 @@
+<div class="table modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'general.titulos.titulo_crear_matriz'}}</h5> 
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form ></form>
+            <!-- <div class="container"> -->
+            <div class="row justify-content-around">
+                <div class="row col-12 d-flex justify-content-center">
+                    <!-- Tabla Catalogo Clase de credito  -->
+                    <div id="table" class="position-static col-4 form-control-sm">
+                        <table class="table table-sm">
+                            <thead class="table-active">
+                                <tr>
+                                    <th class="col-xs-3">
+                                        <input id="checkAll" 
+                                        name="checkAll" 
+                                        type="checkbox" 
+                                        aria-label="Checkbox for following text input"
+                                        ng-model="checkAll" value="checkAll">
+                                    </th>
+                                        <th class="col-xs-6" translate> 
+                                            {{ 'limite_credito.lbl_col_name_clase_credito' }} 
+                                        </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cg of cgVista">
+                                    <td class="col-xs-3" *ngIf="cg.claseCredito.length != 0">
+                                        <input type="checkbox" aria-label="Checkbox for following text input">
+                                    </td>
+                                    <td class="col-xs-6" *ngIf="cg.claseCredito.length != 0">
+                                        {{cg.descripcion}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Tabla Catalogo Clase de Clasificacion BC R09  -->
+                    <div id="table" class="position-static col-4 form-control-sm" *ngIf="false">
+                        <table class="table table-sm">
+                            <thead class="table-active">
+                                <tr>
+                                    <th class="col-xs-3">
+                                        <input type="checkbox" aria-label="Checkbox for following text input">
+                                    </th>
+                                    <th class="col-xs-6" translate> 
+                                        {{ 'limite_credito.lbl_col_name_clasificacion_BC_R9' }} 
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cgR9 of cgVista">
+                                    <td class="col-xs-3">
+                                        <input type="checkbox" aria-label="Checkbox for following text input">
+                                    </td>
+                                    <td class="col-xs-6">
+                                        {{cgR9.descripcion}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Tabla Catalogo Clasificacion BC DUR  -->
+                    <div id="table" class="position-static col-4 form-control-sm" *ngIf="true">
+                        <table class="table table-sm">
+                            <thead class="table-active">
+                                <tr>
+                                    <th class="col-xs-3">
+                                        <input type="checkbox" aria-label="Checkbox for following text input">
+                                    </th>
+                                    <th class="col-xs-6" translate> 
+                                        {{ 'limite_credito.lbl_col_name_clasificacion_BC_DEUR' }} 
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let cgDeur of cgVista">
+                                    <td class="col-xs-3">
+                                        <input type="checkbox" aria-label="Checkbox for following text input">
+                                    </td>
+                                    <td class="col-xs-6">
+                                        {{cgDeur.descripcion}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- TABLA OPCION RANGO DE RENTA -->
+                    <div id="table-responsive" class="position-static col-3 form-control-sm">
+                        <table class="table table-sm">
+                            <thead class="table-active">
+                                <tr>			
+                                    <th class= "col-xs-6" translate> 
+                                        {{ 'limite_credito.lbl_col_name_rango_renta' }} 
+                                    </th>		
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <div class="row col-md-12 col-md-6 col-md-3 p-3 d-flex justify-content-center">                                                   
+                                    <input ng-checked="opcion1" name="isCheck" class="" type="checkbox" aria-label="Checkbox for following text input">														
+                                    <label class="ml-1"  for="opcionSi" translate>                                       
+                                        {{ 'general.combo.si' }} </label>                                          
+                                        <input class="ml-3" type="checkbox" aria-label="Checkbox for following text input">															
+                                    <label class="ml-1" for="opcionNo" translate>                                       
+                                        {{ 'general.combo.no' }} </label>
+                                    </div>      
+                            </tbody>
+                        </table>
+                        <!-- TABLA IMPORTE DE LA RENTA  -->
+                        <table class="table table-sm form-control-sm">
+                            <thead class="table-active">
+                                <tr>			
+                                    <th translate> 
+                                        {{ 'limite_credito.lbl_col_name_importe_renta' }} 
+                                    </th>		
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <div class="col-md-12 col-md-6 col-xs-3 m-0 p-1">														
+                                    <label for="minimo" translate> 
+                                        {{ 'limite_credito.lbl_col_name_minimo' }} 
+                                    </label>
+                                    <input class="form-control form-control-sm" type="text" id="minimo" name="minimo" size="15" placeholder="0.00"/>
+                                </div>                                    
+                                <div class="col-md-12 col-md-6 col-xs-3 m-0 p-1">
+                                    <label for="maximo" translate> 
+                                        {{ 'limite_credito.lbl_col_name_maximo' }} 
+                                    </label>														
+                                    <input class="form-control form-control-sm" type="text" id="maximo" name="maximo" size="15" placeholder="0.00"/>
+                                </div>																	
+                            </tbody>
+                        </table>				
+                    </div>
+                    <!-- TABLA LIMITE DE CREDITO  -->
+                    <div id="table" class="col-12" *ngIf="true">
+                        <table class="table table-sm">
+                            <thead class="table-active">
+                                <tr>			
+                                    <th class= "col-xs-6" translate> {{ 'limite_credito.th_col_name_limite_credito' }} </th>		
+                                </tr>
+                            </thead>
+                            <tbody class="form-control-sm col-12 form-inline">                               
+                                <div class="col-auto form-control-sm">
+                                    <label class="col-auto" for="minimo" translate>
+                                        <input type="checkbox" aria-label="Checkbox for following text input"> 
+                                        {{ 'limite_credito.lbl_limite_credito' }} 
+                                    </label>        
+                                    <input class="col-auto form-control form-control-sm" type="text" id="minimo" name="minimo" size="20" placeholder="0.00"/>
+                                </div>
+                                <div class="col-auto form-control-sm">
+                                    <label class="col-auto" for="minimo" translate>
+                                        <input type="checkbox" aria-label="Checkbox for following text input"> 
+                                        {{ 'limite_credito.lbl_renta_mult' }} 
+                                    </label>        
+                                    <input class="col-auto form-control form-control-sm" type="text" id="minimo" name="minimo" size="20" placeholder="0.00"/>
+                                </div>
+                                <div class="col-auto form-control-sm">
+                                    <label class="col-auto" for="minimo" translate>
+                                        <input type="checkbox" aria-label="Checkbox for following text input"> 
+                                        {{ 'limite_credito.lbl_renta_mas_serv_por_mutl' }} 
+                                    </label>        
+                                    <input class="col-auto form-control form-control-sm" type="text" id="minimo" name="minimo" size="20" placeholder="0.00"/>
+                                </div>
+                                <div class="col-auto form-control-sm">
+                                    <label class="col-auto" for="minimo" translate>
+                                        <input type="checkbox" aria-label="Checkbox for following text input"> 
+                                        {{ 'limite_credito.lbl_captura_asesor' }} 
+                                    </label>        
+                                </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <div class="container">
+            <!-- BOTONES -->
+            <div class="row">               
+                <div class="col-md-12">
+                    <div class="row justify-content-center form-inline">
+                        <button class="btn btn-primary btn-sm mr-1" translate> {{ 'general.botones.btn_agregar' }} </button>
+                        <button class="btn btn-primary btn-sm mr-1" translate> {{ 'general.botones.btn_guardar' }} </button>
+                        <button class="btn btn-primary btn-sm mr-1" data-dismiss="modal" translate> {{ 'general.botones.btn_cancelar' }} </button>
+                        <button class="btn btn-primary btn-sm mr-1" translate> {{ 'general.botones.btn_limpiar' }} </button>
+                    </div>    
+                </div>
+            </div>  
+            <div class="row">
+                  
+                    <div class="col-md-12 col-md-6 col-md-3 form-control-sm">
+                            <div class="col-md-12 col-md-6 col-md-3">
+                                    <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal" style="color: orange; font-size: 22px; cursor: pointer;">
+                                    <span class="fa fa-plus-circle"></span>
+                                    </a>
+                                    <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal" style="color: grey; font-size: 22px;">
+                                            <span class="fa fa-plus-circle"></span>
+                                            </a>
+                                    <a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;">
+                                    <span class="fa fa-trash-o"></span>
+                                    </a>
+                                    <a class="float-right mt-1 mr-2 mb-1" style="color: grey; font-size: 22px;">
+                                            <span class="fa fa-trash-o"></span>
+                                            </a>
+                                </div>
+                        <div id="table-responsive">
+                            <table class="table table-bordered table-sm table-hover justify-content-center float-none">
+                                <thead class="table-active col-10">
+                                    <tr>
+                        <th class= "text-truncate col-1" scope="col" translate> {{ 'id' }} </th>
+                                        <th class= "text-truncate col-1" scope="col" translate> {{ 'clase credito' }} </th>
+                                        <th class= "text-truncate col-2" scope="col" translate> {{ 'limite_credito.th_col_name_limite_credito' }} </th>
+                                        <th class= "text-truncate " scope="col" translate> {{ 'limite_credito.th_col_name_clasificacion_BC' }} </th>
+                                        <th class= "text-truncate " scope="col" translate> {{ 'limite_credito.th_col_name_minimo_renta' }} </th>
+                                        <th class= "text-truncate " scope="col" translate> {{ 'limite_credito.th_col_name_maximo_renta' }} </th>
+                                        <th class= "text-truncate " scope="col" translate> {{ 'deposito' }} </th>
+                                        
+                                        
+                                        <th class= "text-truncate" scope="col" translate> {{ 'limite_credito.th_col_name_acciones' }} </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td >1</td>
+                                        <td >BC</td>
+                                        <td >EXCELENTE</td>
+                                        <td >1.00</td>
+                                        <td >20.000.00</td>
+                                        <td >RANGO R=5.000.00</td>
+                                        <td >01/03/2018 14:00</td>
+                                        <td >05/03/2018 12:30</td>
+                                        <td>
+                                            <!-- icono modificar -->
+                                            <a *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 16px;"><span class="fa fa-pencil"></span></a>
+                                            <a *ngIf="false" class="pl-2" style="color: gray; cursor: pointer; font-size: 18px;"><span class="fa fa-pencil"></span></a>
+                                            <!-- icono clonar -->
+                                            <a *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;"><span class="fa fa-clone"></span></a>
+                                            <a *ngIf="false" class="pl-2" style="color: gray; cursor: pointer; font-size: 18px;"><span class="fa fa-clone"></span></a>
+                                            <!-- icono eliminar -->
+                                            <a *ngIf="true"  class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;"><span class="fa fa-trash-o"></span></a>
+                                            <a *ngIf="false" class="pl-2" style="color: gray; cursor: pointer; font-size: 18px;"><span class="fa fa-trash-o"></span></a>
+                                                                        
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div class="row justify-content-center">
+                                    <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                                        <select class="paginador">
+                                            <option>5</option>
+                                            <option>10</option>
+                                            <option>15</option>
+                                        </select>
+                                    </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>  
+            </div>   
+        </div>
+    </div>
+</div>
+

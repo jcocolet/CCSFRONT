@@ -1,0 +1,94 @@
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'general.titulos.titulo_detalle_matriz'}}</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <fieldset disabled>
+        <div class="row form-inline justify-content-center ">
+          <div class="row m-3">
+            <div class="col-md-15">
+              <div class="form-inline input-group-sm">
+                <label translate> {{ 'deposito_garantia_pforzoso.lbl_nombre_regla' }} </label>
+                <input class="form-control form-control-sm text-uppercase" type="text" [ngModel]="planForzosoVo.nomRegla" />
+              </div>
+            </div>
+          </div>
+          <div class="row m-3">
+            <div class="col-md-15">
+              <div class="form-inline input-group-sm">
+                <label translate> {{ 'deposito_garantia_pforzoso.lbl_estatus' }} </label>
+                <input class="form-control form-control-sm text-uppercase" type="text" [ngModel]="planForzosoVo.estatus" />
+              </div>
+            </div>
+          </div>
+             <!--<tr>
+              <td>
+                <div class="row m-3">
+                  <div class="col-md-15">
+                    <div class="form-inline input-group-sm">
+                      <label translate> {{ 'deposito_garantia_pforzoso.lbl_clase_credito' }} </label>
+                      <input class="form-control form-control-sm text-uppercase" type="text" id="nomRegla" name="nomRegla" #nomRegla="ngModel"
+                        [(ngModel)]="planForzosoVo.claseCredito" />
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td align="right">
+                <div class="row m-3">
+                  <div class="col-md-15">
+                    <div class="form-inline input-group-sm">
+                      <label translate> {{ 'deposito_garantia_pforzoso.lbl_consulta_deposito' }} </label>
+                      <input class="form-control form-control-sm text-uppercase" type="text" id="nomRegla" name="nomRegla" #nomRegla="ngModel"
+                        [(ngModel)]="planForzosoVo.bloqueado" />
+                    </div>
+                  </div>
+                </div>
+            </tr>-->
+        </div>
+      </fieldset>
+      <div class="row">
+        <div class="col-md-12 col-md-6 col-md-3">
+          <div id="table-responsive">
+            <table class="table table-bordered table-sm justify-content-center float-none">
+              <thead class="thead-light">
+                <tr>
+                  <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_Tsicumple' }} </th>
+                  <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_Tnocumple' }} </th>
+                  <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_TaccionClave' }} </th>
+                  <th class="text-truncate " scope="col" translate> {{ 'deposito_garantia_pforzoso.lbl_msn_Tbloq' }} </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of lstReqAdmonPF" class="form-control-sm text-uppercase">
+                  <td>{{row.accionSi}}</td>
+                  <td>{{row.accionNo}}</td>
+                  <td>{{row.acciosnClave}}</td>
+                  <td>{{row.bloqueado}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- <div class="row conteiner col-md-12 col-md-6 col-md-3 justify-content-center">
+              <div class="col-2 ml-2">
+                <select class="paginador">
+                  <option>5</option>
+                  <option>10</option>
+                  <option>15</option>
+                </select>
+              </div>
+            </div> -->
+            <br>
+          </div>
+        </div>
+      </div>
+      <div class="row modal-footer conteiner col-md-12 col-md-6 col-md-3 justify-content-center">
+        <div class="col-2 ml-2">
+          <input type="button" data-dismiss="modal" class="btn btn-primary btn-sm ml-auto mr-1" value="Cerrar">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

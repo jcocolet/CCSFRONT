@@ -1,0 +1,243 @@
+<div class="jumbotron p-3">
+	<app-alert *ngIf="componentePropietarioIB"></app-alert>
+	<div class="form-inline input-group-sm m-1">
+		<button class="btn btn-primary btn-sm ml-auto mr-1" (click)="onSubmit(form.value)" [disabled]="btnGuardarDesactivado">{{ 'Guardar' }}</button>
+		<a class="ml-1 mr-auto" routerLink="/home/administracion/agruparcomponentes">
+			<button class="btn btn-primary btn-sm" [disabled]="btnSiguienteDesactivado">{{ 'Siguiente' }}</button>
+		</a>
+	</div>
+	<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+		<div class="row border border-dark">
+			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pl-5">
+				<div class="row mt-4 mb-4 align-items-end">
+					<div class="col-5 col-sm-5 col-md-12 col-lg-5 col-xl-5 p-0">
+						<label class="form-control-label d-flex justify-content-start" 
+						for="nombreFlujo" translate>
+							{{ 'informacion_basica.lbl_nombre_regla' }}
+						</label>
+					</div>
+					<div class="col-7 col-sm-7 col-md-12 col-lg-7 col-xl-7 p-0">
+						<div class="form-inline input-group-sm">
+							<input class="form-control w-100 text-uppercase" type="text" name="nombreFlujo"
+							id="nombreFlujo" [formControl]="nombreFlujo" 
+							(keypress)="evitaEspeciales($event)" 
+							 placeholder="8 caracteres minimo">
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4 mb-4 align-items-center">
+					<div class="col-2 col-sm-2 col-md-12 col-lg-2 col-xl-2 p-0">
+						<label class="text-left w-100 d-flex justify-content-start" translate>
+							{{ 'informacion_basica.lbl_region' }} 
+						</label>
+					</div>
+					<div class="col-10 col-sm-10 col-md-12 col-lg-10 col-xl-10 p-0">
+						<div class="form-inline input-group-sm w-100">
+							<div *ngFor="let region of regiones" class="form-check m-1" style="width: auto;">
+								<input class="form-check-input" type="checkbox" value="{{ region }}" name="{{ region }}" id="{{ region }}"  [checked]="region === regionUsuario" disabled>
+								<label  class="form-check-label" for="{{ region }}">
+    								{{ region }}
+  								</label>
+  							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4 mb-4 align-items-center">
+					<div class="col-4 col-sm-4 col-md-9 col-lg-5 col-xl-5 p-0">
+						<label class="text-left w-100 d-flex justify-content-start" for="tiempoIndefinido" translate>
+							{{ 'informacion_basica.lbl_tiempo_indefinido' }} 
+						</label>
+					</div>
+					<div class="col-8 col-sm-8 col-md-3 col-lg-7 col-xl-7 p-0">
+						<div class="form-inline input-group-sm w-100">
+							<div class="form-check m-1" style="width: auto;">
+								<input class="form-check-input" type="checkbox" name="tiempoIndefinidoCtrl" id="tiempoIndefinidoCtrl"       [formControl]="tiempoIndefinidoCtrl" [checked]="tiempoIndefinido" (change)="intercambiaOpciones()">
+  							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4 mb-4">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+						<label class="form-check-label w-100 d-flex justify-content-start" for="fechaInicio" translate> 
+							{{ 'informacion_basica.lbl_fecha_inicio' }}
+						</label>
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+						<input class="w-100" type="date" name="fechaInicio" id="fechaInicio" 
+						[formControl]="fechaInicio">
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+						<label class="form-check-label w-100 d-flex justify-content-center" for="fechaInicio" translate> 
+							{{ 'informacion_basica.lbl_fecha_fin' }}
+						</label>
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+						<input class="w-100" type="date" name="fechaFin" id="fechaFin" 
+						[formControl]="fechaFin">
+					</div>
+				</div>
+								<div class="row mt-4 mb-4">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 p-0">
+						<label class="form-control-label d-flex justify-content-start" translate>
+							{{ 'informacion_basica.lbl_tipo_persona' }}
+						</label>
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 p-0">
+						<div class="form-inline input-group-sm">
+							<div  *ngFor="let persona of response1.tiposPersona" class="form-check d-flex justify-content-start mr-3">
+  								<input name="{{ persona.descripcion }}" class="form-check-input"  type="checkbox" id="{{ persona.idTipoPersona }}{{ persona.descripcion }}" value="{{ persona.descripcion }}" [checked]="obj.tiposPersona[persona.idTipoPersona]" (change)="obj.tiposPersona[persona.idTipoPersona] = !obj.tiposPersona[persona.idTipoPersona]">
+  								<label class="form-check-label" for="{{ persona.idTipoPersona }}{{ persona.descripcion }}">
+    								{{ persona.descripcion }}
+  								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 pl-5">
+				<div class="row mt-4 mb-4">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2 p-0">
+						<label class="form-check-label d-flex justify-content-start" translate>
+							{{ 'informacion_basica.lbl_mercado' }}
+						</label>
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-10 col-xl-10 p-0">
+						<div class="form-inline input-group-sm">
+							<div *ngFor="let mercado of response1.mercados" class="form-check d-flex justify-content-start ml-2 mr-3">
+								<input name="{{ mercado.descripcion }}" class="form-check-input" type="checkbox" value="{{ mercado.descripcion }}" id="{{ mercado.idMercado }}{{ mercado.descripcion }}" [checked]="obj.mercados[mercado.idMercado]" (change)="obj.mercados[mercado.idMercado] = !obj.mercados[mercado.idMercado]">
+								<label class="form-check-label" for="{{ mercado.idMercado }}{{ mercado.descripcion }}">
+    								{{ mercado.descripcion }}
+  								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4 mb-4">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+						<label class="form-check-label d-flex justify-content-start" translate>
+							{{ 'informacion_basica.lbl_tipo_linea' }}
+						</label>
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9 p-0">
+						<div class="form-inline input-group-sm">
+							<div *ngFor="let linea of response1.tiposLinea" class="form-check d-flex justify-content-start ml-2 mr-3">
+								<input class="form-check-input" type="checkbox" value="{{ linea.descripcion }}" id="{{ linea.idTipoLinea }}{{ linea.descripcion }}" name="{{ linea.descripcion }}" [checked]="obj.tiposLinea[linea.idTipoLinea]" (change)="obj.tiposLinea[linea.idTipoLinea] = !obj.tiposLinea[linea.idTipoLinea]">
+								<label class="form-check-label" for="{{ linea.idTipoLinea }}{{ linea.descripcion }}">
+    								{{ linea.descripcion }}
+  								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4 mb-4">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+						<label class="form-check-label d-flex justify-content-start" translate>
+							{{ 'informacion_basica.lbl_tipo_plan' }}
+						</label>
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 p-0">
+						<div class="form-inline input-group-sm">
+							<div *ngFor="let plan of response1.tiposPlan" class="form-check d-flex justify-content-start ml-2 mr-3">
+								<input class="form-check-input" type="checkbox" value="{{ plan.descripcion }}" id="{{ plan.idTipoPlan }}{{ plan.descripcion }}" name="{{ plan.descripcion }}" [checked]="obj.tiposPlan[plan.idTipoPlan]" (change)="obj.tiposPlan[plan.idTipoPlan] = !obj.tiposPlan[plan.idTipoPlan]">
+								<label class="form-check-label" for="{{ plan.idTipoPlan }}{{ plan.descripcion }}">
+    								{{ plan.descripcion }}
+  								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4 mb-4">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+						<label class="form-check-label d-flex justify-content-start" translate>
+							{{ 'informacion_basica.lbl_tipo_plazo' }}
+						</label>
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 p-0">
+						<div class="form-inline input-group-sm">
+							<div *ngFor="let plazo of response1.tiposPlazo" class="form-check d-flex justify-content-start ml-2 mr-3">
+								<input class="form-check-input" type="checkbox" value="{{ plazo.descripcion }}" id="{{ plazo.idTipoPlazo }}{{ plazo.descripcion }}" name="{{ plazo.descripcion }}" [checked]="obj.tiposPlazo[plazo.idTipoPlazo]" (change)="obj.tiposPlazo[plazo.idTipoPlazo] = !obj.tiposPlazo[plazo.idTipoPlazo]">
+								<label class="form-check-label" for="{{ plazo.idTipoPlazo }}{{ plazo.descripcion }}">
+    								{{ plazo.descripcion }}
+  								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-4 mb-4">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3 p-0">
+						<label class="form-check-label d-flex justify-content-start" translate>
+							{{ 'informacion_basica.lbl_forma_pago' }}
+						</label>
+					</div>
+					<div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 p-0">
+						<div class="form-inline input-group-sm">
+							<div *ngFor="let fp of response1.formasPago" class="form-check d-flex justify-content-start ml-2 mr-3">
+								<input class="form-check-input" type="checkbox" value="{{ fp.descripcion }}" id="{{ fp.idFormaPago }}{{ fp.descripcion }}" name="{{ fp.descripcion }}" [checked]="obj.formasPago[fp.idFormaPago]" (change)="obj.formasPago[fp.idFormaPago] = !obj.formasPago[fp.idFormaPago]">
+								<label class="form-check-label" for="{{ fp.idFormaPago }}{{ fp.descripcion }}">
+    								{{ fp.descripcion }}
+  								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div *ngIf="regionUsuario == 9" class="row mt-4 mb-4">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0">
+						<div class="form-inline input-group-sm">
+							<div class="form-check d-flex justify-content-start">
+								<label class="form-check-label ml-2 mr-3" for="" translate>
+    								{{ 'informacion_basica.lbl_venta_plazos' }}
+  								</label>
+								<input class="form-check-input" type="checkbox" value="" id="" name="" [formControl]="ventaPlazos">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div *ngFor="let tabla of tablas" class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 mb-4">
+				<div id="table">
+					<table class="table table-bordered table-sm table-hover">
+    					<thead class="thead-light">
+    						<tr>
+    						 	<th>
+      								<div class="form-check">
+										<input class="form-check-input" 
+										type="checkbox"
+										style="position: relative;" (change)="seldesChkbx($event,tabla.nombre);">
+									</div>
+								</th>
+      							<th class="text-truncate" scope="col" translate> 
+      							{{'informacion_basica.'}}{{ tabla.nombre }}
+      							</th>
+    						</tr>
+  						</thead>
+  						<tbody>
+    						<tr *ngFor="let registro of tabla.datos">
+    							<td>
+    								<div class="form-check">
+    									<!--
+										<input class="form-check-input" type="checkbox" value="{{ registro.descripcion }}" id="{{ registro.descripcion }}" name="{{ registro.descripcion }}" 
+										(click)="getInfoRelacionada($event,tabla.nombre,registro)" formControlName="{{ registro.descripcion }}" [checked]="obj[tabla.nombre][registro.descripcion]" 
+										(change)="obj[tabla.nombre][registro.descripcion] = !obj[tabla.nombre][registro.descripcion]">-->
+										<input class="form-check-input" type="checkbox" value="{{ registro.descripcion }}" id="{{ tabla.nombre }}{{ registro.id }}{{ registro.descripcion }}" name="{{ registro.descripcion }}" 
+										(change)="getInfoRelacionada($event,tabla.nombre,registro)"
+										[checked]="obj[tabla.nombre][registro.id]"
+										(change)="obj[tabla.nombre][registro.id] = !obj[tabla.nombre][registro.id]">
+									</div>
+    							</td>
+    							<td>
+    								<label class="form-check-label" for="{{ tabla.nombre }}{{ registro.id }}{{ registro.descripcion }}" 
+    								id="{{ registro.descripcion }}">
+    									{{ registro.descripcion }}
+  									</label>
+    							</td>
+    						</tr>
+  						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

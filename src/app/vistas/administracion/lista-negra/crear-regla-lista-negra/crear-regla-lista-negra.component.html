@@ -1,0 +1,45 @@
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        		<h6 class="m-0 p-0 text-uppercase" translate> 
+		{{ 'lista_negra.crear_regla.titulo' }} 
+	</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+	<app-alert></app-alert>
+	<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+	<div class="row m-3 mt-4">
+		<div class="col-md-12">
+			<div class="form-inline input-group-sm">
+			<label class="w-50" translate> {{ 'lista_negra.crear_regla.lbl_nombre_regla' }} </label>
+			<input type="text" class="form-control w-50 text-uppercase" name="nombreRegla" id="nombreRegla" [formControl]="nombreRegla" (keypress)="evitaEspeciales($event)" maxlength="250" spellcheck>
+			</div>
+		</div>
+	</div>
+	<div class="row m-3">
+		<div class="col-md-12">
+			<div class="form-inline">
+				<label class="w-25" translate> {{ 'lista_negra.crear_regla.lbl_estatus' }} </label>
+				<select class="w-75" name="estatus" id="estatus" [formControl]="estatus">
+					<option value="" translate> {{ 'general.form.select_default' }} </option>
+					<option *ngFor="let item of estatusList" [value]="item.clave"> {{ item.descripcion }} </option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="row m-3 mt-4">
+		<div class="col-md-12">
+			<div class="form-inline">
+				<input class="btn btn-primary btn-sm ml-auto mr-1" value="{{ 'Guardar' }}" type="submit" data-dismiss="modal" aria-label="Close" (click)="onSubmit(form.value)">
+				<input class="btn btn-primary btn-sm ml-1 mr-1" type="button" value="{{ 'Cancelar' }}" data-dismiss="modal" aria-label="Close">
+				<input class="btn btn-primary btn-sm mr-auto ml-1" type="button" value="{{ 'Limpiar' }}" (click)="limpiarFormulario();">
+			</div>
+		</div>
+	</div>
+</form>
+        </div>    
+    </div>
+</div>

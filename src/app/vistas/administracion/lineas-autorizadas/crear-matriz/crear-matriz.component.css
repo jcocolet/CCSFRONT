@@ -1,0 +1,35 @@
+.jumbotron {
+	background-color: #F9F9F9;
+	 min-height: 515px;
+	
+}
+.modal-lg {
+    max-width: 70% !important;
+}
+.container
+{
+  height: 100%; 
+  position: relative;
+}
+.desactivado {
+	pointer-events: none;
+	background-color: darkgray;
+	cursor: not-allowed;
+	color: black;
+}
+table {
+	display: block;
+	min-height: 196px;
+	height: 100%;
+	background-color: white;
+}
+th {
+	width: 1%;
+}
+.navbar-brand {
+	padding: 0px;
+}
+button.disabled {
+	pointer-events: none;
+	cursor: default;
+ }

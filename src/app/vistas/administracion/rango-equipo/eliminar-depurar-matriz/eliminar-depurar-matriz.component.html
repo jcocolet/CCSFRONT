@@ -1,0 +1,30 @@
+<div class="modal-dialog modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{msjEliminarTitulo}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <i class="fa fa-warning" style="font-size:48px;color:red"></i>
+            <div class="row col-md-12 col-md-6 justify-content-center">
+                <span> Total de registros seleccionados {{totalDepurarEliminar}}</span>
+            </div>
+            <div class="row justify-content-center col-md-12 col-md-6">
+                <span> Se depurarán {{totalDepurar}} registro(s) y {{totalEliminar}} registro(s) se eliminarán. </span>
+            </div>
+            <div class="row justify-content-center col-md-12 col-md-6">
+                <span translate>{{'general.form.confimacion'}}</span>
+            </div>
+            <br>
+            <div class="row modal-footer justify-content-center form-inline">
+
+                <button class="btn btn-primary btn-sm mr-2 " (click)="regresar()" data-dismiss="modal" translate> {{ 'general.botones.btn_aceptar' }} </button>
+                <button class="btn btn-primary btn-sm " data-dismiss="modal" translate> {{ 'general.botones.btn_cancelar' }} </button>
+
+            </div>
+        </div>
+    </div>
+
+</div>

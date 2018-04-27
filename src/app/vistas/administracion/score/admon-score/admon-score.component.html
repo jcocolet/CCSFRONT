@@ -1,0 +1,231 @@
+<div class="jumbotron p-1 pl-5 pr-5 m-0">
+    <h6 class="text-uppercase mt-2 " translate> {{ 'score.titulo' }} </h6>
+    <hr>
+    <h6 class="text-uppercase mt-2" translate> {{'score.titulo_buscar'}}</h6>
+    <!-- <app-alerta-deposito-plibres *ngIf="!componentePropietarioET"></app-alerta-deposito-plibres>       -->
+    <app-alerta-score></app-alerta-score>
+    <div class="row  justify-content-center input-group-sm">
+        <div class="col-md-5 col-sm-4 m-0 form-inline input-group-sm float-right">
+            <label for="nombreRegla"  class="ml-0 mr-1" translate> {{ 'score.lbl_nombre_regla' }} </label>
+            <input id="nombreRegla" name="nombreRegla" class="col-md-6 form-control text-uppercase"
+            [(ngModel)]="parametros.nombreMatriz" type="text" (keypress)="soloCaracteres($event)" maxlength="40" >
+        </div>
+         <div class="col-md-4 col-sm-3 m-0 form-inline input-group-sm float-right">
+            <label for="region"translate class="mr-1"> {{ 'score.lbl_clase_credito' }} </label>
+            <select class="form-control form-control-sm col-6" name="clasecredito" id="clasecredito"
+            [(ngModel)]="parametros.idClasecredito">
+                <option value="-1" translate>{{ 'general.combo.cmb_select' }}</option>
+                <!-- <option value="*" translate>{{ 'TODOS' }}</option> -->
+                <option *ngFor="let claseCredito of cbmClasecredito" value="{{ claseCredito.idClaseCredito}}" 
+                        class="d-inline-block text-truncate"> {{ claseCredito.descripcion}} </option> -->
+            </select>
+          </div>
+          <div class="col-md-3 col-sm-3 m-0 form-inline input-group-sm float-right">
+            <label for ="estatus" class="mr-1"  translate> {{ 'score.lbl_estatus' }} </label>
+            <select class="form-control form-control-sm col-7" name="estatus" id="estatus"
+             [(ngModel)]="parametros.estatusClave">
+            <option value="-3" translate> {{ 'general.combo.cmb_select' }}</option>
+            <option *ngFor="let est of cbmEstatus" value="{{est.clave}}" class="d-inline-block text-truncate">
+               {{est.descripcion}} </option>
+            </select>
+          </div>
+        </div>
+        <div class="ml-3 pb-2"></div>
+        <div class="row ml-3 justify-content-center input-group-sm">
+                <div class="col-md-3 col-sm-3 m-0 form-inline input-group-sm float-right">
+                        <label for ="estatus" class="mr-1"  translate> {{ 'score.lbl_accion_lstNegra' }} </label>
+                        <select class="form-control form-control-sm col-7" name="estatus" id="estatus"
+                         [(ngModel)]="parametros.idAccionLstNegra">
+                        <option value="-1" translate> {{ 'general.combo.cmb_select' }}</option>
+                        <option *ngFor="let est of cmbAccionLstNegra" value="{{est.idAccion}}" class="d-inline-block text-truncate">
+                           {{est.descripcion}} </option>
+                        </select>
+                      </div>
+                      <div class="col-md-3 col-sm-3 m-0 form-inline input-group-sm float-right">
+                            <label for ="clasifHistPag" class="mr-1"  translate> {{ 'score.lbl_clasif_hist_pagos' }} </label>
+                            <select class="form-control form-control-sm col-7" name="clasifHistPag" id="clasifHistPag"
+                             [(ngModel)]="parametros.idClasifHistPagos">
+                            <option value="-1" translate> {{ 'general.combo.cmb_select' }}</option>
+                            <option *ngFor="let est of cmbClasifiHistPagos" value="{{est.idClasificacion}}" class="d-inline-block text-truncate">
+                               {{est.descripcion}} </option>
+                            </select>
+                          </div>
+                          <div class="col-md-3 col-sm-3 m-0 form-inline input-group-sm float-right">
+                                <label for ="clasifBC" class="mr-1"  translate> {{ 'score.lbl_clasif_bc' }} </label>
+                                <select class="form-control form-control-sm col-7" name="clasifBC" id="clasifBC"
+                                 [(ngModel)]="parametros.idClasifBC">
+                                <option value="-1" translate> {{ 'general.combo.cmb_select' }}</option>
+                                <option *ngFor="let est of cmbClasifiHistPagos" value="{{est.idClasificacion}}" class="d-inline-block text-truncate">
+                                   {{est.descripcion}} </option>
+                                </select>
+                              </div>
+                              <div class="col-md-3 col-sm-3 m-0 form-inline input-group-sm float-right">
+                                    <label for ="clasifinanc" class="mr-1"  translate> {{ 'score.lbl_clasif_final' }} </label>
+                                    <select class="form-control form-control-sm col-7" name="clasifinanc" id="clasifinanc"
+                                     [(ngModel)]="parametros.idClasifFinanciamiento">
+                                    <option value="-1" translate> {{ 'general.combo.cmb_select' }}</option>
+                                    <option *ngFor="let est of cmbClasifiHistPagos" value="{{est.idClasificacion}}" class="d-inline-block text-truncate">
+                                       {{est.descripcion}} </option>
+                                    </select>
+                                  </div>
+                         
+            </div>
+        <br>
+        <div class="row justify-content-center col-md-12 col-md-6 col-md-3">
+            <div class="form-group form-inline">
+                <button class="btn btn-primary btn-sm ml-auto mr-1" (click)="buscar()" translate> {{ 'general.botones.btn_buscar' }} </button>
+                <button class="btn btn-primary btn-sm ml-2 mr-2" (click)="limpiarForm()" translate> {{ 'general.botones.btn_limpiar' }} </button>
+                <button class="btn btn-primary btn-sm mr-auto ml-1" translate *ngIf="false"> {{ 'general.botones.btn_siguiente' }} </button>
+            </div>			
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-md-6 col-md-3">
+                <a  class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal"
+                    style="color: orange; font-size: 22px; cursor: pointer;">
+                    <span class="fa fa-plus-circle" data-toggle="tooltip" data-placement="top" title="Crear nueva regla"></span>
+                </a>
+                <a  class="float-right mt-1 mr-2 mb-1" data-toggle="modal"
+                    data-target="#depurarEliminarModal" style="color: orange; font-size: 22px; cursor: pointer;">
+                    <span class="fa fa-trash-o" data-toggle="tooltip" data-placement="top" title="Eliminar registros"></span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-md-6 col-md-3">
+                <div id="table-responsive">
+                    <table class="table table-bordered table-sm">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-truncate text-center" scope="col" translate>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" style="position: relative;" />
+                                    </div>
+                                </th>
+                                <th class="text-truncate text-center" translate> {{ 'score.th_col_name_id' }} </th>
+                                <th class="text-truncate text-center" translate> {{ 'score.th_col_name_nombre_flujo' }} </th>
+                                <th class="text-truncate text-center" translate> {{ 'score.th_col_name_estatus' }} </th>
+                                <th class="text-truncate text-center" translate> {{ 'score.th_col_name_acciones' }} </th>
+                            </tr>
+                        </thead>
+                        <tbody>            
+                            <tr *ngFor="let result of response; let i = index">
+                                <td class="text-truncate text-center" scope="col">
+                                    <div class="form-check w-25">
+                                        <input class="form-check-input" type="checkbox" value="registro.nombreFlujo" id="registro.nombreFlujo">
+                                    </div>
+                                </td>
+                                <td class="text-truncate text-center">{{result.idMatrizDecision}}</td>
+                                
+                                <td scope="col" class="col">{{result.nombreMatriz}}</td>
+                               
+                                <td class="text-truncate text-center">{{result.descEstatus}}</td>
+                                <td class="text-truncate text-center">
+                                    <!-- detalle modificar -->
+                                    <a   class="pl-2" data-toggle="modal" data-target="#detalleMatrizModal" style="color: orange; cursor: pointer; font-size: 18px;">
+                                        <span class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Ver detalle de la regla"></span>
+                                    </a>
+                                    <!-- icono modificar -->
+                                    <a   class="pl-2" data-toggle="modal" data-target="#actualizarReglaModal" style="color: orange; cursor: pointer; font-size: 18px;">
+                                        <span class="fa fa-pencil" data-toggle="tooltip" title="Actualizar datos de la regla"></span>
+                                    </a>
+                                    <!-- icono clonar -->
+                                    <a  class="pl-2" style="color: orange; cursor: pointer; font-size: 18px;">
+                                        <span class="fa fa-clone" data-toggle="tooltip" title="Clonar regla"></span>
+                                    </a>
+                                    <!-- icono administrar -->
+                                    <a  class="pl-2" data-toggle="modal" data-target="#categoriaModal"
+                                        style="color: orange; cursor: pointer; font-size: 18px;">
+                                        <span class="fa fa-cogs" data-toggle="tooltip" title="Administrar la matriz de regla"></span>
+                                    </a>
+                                    <!-- icono eliminar -->
+                                    <a  class="pl-2" data-toggle="modal" data-target="#eliminarModal"
+                                        style="color: orange; cursor: pointer; font-size: 18px;">
+                                        <span class="fa fa-trash-o" data-toggle="tooltip" title="Eliminar registro"></span>
+                                    </a>
+                                    <a class="pl-2" data-toggle="modal" data-target="#depurarModal"
+                                        style="color: orange; cursor: pointer; font-size: 18px;">
+                                        <span class="fa fa-trash-o" data-toggle="tooltip" title="Depurar registro"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="row justify-content-center p-0 pb-3">
+                        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                            <nav aria-label="...">
+                                <ul class="pagination pagination-sm justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link" tabindex="-1" (click)="paginaAnterior()"
+                                        [ngClass]="{'desactivado': numeroPaginaActual ==0 ? true:false }">
+                                            {{ 'Anterior' }}
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <select class="page-link" (change)="establecerRegistrosMostrar($event)">
+                                            <option *ngFor="let numRegistros of multiplosPaginador">
+                                                {{ numRegistros }}
+                                            </option>
+                                        </select>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" tabindex="-1" (click)="siguientePagina()" 
+                                        [ngClass]="{'desactivado': numeroPaginaActual == numeroPaginas-1 || response.length<=0 ? true:false }">
+                                            {{ 'Siguiente' }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Modal Crear Regla Deposito Garantia Plazo Libres -->
+<div class="modal fade" id="crearReglaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <app-crear-regla [idRegion]="idRegion"  (outCrearRegla)="eventCrearRegla($event)"></app-crear-regla>
+</div>
+    <!-- Modal Actualizar Regla Deposito Garantia Plazo Libres -->
+    <div class="modal fade" id="actualizarReglaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <app-actualizar-regla [idRegion]="idRegion" 
+            [nombreRegla]= "nombreRegla" 
+            [estatusClave]= "estatusClave" 
+            [idSeleccionado]= "idSeleccionado" 
+            (outActualizarRegla)= "eventActualizarRegla($event)">
+        </app-actualizar-regla>
+        </div>
+
+
+<!-- Modal Categoria Deposito Garantia Plazo Libres -->
+<!-- <div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <app-categoria-depo-garantia-libre [idMatrizDecision]="idSeleccionado"
+    [componentePropietarioIB] = "componentePropietarioIB"></app-categoria-depo-garantia-libre>
+</div> -->
+<!-- Modal Detalle Matriz Deposito Garantia Plazo Libres -->
+<!-- <div class="modal fade bd-example-modal-lg" id="detalleMatrizModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <app-detalle-depo-garantia-libre 
+        [idSeleccionado]="idSeleccionado" 
+        [nombreRegla]="nombreRegla" 
+        [estatusClave]="estatusClave" 
+        [idRegion] = "idRegion"
+        [lstDetalle]="lstDetalle">
+    </app-detalle-depo-garantia-libre>
+</div> -->
+
+<!-- Modal Eliminar Matriz Planes Libres -->
+<!-- <div class="modal fade" id="eliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <app-eliminar-matriz (eventOut)="eliminarRegistro()"></app-eliminar-matriz>
+</div>     -->
+
+<!-- Modal Depurar Matriz Planes Libres -->
+<!-- <div class="modal fade" id="depurarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <app-depurar-matriz (eventOut)="eliminarRegistro()"></app-depurar-matriz>
+</div>     -->
+<!-- Modal Depurar Eliminar Matriz Planes Libres -->
+<!-- <div class="modal fade" id="depurarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <app-depura-elimiar-matriz (eventOut)="eliminarRegistro()" [totalDepurarEliminar]="totalDepurarEliminar" [totalDepurar]="totalDepurar"
+        [totalEliminar]="totalEliminar"></app-depura-elimiar-matriz>
+</div> -->

@@ -1,0 +1,50 @@
+<!-- <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'deposito_garantia_pforzoso.lbl_confirmacion'}}</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="row m-4">
+      <div class="col-md-18">
+        <div class="form-inline input-group-sm">
+          <label for="nomRegla" translate> {{msnDelete}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center col-md-12 col-md-6 col-md-3">
+      <div class="form-group form-inline">
+        <input type="button" data-dismiss="modal" class="btn btn-primary btn-sm ml-auto mr-1" value="Cerrar">
+        <input type="button" (click)="eliminar()" data-dismiss="modal" class="btn btn-primary btn-sm ml-2 mr-2" value="Eliminar">
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="modal-dialog modal-dialog-centered modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title text-uppercase" id="exampleModalLongTitle" translate>{{'general.titulos.titulo_eliminar_regla'}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="text-align: center">
+            <i class="fa fa-warning" style="font-size:48px;color:red"></i>
+            <div class="row justify-content-center col-md-12 col-md-6"></div>
+            <span class="p-1">
+                <label for="nomRegla" translate> {{msnDelete}}</label>
+            </span>
+            <br>
+            <br>
+            <div class="row modal-footer justify-content-center form-inline">
+
+                <button class="btn btn-primary btn-sm mr-2 " (click)="eliminar()" data-dismiss="modal" translate> {{ 'Aceptar' }} </button>
+                <button class="btn btn-primary btn-sm " data-dismiss="modal" translate> {{ 'general.botones.btn_cancelar' }} </button>
+
+            </div>
+        </div>
+    </div>
+
+</div>

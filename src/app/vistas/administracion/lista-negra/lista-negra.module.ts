@@ -1,0 +1,50 @@
+import { CommonModule, NgClass } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppTranslationModule } from '../../../app.translation.module';
+import { routing } from './lista-negra.routing';
+import { AlertComponent } from '../../../utiles/alert/alert.component';
+import { HttpModule} from '@angular/http';
+import { AdministracionReglasListaNegraClientesComponent } from '../lista-negra/administracion-reglas-lista-negra-clientes/administracion-reglas-lista-negra-clientes.component';
+import { CrearReglaListaNegraComponent } from '../lista-negra/crear-regla-lista-negra/crear-regla-lista-negra.component';
+import { CategoriaComponent } from '../lista-negra/categoria/categoria.component';
+import { GenerarMatrizComponent } from '../lista-negra/generar-matriz/generar-matriz.component';
+import { DetalleMatrizComponent } from '../lista-negra/detalle-matriz/detalle-matriz.component';
+import { EstatusPipe } from '../../../pipes/estatus.pipe';
+import { ComponentesComunesModulo } from '../../../modulos/common.module';
+import { SiNoPipe } from '../../../pipes/sino.pipe';
+import { ModalComponent } from '../../../nucleo/modal/modal.component';
+import { FlujoComponenteDirectiva } from '../../../directivas/flujoComponenteDirectiva';
+import { InformacionBasicaModule } from '../../administracion/evaluacion-tramite/informacion-basica/informacion-basica.module';
+import { DetalleReglaListaNegraComponent } from '../../administracion/lista-negra/detalle-regla-lista-negra/detalle-regla-lista-negra';
+
+
+@NgModule({
+  declarations: [
+    AdministracionReglasListaNegraClientesComponent,
+    CrearReglaListaNegraComponent,
+    CategoriaComponent,
+    GenerarMatrizComponent,
+    DetalleMatrizComponent,
+    DetalleReglaListaNegraComponent
+  ],
+  imports: [
+    CommonModule, 
+    routing, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    HttpModule,
+    ComponentesComunesModulo,
+    AppTranslationModule
+  ],
+  exports:[
+    AdministracionReglasListaNegraClientesComponent,
+    CrearReglaListaNegraComponent,
+    CategoriaComponent,
+    GenerarMatrizComponent,
+    DetalleMatrizComponent
+  ],
+  providers: []
+})
+
+export class ListaNegraModule { }

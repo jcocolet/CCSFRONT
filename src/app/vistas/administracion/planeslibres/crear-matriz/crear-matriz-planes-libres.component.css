@@ -1,0 +1,94 @@
+#crln {
+	width: 850px;
+	height: 650px;
+	background-color: white;
+	position: absolute;
+	top: 150px;
+	left: 325px;
+	z-index: 4000;
+	border: 22px solid white;
+	border-radius: 6px;
+	box-shadow: 2px 2px 2px 2px;
+	display: block;
+}/* .jumbotron {
+	background-color: #f2f2f2;
+} */
+
+.jumbotron {
+	background-color: #F9F9F9;
+	 min-height: 515px;
+	
+}
+.modal-lg {
+    max-width: 70% !important;
+}
+.container
+{
+  height: 100%; 
+  position: relative;
+}
+.desactivado {
+	pointer-events: none;
+	background-color: darkgray;
+	cursor: not-allowed;
+	color: black;
+}
+table {
+	display: block;
+	min-height: 196px;
+	height: 100%;
+	background-color: white;
+}
+
+th {
+	width: 1%;
+}
+
+.navbar-brand {
+	padding: 0px;
+}
+button.disabled {
+	pointer-events: none;
+	cursor: default;
+ }
+
+ body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

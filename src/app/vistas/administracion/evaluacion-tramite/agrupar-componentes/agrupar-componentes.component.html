@@ -1,0 +1,140 @@
+<div class="jumbotron">
+	<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+		<div class="row m-4">
+			<div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+				<div class="form-inline input-group-sm">
+					<label class="w-50" for="nombreRegla" translate>
+						{{ 'agrupar_componentes.lbl_nombre_regla' }}
+					</label>
+            <input name="nombreRegla" id="nombreRegla" 
+              type="text"
+              class="form-control w-50 text-uppercase" [value]="nombreFlujo" disabled>
+				</div>
+			</div>
+			<div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+				<div class="form-inline input-group-sm">
+					<label class="w-50" for="" translate>
+						{{ 'agrupar_componentes.lbl_secuencia' }}
+					</label>
+					<input class="form-control w-50" type="number" [value]="secuencia" disabled>
+				</div>
+			</div>
+		</div>
+		<div class="row m-4">
+			<div class="col-12 col-sm-12 col-md-4">
+				<table class="table table-bordered table-sm table-hover">
+    				<thead class="thead-light">
+    					<tr>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_componente' }} 
+      						</th>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_acciones' }} 
+      						</th>
+    					</tr>
+  					</thead>
+  					<tbody>
+              <tr *ngFor="let componente of listaComponentes">
+                <td (click)="obtenerInfoRelacionada()">{{ componente.descripcion }}</td>
+                <td class="p-0">
+                  <a style="color: orange; font-size: 22px; cursor: pointer;">
+                    <span class="fa fa-arrow-circle-o-right ml-3" 
+                    (click)="iniciarSubflujo(componente.descripcion)"></span>
+                  </a>
+                </td>
+              </tr>
+  					</tbody>
+				</table>
+			</div>
+			<div class="col-12 col-sm-12 col-md-4">
+				<table class="table table-bordered table-sm table-hover">
+    				<thead class="thead-light">
+    					<tr>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_categoria' }} 
+      						</th>
+    					</tr>
+  					</thead>
+  					<tbody>
+  					</tbody>
+				</table>
+			</div>
+			<div class="col-12 col-sm-12 col-md-4">
+				<table class="table table-bordered table-sm table-hover">
+    				<thead class="thead-light">
+    					<tr>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_subCategoria' }} 
+      						</th>
+    					</tr>
+  					</thead>
+  					<tbody>
+  					</tbody>
+				</table>
+			</div>
+			<div class="col-12 col-sm-12 col-md-4">
+				<table class="table table-bordered table-sm table-hover">
+    				<thead class="thead-light">
+    					<tr>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_ep' }} 
+      						</th>
+    					</tr>
+  					</thead>
+  					<tbody>
+  						<tr>
+  							<td>
+  								<select class="w-100" disabled>
+                    <option translate> {{ 'NO' }} </option>
+  									<option translate> {{ 'SI' }} </option>
+  								</select>
+  							</td>
+  						</tr>
+  					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="form-inline m-4">
+			<button class="btn btn-primary btn-sm ml-auto mr-1" translate> 
+				{{ 'agrupar_componentes.btn_agregar' }} 
+			</button>
+			<button class="btn btn-primary btn-sm mr-auto ml-1" translate> 
+				{{ 'agrupar_componentes.btn_limpiar' }} 
+			</button>
+		</div>
+		<div class="row m-4">
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<table class="table table-bordered table-sm table-hover">
+    				<thead class="thead-light">
+    					<tr>
+      						<th scope="col">
+      							<div class="form-check w-25">
+									<input class="form-check-input" 
+									type="checkbox" style="position: relative;">
+								</div>
+      						</th>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_secuencia' }} 
+      						</th>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_componente' }} 
+      						</th>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_ld' }} 
+      						</th>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_ep' }} 
+      						</th>
+      						<th scope="col" translate> 
+      							{{ 'agrupar_componentes.th_col_name_acciones' }} 
+      						</th>
+    					</tr>
+  					</thead>
+  					<tbody>
+  					</tbody>
+				</table>
+        <app-modal *ngIf="crearModal"></app-modal>
+			</div>
+		</div>
+	</form>
+</div>

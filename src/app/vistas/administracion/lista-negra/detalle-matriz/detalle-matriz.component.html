@@ -1,0 +1,59 @@
+<div class="container">
+	<div class="row m-4">
+		<div class="col-md-6">
+			<div class="form-inline">
+				<label class="w-25"> {{ 'Matriz :' }} </label>
+				<input class="w-75" type="text" name="">
+			</div>
+		</div>
+		<div class="col-md-3 p-0 m-0">
+			<label> {{ 'Region :' }} </label>
+			<input type="text" name="">
+		</div>
+		<div class="col-md-3 p-0 m-0">
+			<label> {{ 'Estatus :' }} </label>
+			<input type="text" name="">
+		</div>
+	</div>
+	<div class="row m-0">
+		<div id="table">
+			<table class="table table-bordered table-sm table-hover">
+    			<thead class="thead-light">
+    				<tr>
+      					<th scope="col" class="text-truncate"> {{ '[]' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'Nombre completo' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'Calle y no.' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'RFC' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'TELEFONO CASA' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'TELEFONO OFICINA' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'TELEFONO REFERENCIA' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'NOMBRE REFERENCIA' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'TARJETA DE CREDITO' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'ROBO DE IDENTIDAD' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'ACCION' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'RECHAZO' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'MOSTRAR' }} </th>
+      					<th scope="col" class="text-truncate"> {{ 'MENSAJE PARA FUERZA DE VENTA' }} 
+      					</th>
+    				</tr>
+  				</thead>
+  				<tbody>
+  				</tbody>
+			</table>
+		</div>
+		<div class="row justify-content-center">
+        		<div class="col-1 col-sm-1 col-md-1 col-lg-1">
+          			<select class="paginador">
+            			<option>5</option>
+            			<option>10</option>
+            			<option>15</option>
+          			</select>
+        		</div>
+    		</div>
+	</div>
+	<div class="row justify-content-center m-4">
+		<div class="col-md-2">
+			<button class="btn btn-primary btn-sm ml-auto mr-auto"> {{ 'Salir' }} </button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,11 @@
+.txt_messege{
+  font-family:Arial,Verdana,sans-serif;
+  line-height: 50px;
+  font-weight: bold;
+  font-size: 20px;
+  display: block;
+
+}
+div[class^='col-']{
+ border: 0px solid red;
+}

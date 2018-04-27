@@ -1,0 +1,196 @@
+<div [ngClass]="{'container': cargadoDinamicamente, 'jumbotron p-0 pl-5 pr-5 m-0': !cargadoDinamicamente }">
+  <h6 class="text-uppercase pt-4" translate> {{ 'lista_negra.administracion.titulo' }} </h6>
+  <hr>
+  <app-alert></app-alert>
+  <div class="modal fade" id="crearReglaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <app-crear-regla-lista-negra [estatusList]="response.listaEstatus" 
+      [reglaModif]="observableObj"
+      (formCapturado)="anadirReglaCapturada($event)" (formModif)="editarRegla($event)" 
+      [editarRegla]="observableObj1" >
+      </app-crear-regla-lista-negra>
+  </div>
+
+  <div class="modal fade" id="categoriaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <app-categoria
+        [categorias]="response.categorias" 
+        (guardarCat)="guardarCategoria($event)">
+      </app-categoria>
+  </div>
+  <div class="modal fade" id="detalleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <app-detalle-regla-lista-negra [regla]="observableObj2" [matrices]="observableObj3">
+      </app-detalle-regla-lista-negra>
+  </div>
+  <div class="modal fade" id="genMatrizModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <app-generar-matriz [idReglaObservable]="observableObj4"></app-generar-matriz>
+  </div>
+	<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+		<div *ngIf="false" class="row m-4">
+			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+				<h6 class="text-uppercase" translate>
+					{{ 'lista_negra.administracion.titulo' }}
+				</h6>
+				<hr>
+			</div>
+		</div>
+    <div *ngIf="crearModal" class="modal fade" id="modal-generico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <app-modal *ngIf="crearModal" (reiniciar)="reiniciarProceso();"></app-modal>
+    </div>
+		<div class="row m-4">
+			<div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+				<div class="form-inline input-group-sm">
+					<label class="w-50" translate> {{ 'lista_negra.lbl_nombre_regla' }} </label>
+					<input name="nombreRegla" id="nombreRegla" type="text" class="form-control w-50" placeholder="Almenos 8 caracteres" [formControl]="nombreRegla"
+          (keypress)="evitaEspeciales($event)" spellcheck>
+				</div>
+			</div>
+			<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+        <div class="form-inline input-group-sm">
+          <label class="w-50" translate> {{ 'lista_negra.lbl_accion' }} </label>
+          <select class="w-50" name="accion" id="accion" [formControl]="accion">
+            <option value="" translate> {{ 'general.form.select_default' }} </option>
+            <option *ngFor="let ar of response.listaAccionRespuesta" translate> {{ ar.descripcion }} </option>
+          </select>
+        </div>
+			</div>
+			<div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+				<div class="form-inline input-group-sm">
+					<label class="w-50" translate> {{ 'lista_negra.lbl_estatus' }} </label>
+					<select class="w-50" name="estatus" id="estatus" [formControl]="estatus">
+						<option value="" translate> {{ 'general.form.select_default' }} </option>
+						<option *ngFor="let estatus of response.listaEstatus" [value]="estatus.clave" translate> {{ estatus.descripcion }} </option>
+					</select>
+				</div>
+			</div>
+		</div>
+    <div class="row ml-4 mr-4">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <div class="form-inline input-group-sm">
+          <label class="w-75" translate> {{ 'lista_negra.lbl_rechazo_automatico' }} </label>
+          <select class="w-25" name="rechazaut" id="rechazaut" 
+            [formControl]="rechazaut">
+            <option value="" translate> {{ 'general.form.select_default' }} </option>
+            <option *ngFor="let opcn of response.comboNoSi" translate> {{ opcn.valor }} </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+        <div class="form-inline input-group-sm">
+          <label class="w-75" translate> {{ 'lista_negra.lbl_mostrar_coincidencia' }} </label>
+          <select class="w-25" name="mostrcoin" id="mostrcoin" [formControl]="mostrcoin">
+            <option value="" translate> {{ 'general.form.select_default' }} </option>
+            <option *ngFor="let opcn of response.comboNoSi" translate> {{ opcn.valor }} </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row ml-4 mr-4 mt-4">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5">
+        <div class="form-inline input-group-sm">
+          <label class="w-75" translate> {{ 'lista_negra.lbl_modalidad_investigacion' }} </label>
+          <select class="w-25" name="modinvest" id="modinvest"
+          [formControl]="modinvest">
+            <option value="" translate> {{ 'general.form.select_default' }} </option>
+            <option *ngFor="let mi of response.modalidadInvestigacion" translate> {{ mi.descripcion }} </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-inline input-group-sm mt-3">
+        <input class="btn btn-primary btn-sm mr-1" type="submit" value="{{ 'Buscar' }}" style="margin-left: 360px;"> 
+        <input class="btn btn-primary btn-sm m-1" type="button" value="{{ 'Limpiar' }}" 
+        (click)="limpiarResultadoBusqueda()">
+        <input *ngIf="true" class="btn btn-primary btn-sm m-1" type="button" value="{{ 'Siguiente' }}" 
+         routerLink="/home/administracion/agruparcomponentes">
+    </div>
+	</form>
+	<div class="row">
+    	<div class="col-md-12">
+          <a class="float-right mt-1 mr-2 mb-1" data-toggle="modal" data-target="#crearReglaModal"
+          style="color: orange; font-size: 22px; cursor: pointer;" title="Crear nueva regla">
+            <span class="fa fa-plus-circle" ></span>
+          </a>
+      		<a class="float-right mt-1 mr-2 mb-1" style="color: orange; font-size: 22px; cursor: pointer;" title="Eliminar flujo(s) seleccionado(s)">
+      			<span class="fa fa-trash-o"></span>
+      		</a>
+    	</div>
+  </div>
+	<table class="table table-bordered table-sm table-hover m-0">
+    <thead class="thead-light">
+    	<tr>
+      	<th>
+      		<div class="form-check w-25">
+            <input class="form-check-input" type="checkbox" 
+              value="fila.nombreFlujo" id="fila.nombreFlujo" style="position: relative;" 
+              [checked]="headercolChekbox" (change)="headercolChekbox = !headercolChekbox">
+          </div>
+      	</th>
+      	<th translate> {{ 'lista_negra.th_col_name_id' }} </th>
+      	<th translate> {{ 'lista_negra.th_col_name_nombre_regla' }} </th>
+      	<th translate> {{ 'lista_negra.th_col_name_estatus' }} </th>
+      	<th translate> {{ 'lista_negra.th_col_name_acciones' }} </th>
+    	</tr>
+  	</thead>
+  	<tbody>
+  		<tr *ngFor="let registro of paginaActual">
+  			<td> 
+          <div class="form-check w-25">
+            <input class="form-check-input" type="checkbox" value="fila.nombreFlujo" id="fila.nombreFlujo" style="position: relative;" [checked]="headercolChekbox">
+          </div>
+        </td>
+  			<td>{{ registro.idRegla }}</td>
+  			<td>{{ registro.nombreRegla }}</td>
+  			<td>{{ registro.estatus | sts }}</td>
+  			<td>
+  				<a style="color: orange; cursor: pointer; font-size: 14px;" data-toggle="modal" data-target="#detalleModal">
+            <span class="fa fa-eye navbar-brand" 
+              (click)="mostrarOcultarDetalles($event,registro)">
+            </span>
+          </a>
+  				<a style="color: orange; cursor: pointer; font-size: 14px;" data-toggle="modal" data-target="#crearReglaModal"><span class="fa fa-pencil navbar-brand" 
+            (click)="mostrarOcultarCrearRegla($event,registro)" >
+          </span></a>
+          <a style="color: orange; cursor: pointer; font-size: 14px;" [ngClass]="{'opcionDesactivada': registro.estatus == 'D'?true:false}">
+            <span class="fa fa-clone navbar-brand" (click)="clonarRegla(registro)"
+            [ngClass]="{'opcionDesactivada': registro.estatus == 'D'?true:false}"></span></a>
+          <a style="color: orange; cursor: pointer; font-size: 14px;" data-toggle="modal" data-target="#categoriaModal" [ngClass]="{'opcionDesactivada': registro.estatus == 'D'?true:false}"><span class="fa fa-cogs navbar-brand" (click)="mostrarOcultarCategoria($event,registro)" [ngClass]="{'opcionDesactivada': registro.estatus == 'D'?true:false}"></span></a>
+          <a style="color: orange; cursor: pointer; font-size: 14px;"><span class="fa fa-trash-o navbar-brand" (click)="borrarRegistro(registro)"></span></a>
+  			</td>
+  		</tr>
+  	</tbody>
+	</table>
+			<div class="row justify-content-center p-0 pb-3">
+        <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+          <nav aria-label="...">
+            <ul class="pagination pagination-sm justify-content-center">
+              <li class="page-item">
+                <a class="page-link popup2" tabindex="-1" (click)="paginaAnterior()" 
+                (mouseenter)="myFunction2()" (mouseleave)="myFunction2()"
+                [ngClass]="{'desactivado': numeroPaginaActual ==0 ? true:false }">
+                  {{ 'Anterior' }}
+                  <span id="myPopup2" class="popuptext2">
+                    <span style="color: red">{{ numeroPaginaActual }}</span>
+                  {{' / '}}{{ numeroPaginas }}</span>
+                </a>
+              </li>
+              <li>
+                <select class="page-link" (change)="establecerRegistrosMostrar($event)">
+                  <option *ngFor="let numRegistros of multiplosPaginador"> 
+                    {{ numRegistros }}
+                  </option>
+                </select>
+              </li>
+              <li class="page-item">
+                <a class="page-link popup"  tabindex="-1" (click)="siguientePagina()" 
+                (mouseenter)="myFunction()" (mouseleave)="myFunction()"
+                [ngClass]="{'desactivado': numeroPaginaActual == numeroPaginas-1 || buscarReglasResponse.length<=0 ? true:false }">
+                  {{ 'Siguiente' }} 
+                  <span id="myPopup" class="popuptext">
+                    <span style="color: red">{{ numeroPaginaActual+2 }}</span>
+                  {{' / '}}{{ numeroPaginas }}</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </div>
+</div>
